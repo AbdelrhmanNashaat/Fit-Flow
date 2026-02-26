@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../features/sign_up/presentation/views/sign_up_view.dart';
+import '../../features/auth/presentation/views/sign_up_view.dart';
 import '../../features/splash/splash_view.dart';
 
 class AppNavigation {

@@ -1,7 +1,12 @@
 import 'package:fit_flow/core/utils/app_navigation.dart';
 import 'package:flutter/material.dart';
+import 'core/service/service_locator.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  setupServiceLocator();
   runApp(const FitFlow());
 }
 
