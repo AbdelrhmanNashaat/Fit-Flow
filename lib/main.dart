@@ -34,7 +34,7 @@ class _FitFlowState extends State<FitFlow> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppNavigation.signUp,
+      initialRoute: AppNavigation.splash,
       routes: AppNavigation.routes,
     );
   }
