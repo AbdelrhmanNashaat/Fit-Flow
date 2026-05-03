@@ -37,6 +37,7 @@ dependencies:
   flutter_animate: ^4.5.2
   flutter_bloc: ^9.1.1
   flutter_launcher_icons: ^0.14.4
+  flutter_native_splash: ^2.4.7
   flutter_svg: ^2.2.3
   get_it: ^9.2.1
   mocktail: ^1.0.4
@@ -98,3 +99,12 @@ flutter_assets:
   assets_path: assets/images/
   output_path: lib/core/utils/
   filename: app_assets.dart
+
+flutter_native_splash:
+  color: "#2563EB" # bg color for the splash screen both for android and ios
+  image: assets/images/splashImage.png # The main splash image/logo displayed in the center (android and iOS)
+  fullscreen: true
+  android_12:
+    color: "#2563EB"
+    image: assets/images/splashImage.png
+    icon_background_color: "#2563EB"
