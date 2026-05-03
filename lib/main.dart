@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-
 import 'core/bootstrap/app_bootstrap.dart';
 import 'core/utils/app_navigation.dart';
 
