@@ -1,14 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseService {
-  final FirebaseAuth _auth;
+  final FirebaseAuth auth;
 
-  FirebaseService({FirebaseAuth? firebaseAuth})
-    : _auth = firebaseAuth ?? FirebaseAuth.instance;
+  FirebaseService({required this.auth});
 
   Future<User> signIn({required String email, required String password}) async {
     try {
-      final credential = await _auth.signInWithEmailAndPassword(
+      final credential = await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -20,7 +19,7 @@ class FirebaseService {
 
   Future<User> signUp({required String email, required String password}) async {
     try {
-      final credential = await _auth.createUserWithEmailAndPassword(
+      final credential = await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -32,7 +31,7 @@ class FirebaseService {
 
   Future<void> sendPasswordResetEmail({required String email}) async {
     try {
-      await _auth.sendPasswordResetEmail(email: email);
+      await auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
       throw FirebaseAuthException(code: e.code, message: e.message);
     }

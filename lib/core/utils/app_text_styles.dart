@@ -17,4 +17,17 @@ class AppTextStyles {
     color: AppColors.whiteColor,
     fontFamily: fontFamily,
   );
+  static const TextStyle medium14 = TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 14,
+    color: AppColors.blackColor,
+    fontFamily: fontFamily,
+  );
+  static const TextStyle bold26 = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 26,
+    letterSpacing: 2.8,
+    color: AppColors.primaryColor,
+    fontFamily: fontFamily,
+  );
 }

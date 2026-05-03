@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../../../../core/errors/firebase_errors.dart';
 import '../../../../core/service/firebase_service.dart';
 import 'auth_repo.dart';

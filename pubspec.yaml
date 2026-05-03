@@ -93,3 +93,8 @@ flutter_launcher_icons:
   android: "launcher_icon"
   image_path: "assets/images/treadmill.png"
   min_sdk_android: 21
+
+flutter_assets:
+  assets_path: assets/images/
+  output_path: lib/core/utils/
+  filename: app_assets.dart

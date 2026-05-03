@@ -14,7 +14,7 @@ class SplashViewBody extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(AppAssets.splashImage, height: 180)
+          Image.asset(Assets.assetsImagesExerciseRoutine, height: 180)
               .animate()
               .fadeIn(duration: 700.ms)
               .scale(
