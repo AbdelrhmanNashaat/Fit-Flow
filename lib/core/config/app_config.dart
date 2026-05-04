@@ -1,15 +1,14 @@
-import 'app_flavor.dart';
+import 'package:fit_flow/core/config/app_flavor.dart';
 
 class AppConfig {
-  final AppFlavor flavor;
-  final String appName;
-  final bool showDebugBanner;
-
   const AppConfig._({
     required this.flavor,
     required this.appName,
     required this.showDebugBanner,
   });
+  final AppFlavor flavor;
+  final String appName;
+  final bool showDebugBanner;
 
   static late final AppConfig _instance;
 
