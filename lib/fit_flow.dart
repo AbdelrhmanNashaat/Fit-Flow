@@ -1,7 +1,7 @@
 import 'package:fit_flow/core/config/app_config.dart';
+import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-
 import 'package:fit_flow/core/utils/app_navigation.dart';
 
 class FitFlow extends StatefulWidget {
@@ -32,6 +32,10 @@ class _FitFlowState extends State<FitFlow> {
       title: AppConfig.instance.appName,
       initialRoute: AppNavigation.splash,
       routes: AppNavigation.routes,
+      theme: ThemeData(
+        primaryColor: AppColors.primaryColor,
+        scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
+      ),
     );
   }
 }

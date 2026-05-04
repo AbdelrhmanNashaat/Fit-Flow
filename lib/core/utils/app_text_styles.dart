@@ -23,11 +23,23 @@ class AppTextStyles {
     color: AppColors.blackColor,
     fontFamily: fontFamily,
   );
+  static const TextStyle regular17 = TextStyle(
+    fontWeight: FontWeight.w400,
+    fontSize: 17,
+    color: AppColors.blackColor,
+    fontFamily: fontFamily,
+  );
   static const TextStyle bold26 = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 26,
     letterSpacing: 2.8,
     color: AppColors.primaryColor,
+    fontFamily: fontFamily,
+  );
+  static const TextStyle extraBold26 = TextStyle(
+    fontWeight: FontWeight.w800,
+    fontSize: 26,
+    color: AppColors.blackColor,
     fontFamily: fontFamily,
   );
 }
