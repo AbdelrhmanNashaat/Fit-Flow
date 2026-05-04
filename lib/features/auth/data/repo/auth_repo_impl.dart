@@ -1,13 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../../../core/errors/firebase_errors.dart';
-import '../../../../core/service/firebase_service.dart';
-import 'auth_repo.dart';
+import 'package:fit_flow/core/errors/firebase_errors.dart';
+import 'package:fit_flow/core/service/firebase_service.dart';
+import 'package:fit_flow/features/auth/data/repo/auth_repo.dart';
 
 class FirebaseAuthRepoImpl implements FireBaseAuthRepo {
-  final FirebaseService firebaseService;
-
   FirebaseAuthRepoImpl({required this.firebaseService});
+  final FirebaseService firebaseService;
 
   @override
   Future<Either<FirebaseErrors, User>> signUp(

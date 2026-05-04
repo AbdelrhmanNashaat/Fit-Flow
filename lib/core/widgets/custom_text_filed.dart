@@ -1,7 +1,7 @@
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/app_colors.dart';
+import 'package:fit_flow/core/utils/app_colors.dart';
 
 class CustomTextFiled extends StatelessWidget {
   const CustomTextFiled({super.key});

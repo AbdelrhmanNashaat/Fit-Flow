@@ -1,6 +1,6 @@
 import 'package:fit_flow/features/splash/splash_view.dart';
 import 'package:flutter/material.dart';
-import '../../features/auth/presentation/views/sign_up_view.dart';
+import 'package:fit_flow/features/auth/presentation/views/sign_up_view.dart';
 
 class AppNavigation {
   static const String splash = '/';

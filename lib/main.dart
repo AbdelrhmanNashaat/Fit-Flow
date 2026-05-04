@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'core/bootstrap/app_bootstrap.dart';
-import 'core/utils/app_navigation.dart';
+import 'package:fit_flow/core/bootstrap/app_bootstrap.dart';
+import 'package:fit_flow/core/utils/app_navigation.dart';
 
 Future<void> main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();

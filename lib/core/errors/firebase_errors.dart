@@ -1,6 +1,4 @@
 class FirebaseErrors {
-  final String message;
-
   const FirebaseErrors({required this.message});
 
   factory FirebaseErrors.fromCode(String code) {
@@ -33,4 +31,5 @@ class FirebaseErrors {
         return const FirebaseErrors(message: 'An unknown error occurred.');
     }
   }
+  final String message;
 }

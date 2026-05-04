@@ -102,9 +102,9 @@ flutter_assets:
 
 flutter_native_splash:
   color: "#2563EB" # bg color for the splash screen both for android and ios
-  image: assets/images/splashImage.png # The main splash image/logo displayed in the center (android and iOS)
+  image: assets/images/splashImage.png # The main splash image/logo displayed in the center (android and iOS) 1024 * 1024
   fullscreen: true
   android_12:
     color: "#2563EB"
-    image: assets/images/splashImage.png
+    image: assets/images/splashImageAndroid+12.png # 912 * 912
     icon_background_color: "#2563EB"

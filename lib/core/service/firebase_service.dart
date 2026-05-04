@@ -1,9 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseService {
-  final FirebaseAuth auth;
-
   FirebaseService({required this.auth});
+  final FirebaseAuth auth;
 
   Future<User> signIn({required String email, required String password}) async {
     try {

@@ -1,6 +1,5 @@
 class Assets {
   Assets._();
 
-  static const String assetsImagesExerciseRoutine =
-      "assets/images/exerciseRoutine.png";
+  static const String splashImage = 'assets/images/splashImage.png';
 }

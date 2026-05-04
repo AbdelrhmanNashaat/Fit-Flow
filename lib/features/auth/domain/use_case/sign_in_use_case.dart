@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../../../core/errors/firebase_errors.dart';
-import '../../data/repo/auth_repo.dart';
+import 'package:fit_flow/core/errors/firebase_errors.dart';
+import 'package:fit_flow/features/auth/data/repo/auth_repo.dart';
 
 class SignInUseCase {
-  final FireBaseAuthRepo repository;
   SignInUseCase({required this.repository});
+  final FireBaseAuthRepo repository;
 
   Future<Either<FirebaseErrors, User>> call({
     required String email,
