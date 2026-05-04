@@ -6,7 +6,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'core/bootstrap/app_bootstrap.dart';
 
 Future<void> main() async {
-  AppConfig.setup(AppFlavor.production);
+  AppConfig.setup(AppFlavor.development);
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await AppBootstrap.init();

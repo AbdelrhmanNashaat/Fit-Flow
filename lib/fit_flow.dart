@@ -1,3 +1,4 @@
+import 'package:fit_flow/core/config/app_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
@@ -27,8 +28,9 @@ class _FitFlowState extends State<FitFlow> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: AppNavigation.signUp,
+      debugShowCheckedModeBanner: AppConfig.instance.showDebugBanner,
+      title: AppConfig.instance.appName,
+      initialRoute: AppNavigation.splash,
       routes: AppNavigation.routes,
     );
   }

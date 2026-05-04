@@ -14,7 +14,7 @@ class SplashViewBody extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(Assets.splashImage, height: 180)
+          Image.asset(Assets.splashImage, width: 140)
               .animate()
               .fadeIn(duration: 700.ms)
               .scale(
@@ -23,6 +23,7 @@ class SplashViewBody extends StatelessWidget {
                 duration: 900.ms,
                 curve: Curves.elasticOut,
               ),
+          const SizedBox(height: 15),
           const Text('FitFlow', style: AppTextStyles.bold48)
               .animate(delay: 400.ms)
               .fadeIn(duration: 600.ms)
@@ -42,7 +43,7 @@ class SplashViewBody extends StatelessWidget {
               .animate(
                 delay: 700.ms,
                 onComplete: (_) {
-                  // Navigator.pushReplacementNamed(context, AppNavigation.signUp);
+                  Navigator.pushReplacementNamed(context, AppNavigation.signUp);
                 },
               )
               .fadeIn(duration: 700.ms),

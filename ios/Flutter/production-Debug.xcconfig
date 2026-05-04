@@ -1,0 +1,4 @@
+#include "Debug.xcconfig"
+FLUTTER_TARGET=lib/main.dart
+PRODUCT_BUNDLE_IDENTIFIER=com.example.fitFlow
+FLUTTER_FLAVOR=production
