@@ -8,4 +8,6 @@ class AppColors {
   static const Color blackColor = Color(0xFF000000);
   static const Color secondaryColor = Color(0xFFF1F5F9);
   static const Color borderColor = Color(0xFFC3C6D7);
+  static const Color fillColor = Color(0xFFF3F3F3);
+  static const Color hintTextColor = Color(0x73768680);
 }

@@ -23,6 +23,24 @@ class AppTextStyles {
     color: AppColors.blackColor,
     fontFamily: fontFamily,
   );
+  static const TextStyle medium12 = TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 14,
+    color: AppColors.blackColor,
+    fontFamily: fontFamily,
+  );
+  static const TextStyle semiBold12 = TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 12,
+    color: AppColors.blackColor,
+    fontFamily: fontFamily,
+  );
+  static const TextStyle Bold18 = TextStyle(
+    fontWeight: FontWeight.w700,
+    fontSize: 18,
+    color: AppColors.blackColor,
+    fontFamily: fontFamily,
+  );
   static const TextStyle regular17 = TextStyle(
     fontWeight: FontWeight.w400,
     fontSize: 17,
