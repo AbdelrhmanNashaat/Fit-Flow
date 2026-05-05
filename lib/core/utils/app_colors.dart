@@ -17,4 +17,6 @@ class AppColors {
   static const Color buttonTextColor = Color(0xFF1A1C1C);
   static const Color buttonTextColor2 = Color(0xFF434655);
   static const Color navTextColor = Color(0xFF004AC6);
+  static const Color appBarColor = Color(0xFFFBFBFB);
+  static const Color divider2Color = Color(0xFFF2F2F7);
 }

@@ -43,7 +43,7 @@ class SplashViewBody extends StatelessWidget {
               .animate(
                 delay: 700.ms,
                 onComplete: (_) {
-                  Navigator.pushReplacementNamed(context, AppNavigation.signUp);
+                  Navigator.pushReplacementNamed(context, AppNavigation.signIn);
                 },
               )
               .fadeIn(duration: 700.ms),

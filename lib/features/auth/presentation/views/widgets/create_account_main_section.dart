@@ -1,3 +1,4 @@
+import 'package:fit_flow/core/utils/app_navigation.dart';
 import 'package:fit_flow/core/widgets/custom_button.dart';
 import 'package:fit_flow/core/widgets/error_banner.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/sign_up_cubit.dart';
@@ -34,9 +35,9 @@ class _CreateAccountMainSectionState extends State<CreateAccountMainSection> {
   void _onSubmit() {
     if (_formKey.currentState?.validate() ?? false) {
       context.read<SignUpCubit>().signUp(
-            _emailController.text,
-            _passwordController.text,
-          );
+        _emailController.text,
+        _passwordController.text,
+      );
     }
   }
 
@@ -45,7 +46,7 @@ class _CreateAccountMainSectionState extends State<CreateAccountMainSection> {
     return BlocListener<SignUpCubit, SignUpState>(
       listenWhen: (_, current) => current is SignUpSuccess,
       listener: (context, state) {
-        // TODO: navigate to home screen
+        Navigator.of(context).pushReplacementNamed(AppNavigation.home);
       },
       child: AuthContainerParentWidget(
         child: Column(

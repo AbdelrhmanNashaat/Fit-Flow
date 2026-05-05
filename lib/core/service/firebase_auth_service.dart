@@ -8,8 +8,8 @@ class FirebaseAuthService implements AuthService {
   const FirebaseAuthService({
     required FirebaseAuth auth,
     required GoogleSignIn googleSignIn,
-  })  : _auth = auth,
-        _googleSignIn = googleSignIn;
+  }) : _auth = auth,
+       _googleSignIn = googleSignIn;
 
   final FirebaseAuth _auth;
   final GoogleSignIn _googleSignIn;

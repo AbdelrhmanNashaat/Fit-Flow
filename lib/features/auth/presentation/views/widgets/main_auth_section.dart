@@ -1,3 +1,4 @@
+import 'package:fit_flow/core/utils/app_navigation.dart';
 import 'package:fit_flow/core/widgets/custom_button.dart';
 import 'package:fit_flow/core/widgets/error_banner.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/sign_in_cubit.dart';
@@ -43,7 +44,7 @@ class _MainAuthSectionState extends State<MainAuthSection> {
     return BlocListener<SignInCubit, SignInState>(
       listenWhen: (_, current) => current is SignInSuccess,
       listener: (context, state) {
-        // TODO: navigate to home screen
+        Navigator.of(context).pushReplacementNamed(AppNavigation.home);
       },
       child: AuthContainerParentWidget(
         child: Column(

@@ -11,6 +11,12 @@ class AppTextStyles {
     letterSpacing: -1.2,
     color: AppColors.whiteColor,
   );
+  static const TextStyle bold20 = TextStyle(
+    fontFamily: _fontFamily,
+    fontWeight: FontWeight.bold,
+    fontSize: 20,
+    color: AppColors.primaryColor,
+  );
   static const TextStyle light14 = TextStyle(
     fontFamily: _fontFamily,
     fontWeight: FontWeight.w400,
