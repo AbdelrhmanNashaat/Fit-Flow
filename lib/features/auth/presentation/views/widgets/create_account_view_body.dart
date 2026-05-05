@@ -16,9 +16,9 @@ class CreateAccountViewBody extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CreateAccountHeaderSection(),
-              SizedBox(height: 60),
+              SizedBox(height: 20),
               CreateAccountMainSection(),
-              SizedBox(height: 30),
+              SizedBox(height: 20),
               CreateAccountBottomSection(),
               SizedBox(height: 24),
             ],

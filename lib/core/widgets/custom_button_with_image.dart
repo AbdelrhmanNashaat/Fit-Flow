@@ -9,10 +9,12 @@ class CustomButtonWithImage extends StatelessWidget {
     required this.text,
     required this.imagePath,
     required this.onPressed,
+    this.isLoading = false,
   });
   final String text;
   final String imagePath;
   final VoidCallback onPressed;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +30,28 @@ class CustomButtonWithImage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(imagePath, height: 24),
-            const SizedBox(width: 8),
-            Text(
-              text,
-              style: AppTextStyles.regular17.copyWith(
-                color: AppColors.buttonTextColor,
+            if (isLoading) ...[
+              const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 3,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    AppColors.buttonTextColor,
+                  ),
+                ),
               ),
-            ),
+            ],
+            if (!isLoading) ...[
+              SvgPicture.asset(imagePath, height: 24),
+              const SizedBox(width: 8),
+              Text(
+                text,
+                style: AppTextStyles.regular17.copyWith(
+                  color: AppColors.buttonTextColor,
+                ),
+              ),
+            ],
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:fit_flow/core/utils/app_colors.dart';
+import 'package:fit_flow/core/utils/app_navigation.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:fit_flow/features/auth/presentation/views/widgets/nav_to_auth_widget.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,8 @@ class BottomAuthSection extends StatelessWidget {
         NavToAuthWidget(
           text: 'New to FitFlow?',
           navText: 'Create an account',
-          onTap: () {},
+          onTap: () =>
+              Navigator.pushReplacementNamed(context, AppNavigation.signUp),
         ),
         const SizedBox(height: 16),
         Text(

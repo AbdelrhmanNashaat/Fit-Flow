@@ -15,9 +15,9 @@ class SignInViewBody extends StatelessWidget {
         child: Column(
           children: [
             AuthHeaderSection(),
-            SizedBox(height: 60),
+            SizedBox(height: 20),
             MainAuthSection(),
-            SizedBox(height: 40),
+            SizedBox(height: 20),
             BottomAuthSection(),
             SizedBox(height: 24),
           ],

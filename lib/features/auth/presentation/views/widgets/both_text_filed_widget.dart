@@ -35,6 +35,7 @@ class _BothTextFiledWidgetState extends State<BothTextFiledWidget> {
           label: 'EMAIL ADDRESS',
           hintText: 'name@example.com',
           controller: _emailController,
+          textInputAction: TextInputAction.next,
         ),
         const SizedBox(height: 16),
         TextFiledWithLabel(
@@ -42,6 +43,7 @@ class _BothTextFiledWidgetState extends State<BothTextFiledWidget> {
           obscureText: true,
           hintText: '••••••••',
           controller: _passwordController,
+          textInputAction: TextInputAction.done,
         ),
       ],
     );
