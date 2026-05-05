@@ -90,16 +90,6 @@ class _CreateAccountFieldsWidgetState extends State<CreateAccountFieldsWidget> {
           textInputAction: TextInputAction.done,
           onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
         ),
-        const SizedBox(height: 16),
-        TextFiledWithLabel(
-          label: 'CONFIRM PASSWORD',
-          obscureText: true,
-          hintText: '••••••••',
-          controller: _confirmPasswordController,
-          focusNode: _confirmPasswordFocusNode,
-          textInputAction: TextInputAction.done,
-          onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
-        ),
       ],
     );
   }
