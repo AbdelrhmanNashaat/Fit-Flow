@@ -12,6 +12,7 @@ class CustomTextFiled extends StatefulWidget {
     this.textInputAction,
     this.onFieldSubmitted,
     this.focusNode,
+    this.validator,
   });
 
   final TextEditingController controller;
@@ -20,6 +21,7 @@ class CustomTextFiled extends StatefulWidget {
   final TextInputAction? textInputAction;
   final void Function(String)? onFieldSubmitted;
   final FocusNode? focusNode;
+  final String? Function(String?)? validator;
 
   @override
   State<CustomTextFiled> createState() => _CustomTextFiledState();
@@ -41,6 +43,8 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
       focusNode: widget.focusNode,
       obscureText: isObscure,
       controller: widget.controller,
+      validator: widget.validator,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       cursorColor: AppColors.hintTextColor,
       style: AppTextStyles.medium14,
       decoration: InputDecoration(
@@ -64,18 +68,27 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
             : null,
         fillColor: AppColors.fillColor,
         filled: true,
-        border: borderMethod(),
-        enabledBorder: borderMethod(),
-        focusedBorder: borderMethod(),
-        errorBorder: borderMethod(),
+        border: _border(),
+        enabledBorder: _border(),
+        focusedBorder: _border(),
+        errorBorder: _errorBorder(),
+        focusedErrorBorder: _errorBorder(),
+        errorStyle: AppTextStyles.medium12.copyWith(color: Colors.red),
       ),
     );
   }
 
-  OutlineInputBorder borderMethod() {
+  OutlineInputBorder _border() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
       borderSide: const BorderSide(color: AppColors.secondaryColor, width: 1),
+    );
+  }
+
+  OutlineInputBorder _errorBorder() {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: const BorderSide(color: Colors.red, width: 1),
     );
   }
 }

@@ -1,7 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "Bash(flutter analyze *)"
+      "Bash(flutter analyze *)",
+      "Bash(Get-ChildItem -Path \"d:\\\\Flutter Projects\\\\fit_flow\\\\lib\\\\core\\\\\" -Recurse -Force | Select-Object FullName, PSIsContainer | Format-Table -AutoSize)",
+      "Bash(Get-ChildItem -Path \"d:\\\\Flutter Projects\\\\fit_flow\\\\lib\\\\core\\\\service\" -Recurse -ErrorAction SilentlyContinue)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(flutter pub *)",
+      "PowerShell(head -50)",
+      "Bash(Get-ChildItem -Path \"d:\\\\Flutter Projects\\\\fit_flow\\\\lib\\\\features\\\\auth\\\\presentation\\\\cubit\\\\\" -Force)"
     ]
   }
 }
