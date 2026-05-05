@@ -7,7 +7,7 @@ class SignInView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       body: SafeArea(child: SignInViewBody()),
     );
   }

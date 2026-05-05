@@ -9,11 +9,15 @@ class TextFiledWithLabel extends StatelessWidget {
     required this.controller,
     required this.hintText,
     this.obscureText = false,
+    this.textInputAction,
+    this.onFieldSubmitted,
   });
   final String label;
   final TextEditingController controller;
   final String hintText;
   final bool obscureText;
+  final TextInputAction? textInputAction;
+  final void Function(String)? onFieldSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +27,8 @@ class TextFiledWithLabel extends StatelessWidget {
         Text(label, style: AppTextStyles.semiBold12),
         const SizedBox(height: 6),
         CustomTextFiled(
+          textInputAction: textInputAction,
+          onFieldSubmitted: onFieldSubmitted,
           controller: controller,
           hintText: hintText,
           obscureText: obscureText,

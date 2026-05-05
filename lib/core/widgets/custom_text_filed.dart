@@ -9,11 +9,15 @@ class CustomTextFiled extends StatefulWidget {
     required this.controller,
     required this.hintText,
     this.obscureText = false,
+    this.textInputAction,
+    this.onFieldSubmitted,
   });
 
   final TextEditingController controller;
   final String hintText;
   final bool obscureText;
+  final TextInputAction? textInputAction;
+  final void Function(String)? onFieldSubmitted;
 
   @override
   State<CustomTextFiled> createState() => _CustomTextFiledState();
@@ -30,6 +34,8 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      textInputAction: widget.textInputAction,
+      onFieldSubmitted: widget.onFieldSubmitted,
       obscureText: isObscure,
       controller: widget.controller,
       cursorColor: AppColors.hintTextColor,

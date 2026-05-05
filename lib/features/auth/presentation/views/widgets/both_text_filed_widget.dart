@@ -13,6 +13,7 @@ class BothTextFiledWidget extends StatelessWidget {
           label: 'EMAIL ADDRESS',
           hintText: 'name@example.com',
           controller: TextEditingController(),
+          textInputAction: TextInputAction.next,
         ),
         const SizedBox(height: 16),
         TextFiledWithLabel(
@@ -20,6 +21,10 @@ class BothTextFiledWidget extends StatelessWidget {
           obscureText: true,
           hintText: '••••••••',
           controller: TextEditingController(),
+          textInputAction: TextInputAction.done,
+          onFieldSubmitted: (value) {
+            // Handle field submission if needed
+          },
         ),
       ],
     );
