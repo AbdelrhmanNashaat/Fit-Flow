@@ -2,62 +2,63 @@ import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AppTextStyles {
-  static const String fontFamily = 'Lexend';
+  static const String _fontFamily = 'Inter';
+
   static const TextStyle bold48 = TextStyle(
+    fontFamily: _fontFamily,
     fontWeight: FontWeight.bold,
     fontSize: 48,
     letterSpacing: -1.2,
     color: AppColors.whiteColor,
-    fontFamily: fontFamily,
   );
   static const TextStyle light14 = TextStyle(
+    fontFamily: _fontFamily,
     fontWeight: FontWeight.w400,
     fontSize: 14,
     letterSpacing: 2.8,
     color: AppColors.whiteColor,
-    fontFamily: fontFamily,
   );
   static const TextStyle medium14 = TextStyle(
+    fontFamily: _fontFamily,
     fontWeight: FontWeight.w500,
     fontSize: 14,
     color: AppColors.blackColor,
-    fontFamily: fontFamily,
   );
   static const TextStyle medium12 = TextStyle(
+    fontFamily: _fontFamily,
     fontWeight: FontWeight.w500,
-    fontSize: 14,
+    fontSize: 12,
     color: AppColors.blackColor,
-    fontFamily: fontFamily,
   );
   static const TextStyle semiBold12 = TextStyle(
+    fontFamily: _fontFamily,
     fontWeight: FontWeight.w600,
     fontSize: 12,
     color: AppColors.blackColor,
-    fontFamily: fontFamily,
   );
-  static const TextStyle Bold18 = TextStyle(
+  static const TextStyle bold18 = TextStyle(
+    fontFamily: _fontFamily,
     fontWeight: FontWeight.w700,
     fontSize: 18,
     color: AppColors.blackColor,
-    fontFamily: fontFamily,
   );
   static const TextStyle regular17 = TextStyle(
+    fontFamily: _fontFamily,
     fontWeight: FontWeight.w400,
     fontSize: 17,
     color: AppColors.blackColor,
-    fontFamily: fontFamily,
   );
   static const TextStyle bold26 = TextStyle(
+    fontFamily: _fontFamily,
     fontWeight: FontWeight.bold,
     fontSize: 26,
     letterSpacing: 2.8,
     color: AppColors.primaryColor,
-    fontFamily: fontFamily,
   );
   static const TextStyle extraBold26 = TextStyle(
+    fontFamily: _fontFamily,
     fontWeight: FontWeight.w800,
     fontSize: 26,
     color: AppColors.blackColor,
-    fontFamily: fontFamily,
   );
 }

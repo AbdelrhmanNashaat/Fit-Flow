@@ -22,7 +22,7 @@ class SignInViewBody extends StatelessWidget {
                     AuthHeaderSection(),
                     SizedBox(height: 60),
                     MainAuthSection(),
-                    Spacer(),
+                    SizedBox(height: 40),
                     BottomAuthSection(),
                   ],
                 ),

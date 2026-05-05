@@ -13,7 +13,7 @@ class ForgetPassButton extends StatelessWidget {
         onTap: () {},
         child: Text(
           'Forgot Password?',
-          style: AppTextStyles.medium14.copyWith(color: AppColors.primaryColor),
+          style: AppTextStyles.medium12.copyWith(color: AppColors.primaryColor),
         ),
       ),
     );

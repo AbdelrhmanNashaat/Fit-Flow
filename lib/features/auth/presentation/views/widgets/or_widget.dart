@@ -1,3 +1,4 @@
+import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -6,14 +7,19 @@ class OrWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       children: [
-        Expanded(child: Divider()),
+        const Expanded(child: Divider(color: AppColors.dividerColor)),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.0),
-          child: Text('or continue with', style: AppTextStyles.medium12),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Text(
+            'or continue with',
+            style: AppTextStyles.medium12.copyWith(
+              color: AppColors.orTextColor,
+            ),
+          ),
         ),
-        Expanded(child: Divider()),
+        const Expanded(child: Divider(color: AppColors.dividerColor)),
       ],
     );
   }

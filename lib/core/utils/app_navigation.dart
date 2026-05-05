@@ -1,6 +1,7 @@
+import 'package:fit_flow/features/auth/presentation/views/create_account_view.dart';
 import 'package:fit_flow/features/splash/splash_view.dart';
 import 'package:flutter/material.dart';
-import 'package:fit_flow/features/auth/presentation/views/sign_up_view.dart';
+import 'package:fit_flow/features/auth/presentation/views/sign_in_view.dart';
 
 class AppNavigation {
   static const String splash = '/';
@@ -10,6 +11,7 @@ class AppNavigation {
   static Map<String, Widget Function(BuildContext)> routes =
       <String, WidgetBuilder>{
         splash: (BuildContext context) => const SplashView(),
-        signUp: (BuildContext context) => const SignUpView(),
+        signIn: (BuildContext context) => const SignInView(),
+        signUp: (BuildContext context) => const CreateAccountView(),
       };
 }
