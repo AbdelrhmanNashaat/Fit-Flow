@@ -11,18 +11,24 @@ class BothTextFiledWidget extends StatefulWidget {
 class _BothTextFiledWidgetState extends State<BothTextFiledWidget> {
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
+  late final FocusNode _emailFocusNode;
+  late final FocusNode _passwordFocusNode;
 
   @override
   void initState() {
     super.initState();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+    _emailFocusNode = FocusNode();
+    _passwordFocusNode = FocusNode();
   }
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
     super.dispose();
   }
 
@@ -35,7 +41,10 @@ class _BothTextFiledWidgetState extends State<BothTextFiledWidget> {
           label: 'EMAIL ADDRESS',
           hintText: 'name@example.com',
           controller: _emailController,
+          focusNode: _emailFocusNode,
           textInputAction: TextInputAction.next,
+          onFieldSubmitted: (_) =>
+              FocusScope.of(context).requestFocus(_passwordFocusNode),
         ),
         const SizedBox(height: 16),
         TextFiledWithLabel(
@@ -43,7 +52,9 @@ class _BothTextFiledWidgetState extends State<BothTextFiledWidget> {
           obscureText: true,
           hintText: '••••••••',
           controller: _passwordController,
+          focusNode: _passwordFocusNode,
           textInputAction: TextInputAction.done,
+          onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
         ),
       ],
     );

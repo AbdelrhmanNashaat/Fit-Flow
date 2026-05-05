@@ -11,6 +11,7 @@ class TextFiledWithLabel extends StatelessWidget {
     this.obscureText = false,
     this.textInputAction,
     this.onFieldSubmitted,
+    this.focusNode,
   });
   final String label;
   final TextEditingController controller;
@@ -18,6 +19,7 @@ class TextFiledWithLabel extends StatelessWidget {
   final bool obscureText;
   final TextInputAction? textInputAction;
   final void Function(String)? onFieldSubmitted;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class TextFiledWithLabel extends StatelessWidget {
         CustomTextFiled(
           textInputAction: textInputAction,
           onFieldSubmitted: onFieldSubmitted,
+          focusNode: focusNode,
           controller: controller,
           hintText: hintText,
           obscureText: obscureText,

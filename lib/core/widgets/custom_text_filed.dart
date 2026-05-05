@@ -11,6 +11,7 @@ class CustomTextFiled extends StatefulWidget {
     this.obscureText = false,
     this.textInputAction,
     this.onFieldSubmitted,
+    this.focusNode,
   });
 
   final TextEditingController controller;
@@ -18,6 +19,7 @@ class CustomTextFiled extends StatefulWidget {
   final bool obscureText;
   final TextInputAction? textInputAction;
   final void Function(String)? onFieldSubmitted;
+  final FocusNode? focusNode;
 
   @override
   State<CustomTextFiled> createState() => _CustomTextFiledState();
@@ -36,6 +38,7 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
     return TextFormField(
       textInputAction: widget.textInputAction,
       onFieldSubmitted: widget.onFieldSubmitted,
+      focusNode: widget.focusNode,
       obscureText: isObscure,
       controller: widget.controller,
       cursorColor: AppColors.hintTextColor,

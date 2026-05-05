@@ -18,7 +18,10 @@ class MainAuthSection extends StatelessWidget {
           const SizedBox(height: 6),
           const ForgetPassButton(),
           const SizedBox(height: 12),
-          CustomButton(text: 'Continue', onPressed: () {}),
+          CustomButton(
+            text: 'Continue',
+            onPressed: () {},
+          ),
           const SizedBox(height: 12),
           const OrWidget(),
           const SizedBox(height: 12),
