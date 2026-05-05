@@ -8,32 +8,20 @@ class SignInViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
-
-    return AnimatedPadding(
-      duration: const Duration(milliseconds: 250),
-      curve: Curves.easeOut,
-      padding: EdgeInsets.fromLTRB(16, 0, 16, bottomInset),
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return SingleChildScrollView(
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraints.maxHeight),
-              child: const IntrinsicHeight(
-                child: Column(
-                  children: [
-                    AuthHeaderSection(),
-                    SizedBox(height: 60),
-                    MainAuthSection(),
-                    SizedBox(height: 40),
-                    BottomAuthSection(),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      child: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        child: Column(
+          children: [
+            AuthHeaderSection(),
+            SizedBox(height: 60),
+            MainAuthSection(),
+            SizedBox(height: 40),
+            BottomAuthSection(),
+            SizedBox(height: 24),
+          ],
+        ),
       ),
     );
   }
