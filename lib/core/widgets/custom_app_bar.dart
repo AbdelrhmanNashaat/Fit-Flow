@@ -7,10 +7,12 @@ class CustomAppBarWidget extends StatelessWidget {
   const CustomAppBarWidget({
     super.key,
     required this.title,
-    required this.imagePath,
+    this.imagePath,
+    this.trailing,
   });
   final String title;
-  final String imagePath;
+  final String? imagePath;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +24,13 @@ class CustomAppBarWidget extends StatelessWidget {
             children: [
               Text(title, style: AppTextStyles.bold20),
               const Spacer(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: SvgPicture.asset(imagePath),
-              ),
+              if (trailing != null)
+                trailing!
+              else if (imagePath != null)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: SvgPicture.asset(imagePath!),
+                ),
               const SizedBox(height: 4),
             ],
           ),

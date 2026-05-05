@@ -1,8 +1,8 @@
-import 'package:fit_flow/core/utils/app_navigation.dart';
 import 'package:fit_flow/core/widgets/custom_button.dart';
 import 'package:fit_flow/core/widgets/error_banner.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/sign_up_cubit.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/sign_up_state.dart';
+import 'package:fit_flow/features/splash/presentation/cubit/auth_session_cubit.dart';
 import 'package:fit_flow/features/auth/presentation/views/widgets/auth_container_parent_widget.dart';
 import 'package:fit_flow/features/auth/presentation/views/widgets/create_account_fields_widget.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +46,9 @@ class _CreateAccountMainSectionState extends State<CreateAccountMainSection> {
     return BlocListener<SignUpCubit, SignUpState>(
       listenWhen: (_, current) => current is SignUpSuccess,
       listener: (context, state) {
-        Navigator.of(context).pushReplacementNamed(AppNavigation.home);
+        context.read<AuthSessionCubit>().setAuthenticated(
+          (state as SignUpSuccess).user,
+        );
       },
       child: AuthContainerParentWidget(
         child: Column(

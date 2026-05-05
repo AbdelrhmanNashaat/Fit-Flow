@@ -1,5 +1,4 @@
 import 'package:fit_flow/core/utils/app_assets.dart';
-import 'package:fit_flow/core/utils/app_navigation.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -35,18 +34,11 @@ class SplashViewBody extends StatelessWidget {
               ),
 
           Text(
-                'ELEVATE YOUR MOVEMENT',
-                style: AppTextStyles.light14.copyWith(
-                  color: AppColors.whiteColor.withValues(alpha: 0.6),
-                ),
-              )
-              .animate(
-                delay: 700.ms,
-                onComplete: (_) {
-                  Navigator.pushReplacementNamed(context, AppNavigation.signIn);
-                },
-              )
-              .fadeIn(duration: 700.ms),
+            'ELEVATE YOUR MOVEMENT',
+            style: AppTextStyles.light14.copyWith(
+              color: AppColors.whiteColor.withValues(alpha: 0.6),
+            ),
+          ).animate(delay: 700.ms).fadeIn(duration: 700.ms),
         ],
       ),
     );

@@ -11,11 +11,11 @@ class HomeViewBody extends StatelessWidget {
       slivers: [
         SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12),
+            padding: EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
                 CustomAppBarWidget(
-                  title: 'FitFlow',
+                  title: 'Home',
                   imagePath: Assets.questionIcon,
                 ),
               ],

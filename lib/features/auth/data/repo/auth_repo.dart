@@ -7,4 +7,6 @@ abstract class AuthRepo {
   Future<Either<Failure, AuthUser>> signUp(String email, String password);
   Future<Either<Failure, AuthUser>> signInWithGoogle();
   Future<Either<Failure, void>> resetPassword(String email);
+  Future<Either<Failure, AuthUser?>> restoreSession();
+  Future<Either<Failure, void>> signOut();
 }
