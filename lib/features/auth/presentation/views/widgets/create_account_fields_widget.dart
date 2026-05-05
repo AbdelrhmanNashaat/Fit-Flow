@@ -57,6 +57,7 @@ class _CreateAccountFieldsWidgetState extends State<CreateAccountFieldsWidget> {
           TextFiledWithLabel(
             label: 'FULL NAME',
             hintText: 'John Doe',
+            keyboardType: TextInputType.name,
             controller: widget.nameController,
             focusNode: _nameFocusNode,
             textInputAction: TextInputAction.next,
@@ -68,6 +69,7 @@ class _CreateAccountFieldsWidgetState extends State<CreateAccountFieldsWidget> {
           TextFiledWithLabel(
             label: 'EMAIL ADDRESS',
             hintText: 'name@example.com',
+            keyboardType: TextInputType.emailAddress,
             controller: widget.emailController,
             focusNode: _emailFocusNode,
             textInputAction: TextInputAction.next,
@@ -80,6 +82,7 @@ class _CreateAccountFieldsWidgetState extends State<CreateAccountFieldsWidget> {
             label: 'PASSWORD',
             obscureText: true,
             hintText: '••••••••',
+            keyboardType: TextInputType.visiblePassword,
             controller: widget.passwordController,
             focusNode: _passwordFocusNode,
             textInputAction: TextInputAction.next,
@@ -92,6 +95,7 @@ class _CreateAccountFieldsWidgetState extends State<CreateAccountFieldsWidget> {
             label: 'CONFIRM PASSWORD',
             obscureText: true,
             hintText: '••••••••',
+            keyboardType: TextInputType.visiblePassword,
             controller: widget.confirmPasswordController,
             focusNode: _confirmPasswordFocusNode,
             textInputAction: TextInputAction.done,

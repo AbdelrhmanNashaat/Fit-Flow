@@ -13,6 +13,7 @@ class CustomTextFiled extends StatefulWidget {
     this.onFieldSubmitted,
     this.focusNode,
     this.validator,
+    this.keyboardType,
   });
 
   final TextEditingController controller;
@@ -22,6 +23,7 @@ class CustomTextFiled extends StatefulWidget {
   final void Function(String)? onFieldSubmitted;
   final FocusNode? focusNode;
   final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
 
   @override
   State<CustomTextFiled> createState() => _CustomTextFiledState();
@@ -42,6 +44,7 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
       onFieldSubmitted: widget.onFieldSubmitted,
       focusNode: widget.focusNode,
       obscureText: isObscure,
+      keyboardType: widget.keyboardType,
       controller: widget.controller,
       validator: widget.validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,

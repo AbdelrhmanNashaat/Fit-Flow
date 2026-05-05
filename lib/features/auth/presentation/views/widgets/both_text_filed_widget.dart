@@ -46,6 +46,7 @@ class _BothTextFiledWidgetState extends State<BothTextFiledWidget> {
           TextFiledWithLabel(
             label: 'Email Address',
             hintText: 'name@example.com',
+            keyboardType: TextInputType.emailAddress,
             controller: widget.emailController,
             focusNode: _emailFocusNode,
             textInputAction: TextInputAction.next,
@@ -58,6 +59,7 @@ class _BothTextFiledWidgetState extends State<BothTextFiledWidget> {
             label: 'Password',
             obscureText: true,
             hintText: '••••••••',
+            keyboardType: TextInputType.visiblePassword,
             controller: widget.passwordController,
             focusNode: _passwordFocusNode,
             textInputAction: TextInputAction.done,

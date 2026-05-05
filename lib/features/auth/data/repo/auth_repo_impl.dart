@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:fit_flow/core/errors/failure.dart';
 import 'package:fit_flow/core/service/auth_service.dart';
@@ -55,6 +57,8 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
-  String _extractMessage(Object e) =>
-      e.toString().replaceFirst('Exception: ', '');
+  String _extractMessage(Object e) {
+    log(e.toString(), name: 'AuthRepoImpl');
+    return e.toString().replaceFirst('Exception: ', '');
+  }
 }

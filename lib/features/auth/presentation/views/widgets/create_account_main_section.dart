@@ -1,4 +1,5 @@
 import 'package:fit_flow/core/widgets/custom_button.dart';
+import 'package:fit_flow/core/widgets/error_banner.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/sign_up_cubit.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/sign_up_state.dart';
 import 'package:fit_flow/features/auth/presentation/views/widgets/auth_container_parent_widget.dart';
@@ -33,7 +34,7 @@ class _CreateAccountMainSectionState extends State<CreateAccountMainSection> {
   void _onSubmit() {
     if (_formKey.currentState?.validate() ?? false) {
       context.read<SignUpCubit>().signUp(
-            _emailController.text.trim(),
+            _emailController.text,
             _passwordController.text,
           );
     }
@@ -41,36 +42,66 @@ class _CreateAccountMainSectionState extends State<CreateAccountMainSection> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SignUpCubit, SignUpState>(
+    return BlocListener<SignUpCubit, SignUpState>(
+      listenWhen: (_, current) => current is SignUpSuccess,
       listener: (context, state) {
-        if (state is SignUpFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
-          );
-        }
+        // TODO: navigate to home screen
       },
-      builder: (context, state) {
-        return AuthContainerParentWidget(
-          child: Column(
-            children: [
-              CreateAccountFieldsWidget(
-                formKey: _formKey,
-                nameController: _nameController,
-                emailController: _emailController,
-                passwordController: _passwordController,
-                confirmPasswordController: _confirmPasswordController,
-              ),
-              const SizedBox(height: 16),
-              CustomButton(
-                text: 'Create Account',
-                onPressed: _onSubmit,
-                isLoading: state is SignUpLoading,
-              ),
-              const SizedBox(height: 12),
-            ],
-          ),
-        );
-      },
+      child: AuthContainerParentWidget(
+        child: Column(
+          children: [
+            BlocSelector<SignUpCubit, SignUpState, String?>(
+              selector: (state) =>
+                  state is SignUpFailure ? state.message : null,
+              builder: (context, errorMessage) {
+                return AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 280),
+                  transitionBuilder: (child, animation) => FadeTransition(
+                    opacity: animation,
+                    child: SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(0, -0.25),
+                        end: Offset.zero,
+                      ).animate(animation),
+                      child: child,
+                    ),
+                  ),
+                  child: errorMessage != null
+                      ? Padding(
+                          key: ValueKey(errorMessage),
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: ErrorBanner(
+                            message: errorMessage,
+                            onDismiss: () =>
+                                context.read<SignUpCubit>().clearError(),
+                          ),
+                        )
+                      : const SizedBox.shrink(key: ValueKey('no-error')),
+                );
+              },
+            ),
+            CreateAccountFieldsWidget(
+              formKey: _formKey,
+              nameController: _nameController,
+              emailController: _emailController,
+              passwordController: _passwordController,
+              confirmPasswordController: _confirmPasswordController,
+            ),
+            const SizedBox(height: 16),
+            BlocSelector<SignUpCubit, SignUpState, bool>(
+              selector: (state) => state is SignUpLoading,
+              builder: (context, isLoading) {
+                return CustomButton(
+                  text: 'Create Account',
+                  onPressed: _onSubmit,
+                  isLoading: isLoading,
+                );
+              },
+            ),
+            const SizedBox(height: 12),
+          ],
+        ),
+      ),
     );
   }
 }

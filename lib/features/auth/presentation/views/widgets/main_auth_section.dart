@@ -6,7 +6,7 @@ import 'package:fit_flow/features/auth/presentation/views/widgets/auth_container
 import 'package:fit_flow/features/auth/presentation/views/widgets/both_text_filed_widget.dart';
 import 'package:fit_flow/features/auth/presentation/views/widgets/forget_pass_button.dart';
 import 'package:fit_flow/features/auth/presentation/views/widgets/or_widget.dart';
-import 'package:fit_flow/features/auth/presentation/views/widgets/row_oF_sign_in_options_buttons.dart';
+import 'package:fit_flow/features/auth/presentation/views/widgets/row_of_sign_in_options_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -87,7 +87,7 @@ class _MainAuthSectionState extends State<MainAuthSection> {
             const ForgetPassButton(),
             const SizedBox(height: 12),
             BlocSelector<SignInCubit, SignInState, bool>(
-              selector: (state) => state is SignInLoading,
+              selector: (state) => state is SignInLoading && !state.isGoogle,
               builder: (context, isLoading) {
                 return CustomButton(
                   text: 'Sign In',

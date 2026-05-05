@@ -1,10 +1,15 @@
 import 'package:fit_flow/features/auth/data/model/auth_user.dart';
 
-sealed class SignInState {}
+sealed class SignInState {
+  const SignInState();
+}
 
 class SignInInitial extends SignInState {}
 
-class SignInLoading extends SignInState {}
+class SignInLoading extends SignInState {
+  const SignInLoading({this.isGoogle = false});
+  final bool isGoogle;
+}
 
 class SignInSuccess extends SignInState {
   SignInSuccess(this.user);
