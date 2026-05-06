@@ -9,7 +9,9 @@
       "PowerShell(head -50)",
       "Bash(Get-ChildItem -Path \"d:\\\\Flutter Projects\\\\fit_flow\\\\lib\\\\features\\\\auth\\\\presentation\\\\cubit\\\\\" -Force)",
       "Bash(Get-ChildItem -Path \"d:\\\\Flutter Projects\\\\fit_flow\\\\lib\\\\features\\\\auth\\\\presentation\\\\views\\\\widgets\" -File)",
-      "Bash(Select-Object Name, FullName)"
+      "Bash(Select-Object Name, FullName)",
+      "Bash(Get-ChildItem -Path \"d:\\\\Flutter Projects\\\\fit_flow\" -Recurse -Directory)",
+      "Bash(Sort-Object)"
     ]
   }
 }

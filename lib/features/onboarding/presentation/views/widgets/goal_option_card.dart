@@ -18,90 +18,79 @@ class GoalOptionCard extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
+  static const _radius = 16.0;
+  static const _duration = Duration(milliseconds: 220);
+
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(16),
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 220),
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color: AppColors.whiteColor,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: isSelected
-                ? AppColors.primaryColor
-                : AppColors.divider2Color,
-            width: isSelected ? 1.6 : 1,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.blackColor.withValues(alpha: 0.03),
-              blurRadius: 18,
-              offset: const Offset(0, 8),
-            ),
-          ],
+    final animatedContainerBorderColor = isSelected
+        ? AppColors.primaryColor
+        : AppColors.divider2Color;
+    final roundedContainerBorderColor = isSelected
+        ? AppColors.primaryColor
+        : AppColors.borderColor;
+
+    return AnimatedContainer(
+      duration: _duration,
+      decoration: BoxDecoration(
+        color: AppColors.whiteColor,
+        borderRadius: BorderRadius.circular(_radius),
+        border: Border.all(
+          color: animatedContainerBorderColor,
+          width: isSelected ? 1.5 : 1,
         ),
-        child: Row(
-          children: [
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: AppColors.secondaryColor,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(icon, color: AppColors.primaryColor, size: 20),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: AppTextStyles.bold18.copyWith(fontSize: 14),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(_radius),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: AppColors.backgroundColor,
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    subtitle,
-                    style: AppTextStyles.medium12.copyWith(
-                      color: AppColors.buttonTextColor2,
-                      height: 1.4,
-                    ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Icon(icon, color: AppColors.primaryColor),
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 12),
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 220),
-              width: 18,
-              height: 18,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: isSelected
-                      ? AppColors.primaryColor
-                      : AppColors.borderColor,
-                  width: 1.4,
                 ),
-                color: isSelected
-                    ? AppColors.primaryColor
-                    : AppColors.whiteColor,
-              ),
-              child: isSelected
-                  ? const Center(
-                      child: Icon(
-                        Icons.circle,
-                        color: AppColors.whiteColor,
-                        size: 7,
+                const SizedBox(width: 16),
+
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(title, style: AppTextStyles.bold16),
+                      const SizedBox(height: 4),
+                      Text(
+                        subtitle,
+                        style: AppTextStyles.regular12.copyWith(
+                          color: AppColors.buttonTextColor2,
+                        ),
                       ),
-                    )
-                  : null,
+                    ],
+                  ),
+                ),
+
+                AnimatedScale(
+                  duration: _duration,
+                  scale: isSelected ? 1 : .9,
+                  child: Icon(
+                    isSelected
+                        ? Icons.radio_button_checked_rounded
+                        : Icons.radio_button_off_rounded,
+                    color: roundedContainerBorderColor,
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

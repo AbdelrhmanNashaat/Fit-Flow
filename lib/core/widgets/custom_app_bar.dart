@@ -20,21 +20,24 @@ class CustomAppBarWidget extends StatelessWidget {
       padding: const EdgeInsets.only(top: 8),
       child: Column(
         children: [
-          Row(
-            children: [
-              Text(title, style: AppTextStyles.bold20),
-              const Spacer(),
-              if (trailing != null)
-                trailing!
-              else if (imagePath != null)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: SvgPicture.asset(imagePath!),
-                ),
-              const SizedBox(height: 4),
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: [
+                Text(title, style: AppTextStyles.bold20),
+                const Spacer(),
+                if (trailing != null)
+                  trailing!
+                else if (imagePath != null)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: SvgPicture.asset(imagePath!),
+                  ),
+              ],
+            ),
           ),
-          const Divider(color: AppColors.divider2Color, thickness: 1),
+          const SizedBox(height: 4),
+          const Divider(color: AppColors.divider2Color, thickness: 1.5),
         ],
       ),
     );

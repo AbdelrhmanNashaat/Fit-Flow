@@ -18,6 +18,12 @@ class AuthSessionAuthenticated extends AuthSessionState {
   final AuthUser user;
 }
 
+class AuthSessionNeedsOnboarding extends AuthSessionState {
+  const AuthSessionNeedsOnboarding(this.user);
+
+  final AuthUser user;
+}
+
 // Sibling of AuthSessionAuthenticated, NOT a subclass.
 // Prevents the global listener in FitFlow from navigating to home during sign-out.
 class AuthSessionSigningOut extends AuthSessionState {

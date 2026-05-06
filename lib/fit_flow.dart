@@ -5,6 +5,7 @@ import 'package:fit_flow/core/utils/app_navigation.dart';
 import 'package:fit_flow/features/auth/domain/repo/auth_repo.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/auth_session_cubit.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/auth_session_state.dart';
+import 'package:fit_flow/features/user_profile/domain/repo/user_profile_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -37,7 +38,10 @@ class _FitFlowState extends State<FitFlow> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => AuthSessionCubit(getIt<AuthRepo>())..checkAuthStatus(),
+          create: (_) => AuthSessionCubit(
+            getIt<AuthRepo>(),
+            getIt<UserProfileRepo>(),
+          )..checkAuthStatus(),
         ),
       ],
       child: MaterialApp(
@@ -50,6 +54,7 @@ class _FitFlowState extends State<FitFlow> {
           return BlocListener<AuthSessionCubit, AuthSessionState>(
             listenWhen: (_, current) {
               return current is AuthSessionAuthenticated ||
+                  current is AuthSessionNeedsOnboarding ||
                   current is AuthSessionUnauthenticated ||
                   (current is AuthSessionFailure && current.user == null);
             },
@@ -60,6 +65,13 @@ class _FitFlowState extends State<FitFlow> {
               if (state is AuthSessionAuthenticated) {
                 navigator.pushNamedAndRemoveUntil(
                   AppNavigation.home,
+                  (route) => false,
+                );
+              }
+
+              if (state is AuthSessionNeedsOnboarding) {
+                navigator.pushNamedAndRemoveUntil(
+                  AppNavigation.onboarding,
                   (route) => false,
                 );
               }

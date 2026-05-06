@@ -30,6 +30,18 @@ class AppTextStyles {
     fontSize: 14,
     color: AppColors.blackColor,
   );
+  static const TextStyle regular14 = TextStyle(
+    fontFamily: _fontFamily,
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: AppColors.buttonTextColor2,
+  );
+  static const TextStyle regular12 = TextStyle(
+    fontFamily: _fontFamily,
+    fontWeight: FontWeight.w400,
+    fontSize: 12,
+    color: AppColors.buttonTextColor2,
+  );
   static const TextStyle medium12 = TextStyle(
     fontFamily: _fontFamily,
     fontWeight: FontWeight.w500,
@@ -46,6 +58,12 @@ class AppTextStyles {
     fontFamily: _fontFamily,
     fontWeight: FontWeight.w700,
     fontSize: 18,
+    color: AppColors.blackColor,
+  );
+  static const TextStyle bold16 = TextStyle(
+    fontFamily: _fontFamily,
+    fontWeight: FontWeight.w700,
+    fontSize: 16,
     color: AppColors.blackColor,
   );
   static const TextStyle regular17 = TextStyle(
@@ -65,6 +83,12 @@ class AppTextStyles {
     fontFamily: _fontFamily,
     fontWeight: FontWeight.w800,
     fontSize: 26,
+    color: AppColors.blackColor,
+  );
+  static const TextStyle extraBold30 = TextStyle(
+    fontFamily: _fontFamily,
+    fontWeight: FontWeight.w800,
+    fontSize: 30,
     color: AppColors.blackColor,
   );
 }

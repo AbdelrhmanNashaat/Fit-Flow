@@ -19,4 +19,7 @@ class AppColors {
   static const Color navTextColor = Color(0xFF004AC6);
   static const Color appBarColor = Color(0xFFFBFBFB);
   static const Color divider2Color = Color(0xFFF2F2F7);
+  static const Color backgroundColor = Color(0xFFF8FAFC);
+  static const Color shadowColor = Color(0x0D000000);
+  static const Color secondaryTextColor = Color(0xff94A3B8);
 }
