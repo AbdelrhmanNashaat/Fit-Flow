@@ -2,7 +2,7 @@ import 'package:fit_flow/core/widgets/custom_button.dart';
 import 'package:fit_flow/core/widgets/error_banner.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/sign_in_cubit.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/sign_in_state.dart';
-import 'package:fit_flow/features/splash/presentation/cubit/auth_session_cubit.dart';
+import 'package:fit_flow/features/auth/presentation/cubit/auth_session_cubit.dart';
 import 'package:fit_flow/features/auth/presentation/views/widgets/auth_container_parent_widget.dart';
 import 'package:fit_flow/features/auth/presentation/views/widgets/both_text_filed_widget.dart';
 import 'package:fit_flow/features/auth/presentation/views/widgets/forget_pass_button.dart';

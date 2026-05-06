@@ -1,17 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fit_flow/core/config/app_config.dart';
 import 'package:fit_flow/core/service/auth_service.dart';
 import 'package:fit_flow/core/service/cache_helper.dart';
 import 'package:fit_flow/core/service/firebase_auth_service.dart';
-import 'package:fit_flow/features/auth/data/repo/auth_repo.dart';
 import 'package:fit_flow/features/auth/data/repo/auth_repo_impl.dart';
+import 'package:fit_flow/features/auth/domain/repo/auth_repo.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final GetIt getIt = GetIt.instance;
-
-const _googleServerClientId =
-    '528662074916-djltr29g5njdrqonqkfnlguar43jllam.apps.googleusercontent.com';
 
 void setupServiceLocator({required SharedPreferences sharedPreferences}) {
   if (!getIt.isRegistered<SharedPreferences>()) {
@@ -26,7 +24,8 @@ void setupServiceLocator({required SharedPreferences sharedPreferences}) {
 
   if (!getIt.isRegistered<GoogleSignIn>()) {
     getIt.registerLazySingleton<GoogleSignIn>(
-      () => GoogleSignIn(serverClientId: _googleServerClientId),
+      () =>
+          GoogleSignIn(serverClientId: AppConfig.instance.googleServerClientId),
     );
   }
 

@@ -1,5 +1,5 @@
 import 'package:fit_flow/core/utils/app_validators.dart';
-import 'package:fit_flow/features/auth/presentation/views/widgets/text_filed_with_label.dart';
+import 'package:fit_flow/features/auth/presentation/views/widgets/text_field_with_label.dart';
 import 'package:flutter/material.dart';
 
 class BothTextFiledWidget extends StatefulWidget {
@@ -43,7 +43,7 @@ class _BothTextFiledWidgetState extends State<BothTextFiledWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextFiledWithLabel(
+          TextFieldWithLabel(
             label: 'Email Address',
             hintText: 'name@example.com',
             keyboardType: TextInputType.emailAddress,
@@ -55,7 +55,7 @@ class _BothTextFiledWidgetState extends State<BothTextFiledWidget> {
             validator: AppValidators.validateEmail,
           ),
           const SizedBox(height: 16),
-          TextFiledWithLabel(
+          TextFieldWithLabel(
             label: 'Password',
             obscureText: true,
             hintText: '••••••••',

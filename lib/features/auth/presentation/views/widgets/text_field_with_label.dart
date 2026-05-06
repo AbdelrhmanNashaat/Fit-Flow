@@ -1,9 +1,9 @@
 import 'package:fit_flow/core/utils/app_text_styles.dart';
-import 'package:fit_flow/core/widgets/custom_text_filed.dart';
+import 'package:fit_flow/core/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
-class TextFiledWithLabel extends StatelessWidget {
-  const TextFiledWithLabel({
+class TextFieldWithLabel extends StatelessWidget {
+  const TextFieldWithLabel({
     super.key,
     required this.label,
     required this.controller,
@@ -15,6 +15,7 @@ class TextFiledWithLabel extends StatelessWidget {
     this.validator,
     this.keyboardType,
   });
+
   final String label;
   final TextEditingController controller;
   final String hintText;
@@ -32,7 +33,7 @@ class TextFiledWithLabel extends StatelessWidget {
       children: [
         Text(label, style: AppTextStyles.semiBold12),
         const SizedBox(height: 6),
-        CustomTextFiled(
+        CustomTextField(
           textInputAction: textInputAction,
           onFieldSubmitted: onFieldSubmitted,
           focusNode: focusNode,

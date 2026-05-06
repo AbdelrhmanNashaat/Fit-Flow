@@ -16,9 +16,13 @@ class CacheHelper {
   AuthUser? getCachedUser() {
     final rawUser = _preferences.getString(_authUserKey);
     if (rawUser == null || rawUser.isEmpty) return null;
-
-    final json = jsonDecode(rawUser) as Map<String, dynamic>;
-    return AuthUser.fromJson(json);
+    try {
+      final json = jsonDecode(rawUser) as Map<String, dynamic>;
+      return AuthUser.fromJson(json);
+    } catch (_) {
+      // Corrupted cache — treat as unauthenticated; restoreSession will clear it.
+      return null;
+    }
   }
 
   Future<void> cacheUser(AuthUser user) async {

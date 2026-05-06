@@ -1,10 +1,9 @@
+import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
-import 'package:fit_flow/core/utils/app_colors.dart';
-
-class CustomTextFiled extends StatefulWidget {
-  const CustomTextFiled({
+class CustomTextField extends StatefulWidget {
+  const CustomTextField({
     super.key,
     required this.controller,
     required this.hintText,
@@ -26,15 +25,16 @@ class CustomTextFiled extends StatefulWidget {
   final TextInputType? keyboardType;
 
   @override
-  State<CustomTextFiled> createState() => _CustomTextFiledState();
+  State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
-class _CustomTextFiledState extends State<CustomTextFiled> {
-  bool isObscure = false;
+class _CustomTextFieldState extends State<CustomTextField> {
+  late bool _isObscure;
+
   @override
   void initState() {
     super.initState();
-    isObscure = widget.obscureText;
+    _isObscure = widget.obscureText;
   }
 
   @override
@@ -43,7 +43,7 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
       textInputAction: widget.textInputAction,
       onFieldSubmitted: widget.onFieldSubmitted,
       focusNode: widget.focusNode,
-      obscureText: isObscure,
+      obscureText: _isObscure,
       keyboardType: widget.keyboardType,
       controller: widget.controller,
       validator: widget.validator,
@@ -55,15 +55,11 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
         hintStyle: AppTextStyles.medium14.copyWith(
           color: AppColors.hintTextColor,
         ),
-        suffixIcon: widget.obscureText == true
+        suffixIcon: widget.obscureText
             ? GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isObscure = !isObscure;
-                  });
-                },
+                onTap: () => setState(() => _isObscure = !_isObscure),
                 child: Icon(
-                  isObscure ? Icons.visibility : Icons.visibility_off,
+                  _isObscure ? Icons.visibility : Icons.visibility_off,
                   color: AppColors.hintTextColor,
                   size: 20,
                 ),

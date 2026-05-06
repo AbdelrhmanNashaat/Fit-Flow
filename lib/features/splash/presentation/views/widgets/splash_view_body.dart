@@ -1,8 +1,8 @@
 import 'package:fit_flow/core/utils/app_assets.dart';
+import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:fit_flow/core/utils/app_colors.dart';
 
 class SplashViewBody extends StatelessWidget {
   const SplashViewBody({super.key});
@@ -32,7 +32,6 @@ class SplashViewBody extends StatelessWidget {
                 duration: 600.ms,
                 curve: Curves.easeOutCubic,
               ),
-
           Text(
             'ELEVATE YOUR MOVEMENT',
             style: AppTextStyles.light14.copyWith(

@@ -1,4 +1,4 @@
-import 'package:fit_flow/features/auth/data/repo/auth_repo.dart';
+import 'package:fit_flow/features/auth/domain/repo/auth_repo.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/sign_up_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

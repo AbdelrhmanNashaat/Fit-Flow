@@ -5,7 +5,7 @@ import 'package:fit_flow/core/errors/failure.dart';
 import 'package:fit_flow/core/service/auth_service.dart';
 import 'package:fit_flow/core/service/cache_helper.dart';
 import 'package:fit_flow/features/auth/data/model/auth_user.dart';
-import 'package:fit_flow/features/auth/data/repo/auth_repo.dart';
+import 'package:fit_flow/features/auth/domain/repo/auth_repo.dart';
 
 class AuthRepoImpl implements AuthRepo {
   const AuthRepoImpl(this._authService, this._cacheHelper);

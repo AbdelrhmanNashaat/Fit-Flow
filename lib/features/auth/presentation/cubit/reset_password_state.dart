@@ -1,12 +1,20 @@
-sealed class ResetPasswordState {}
+sealed class ResetPasswordState {
+  const ResetPasswordState();
+}
 
-class ResetPasswordInitial extends ResetPasswordState {}
+class ResetPasswordInitial extends ResetPasswordState {
+  const ResetPasswordInitial();
+}
 
-class ResetPasswordLoading extends ResetPasswordState {}
+class ResetPasswordLoading extends ResetPasswordState {
+  const ResetPasswordLoading();
+}
 
-class ResetPasswordSuccess extends ResetPasswordState {}
+class ResetPasswordSuccess extends ResetPasswordState {
+  const ResetPasswordSuccess();
+}
 
 class ResetPasswordFailure extends ResetPasswordState {
-  ResetPasswordFailure(this.message);
+  const ResetPasswordFailure(this.message);
   final String message;
 }

@@ -1,5 +1,5 @@
 import 'package:fit_flow/core/utils/app_validators.dart';
-import 'package:fit_flow/features/auth/presentation/views/widgets/text_filed_with_label.dart';
+import 'package:fit_flow/features/auth/presentation/views/widgets/text_field_with_label.dart';
 import 'package:flutter/material.dart';
 
 class CreateAccountFieldsWidget extends StatefulWidget {
@@ -54,7 +54,7 @@ class _CreateAccountFieldsWidgetState extends State<CreateAccountFieldsWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextFiledWithLabel(
+          TextFieldWithLabel(
             label: 'FULL NAME',
             hintText: 'John Doe',
             keyboardType: TextInputType.name,
@@ -66,7 +66,7 @@ class _CreateAccountFieldsWidgetState extends State<CreateAccountFieldsWidget> {
             validator: AppValidators.validateName,
           ),
           const SizedBox(height: 16),
-          TextFiledWithLabel(
+          TextFieldWithLabel(
             label: 'EMAIL ADDRESS',
             hintText: 'name@example.com',
             keyboardType: TextInputType.emailAddress,
@@ -78,7 +78,7 @@ class _CreateAccountFieldsWidgetState extends State<CreateAccountFieldsWidget> {
             validator: AppValidators.validateEmail,
           ),
           const SizedBox(height: 16),
-          TextFiledWithLabel(
+          TextFieldWithLabel(
             label: 'PASSWORD',
             obscureText: true,
             hintText: '••••••••',
@@ -91,7 +91,7 @@ class _CreateAccountFieldsWidgetState extends State<CreateAccountFieldsWidget> {
             validator: AppValidators.validatePassword,
           ),
           const SizedBox(height: 16),
-          TextFiledWithLabel(
+          TextFieldWithLabel(
             label: 'CONFIRM PASSWORD',
             obscureText: true,
             hintText: '••••••••',
@@ -101,7 +101,8 @@ class _CreateAccountFieldsWidgetState extends State<CreateAccountFieldsWidget> {
             textInputAction: TextInputAction.done,
             onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
             validator: (value) => AppValidators.confirmPasswordValidator(
-                widget.passwordController.text)(value),
+              widget.passwordController.text,
+            )(value),
           ),
         ],
       ),
