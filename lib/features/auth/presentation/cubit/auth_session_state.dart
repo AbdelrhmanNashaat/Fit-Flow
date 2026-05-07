@@ -24,6 +24,15 @@ class AuthSessionNeedsOnboarding extends AuthSessionState {
   final AuthUser user;
 }
 
+/// Emitted when Firebase requires re-authentication before account deletion.
+/// The [provider] is 'password' for email/password users.
+class AuthSessionNeedsReauth extends AuthSessionState {
+  const AuthSessionNeedsReauth(this.user, this.provider);
+
+  final AuthUser user;
+  final String provider;
+}
+
 // Sibling of AuthSessionAuthenticated, NOT a subclass.
 // Prevents the global listener in FitFlow from navigating to home during sign-out.
 class AuthSessionSigningOut extends AuthSessionState {

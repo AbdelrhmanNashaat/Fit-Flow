@@ -10,4 +10,6 @@ abstract class DatabaseService {
     required String uid,
     required Map<String, dynamic> data,
   });
+
+  Future<void> deleteUser({required String uid});
 }

@@ -1,3 +1,4 @@
+import 'package:fit_flow/core/errors/failure.dart';
 import 'package:fit_flow/features/auth/data/model/auth_user.dart';
 import 'package:fit_flow/features/auth/domain/repo/auth_repo.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/auth_session_state.dart';
@@ -11,6 +12,15 @@ class AuthSessionCubit extends Cubit<AuthSessionState> {
 
   final AuthRepo _authRepo;
   final UserProfileRepo _userProfileRepo;
+
+  AuthUser? get _currentUser => switch (state) {
+    AuthSessionAuthenticated(:final user) => user,
+    AuthSessionSigningOut(:final user) => user,
+    AuthSessionNeedsOnboarding(:final user) => user,
+    AuthSessionNeedsReauth(:final user) => user,
+    AuthSessionFailure(:final user?) => user,
+    _ => null,
+  };
 
   Future<void> checkAuthStatus() async {
     emit(const AuthSessionChecking());
@@ -33,22 +43,53 @@ class AuthSessionCubit extends Cubit<AuthSessionState> {
   }
 
   Future<void> signOut() async {
-    final currentUser = switch (state) {
-      AuthSessionSigningOut(:final user) => user,
-      AuthSessionAuthenticated(:final user) => user,
-      AuthSessionNeedsOnboarding(:final user) => user,
-      AuthSessionFailure(:final user?) => user,
-      _ => null,
-    };
-
-    if (currentUser != null) {
-      emit(AuthSessionSigningOut(currentUser));
-    }
+    final user = _currentUser;
+    if (user != null) emit(AuthSessionSigningOut(user));
 
     final result = await _authRepo.signOut();
     result.fold(
-      (failure) => emit(AuthSessionFailure(failure.message, user: currentUser)),
+      (failure) => emit(AuthSessionFailure(failure.message, user: user)),
       (_) => emit(const AuthSessionUnauthenticated()),
+    );
+  }
+
+  /// Resets onboarding in Firestore and sends the user back to the goal-selection flow.
+  Future<void> resetAndStartOnboarding() async {
+    final user = _currentUser;
+    if (user == null) return;
+
+    final result = await _userProfileRepo.updateProfile(
+      user.id,
+      {'isOnboardingCompleted': false},
+    );
+    result.fold(
+      (failure) => emit(AuthSessionFailure(failure.message, user: user)),
+      (_) => emit(AuthSessionNeedsOnboarding(user)),
+    );
+  }
+
+  /// Permanently deletes the Firebase Auth account and Firestore document.
+  ///
+  /// On [ReauthRequiredFailure] (email users only), emits [AuthSessionNeedsReauth]
+  /// so the UI can prompt for the password and retry with [password] supplied.
+  Future<void> deleteAccount({String? password}) async {
+    final user = _currentUser;
+    if (user == null) return;
+
+    final authResult = await _authRepo.deleteAccount(password: password);
+    await authResult.fold(
+      (failure) async {
+        if (failure is ReauthRequiredFailure) {
+          emit(AuthSessionNeedsReauth(user, failure.provider));
+        } else {
+          emit(AuthSessionFailure(failure.message, user: user));
+        }
+      },
+      (_) async {
+        // Best-effort Firestore cleanup — ignore errors so Auth deletion is not blocked.
+        await _userProfileRepo.deleteProfile(user.id);
+        emit(const AuthSessionUnauthenticated());
+      },
     );
   }
 
@@ -72,6 +113,7 @@ class AuthSessionCubit extends Cubit<AuthSessionState> {
     final newProfile = UserProfile(
       uid: user.id,
       email: user.email,
+      name: user.name.isNotEmpty ? user.name : null,
       isOnboardingCompleted: false,
       createdAt: DateTime.now(),
     );

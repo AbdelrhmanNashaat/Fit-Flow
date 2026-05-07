@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
+import 'package:fit_flow/core/errors/auth_exception.dart';
 import 'package:fit_flow/core/errors/failure.dart';
 import 'package:fit_flow/core/service/auth_service.dart';
 import 'package:fit_flow/core/service/cache_helper.dart';
@@ -88,6 +89,19 @@ class AuthRepoImpl implements AuthRepo {
       await _authService.signOut();
       await _cacheHelper.clearAuthData();
       return const Right(null);
+    } catch (e) {
+      return Left(Failure(_extractMessage(e)));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteAccount({String? password}) async {
+    try {
+      await _authService.deleteAccount(password: password);
+      await _cacheHelper.clearAuthData();
+      return const Right(null);
+    } on ReauthRequiredException catch (e) {
+      return Left(ReauthRequiredFailure(e.provider));
     } catch (e) {
       return Left(Failure(_extractMessage(e)));
     }

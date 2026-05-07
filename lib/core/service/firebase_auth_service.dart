@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fit_flow/core/errors/auth_exception.dart';
 import 'package:fit_flow/core/errors/firebase_errors.dart';
 import 'package:fit_flow/core/service/auth_service.dart';
 import 'package:fit_flow/features/auth/data/model/auth_user.dart';
@@ -35,7 +36,6 @@ class FirebaseAuthService implements AuthService {
         await signOut();
         return null;
       }
-
       throw Exception(FirebaseErrors.fromCode(e.code).message);
     }
   }
@@ -122,6 +122,55 @@ class FirebaseAuthService implements AuthService {
       try {
         await _googleSignIn.signOut();
       } catch (_) {}
+    }
+  }
+
+  @override
+  Future<void> deleteAccount({String? password}) async {
+    final user = _auth.currentUser;
+    if (user == null) throw Exception('No authenticated user.');
+
+    try {
+      await user.delete();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        await _reauthAndDelete(user, password);
+      } else {
+        throw Exception(FirebaseErrors.fromCode(e.code).message);
+      }
+    }
+
+    try {
+      await _googleSignIn.signOut();
+    } catch (_) {}
+  }
+
+  Future<void> _reauthAndDelete(User user, String? password) async {
+    final provider = user.providerData.isNotEmpty
+        ? user.providerData.first.providerId
+        : 'password';
+
+    if (provider == 'google.com') {
+      final googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        throw Exception('Re-authentication was cancelled.');
+      }
+      final googleAuth = await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      await user.reauthenticateWithCredential(credential);
+      await user.delete();
+    } else {
+      // Email/password — needs explicit password from the user
+      if (password == null) throw ReauthRequiredException(provider);
+      final credential = EmailAuthProvider.credential(
+        email: user.email ?? '',
+        password: password,
+      );
+      await user.reauthenticateWithCredential(credential);
+      await user.delete();
     }
   }
 

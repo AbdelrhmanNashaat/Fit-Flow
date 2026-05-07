@@ -24,7 +24,7 @@ class CustomAppBarWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: [
-                Text(title, style: AppTextStyles.bold20),
+                Text(title, style: AppTextStyles.bold18),
                 const Spacer(),
                 if (trailing != null)
                   trailing!
