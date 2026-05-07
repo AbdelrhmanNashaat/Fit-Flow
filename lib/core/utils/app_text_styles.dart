@@ -1,4 +1,4 @@
-import 'package:fit_flow/core/utils/app_colors.dart';
+﻿import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AppTextStyles {
@@ -11,11 +11,23 @@ class AppTextStyles {
     letterSpacing: -1.2,
     color: AppColors.whiteColor,
   );
+  static const TextStyle bold14 = TextStyle(
+    fontFamily: _fontFamily,
+    fontWeight: FontWeight.bold,
+    fontSize: 14,
+    color: AppColors.textPrimary,
+  );
   static const TextStyle bold20 = TextStyle(
     fontFamily: _fontFamily,
     fontWeight: FontWeight.bold,
     fontSize: 20,
     color: AppColors.primaryColor,
+  );
+  static const TextStyle semiBold12 = TextStyle(
+    fontFamily: _fontFamily,
+    fontWeight: FontWeight.w600,
+    fontSize: 12,
+    color: AppColors.hintTextColor,
   );
   static const TextStyle light14 = TextStyle(
     fontFamily: _fontFamily,
@@ -34,13 +46,13 @@ class AppTextStyles {
     fontFamily: _fontFamily,
     fontWeight: FontWeight.w400,
     fontSize: 14,
-    color: AppColors.buttonTextColor2,
+    color: AppColors.textSecondary,
   );
   static const TextStyle regular12 = TextStyle(
     fontFamily: _fontFamily,
     fontWeight: FontWeight.w400,
     fontSize: 12,
-    color: AppColors.buttonTextColor2,
+    color: AppColors.textSecondary,
   );
   static const TextStyle medium12 = TextStyle(
     fontFamily: _fontFamily,
@@ -48,12 +60,7 @@ class AppTextStyles {
     fontSize: 12,
     color: AppColors.blackColor,
   );
-  static const TextStyle semiBold12 = TextStyle(
-    fontFamily: _fontFamily,
-    fontWeight: FontWeight.w600,
-    fontSize: 12,
-    color: AppColors.blackColor,
-  );
+
   static const TextStyle bold18 = TextStyle(
     fontFamily: _fontFamily,
     fontWeight: FontWeight.w700,
@@ -71,6 +78,12 @@ class AppTextStyles {
     fontWeight: FontWeight.w400,
     fontSize: 17,
     color: AppColors.blackColor,
+  );
+  static const TextStyle regular16 = TextStyle(
+    fontFamily: _fontFamily,
+    fontWeight: FontWeight.w400,
+    fontSize: 16,
+    color: AppColors.textPrimary,
   );
   static const TextStyle bold26 = TextStyle(
     fontFamily: _fontFamily,

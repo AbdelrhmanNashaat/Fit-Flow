@@ -1,4 +1,4 @@
-import 'package:fit_flow/core/utils/app_assets.dart';
+﻿import 'package:fit_flow/core/utils/app_assets.dart';
 import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +48,7 @@ class RecommendationCard extends StatelessWidget {
               child: Text(
                 'Optimal recovery cycle',
                 style: AppTextStyles.medium12.copyWith(
-                  color: AppColors.buttonTextColor2,
+                  color: AppColors.textSecondary,
                 ),
               ),
             ),

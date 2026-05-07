@@ -1,4 +1,4 @@
-import 'package:fit_flow/core/utils/app_colors.dart';
+﻿import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/features/onboarding/presentation/views/widgets/availability_option_card.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ class AvailabilitySelector extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.whiteColor,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.divider2Color),
+        border: Border.all(color: AppColors.dividerLight),
       ),
       child: Row(
         children: _options

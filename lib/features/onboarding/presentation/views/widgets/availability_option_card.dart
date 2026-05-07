@@ -1,4 +1,4 @@
-import 'package:fit_flow/core/utils/app_colors.dart';
+﻿import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +31,7 @@ class AvailabilityOptionCard extends StatelessWidget {
             boxShadow: isSelected
                 ? const [
                     BoxShadow(
-                      color: AppColors.shadowColor,
+                      color: AppColors.shadow,
                       offset: Offset(0, 1),
                       blurRadius: 2,
                     ),
@@ -44,7 +44,7 @@ class AvailabilityOptionCard extends StatelessWidget {
               style: AppTextStyles.semiBold12.copyWith(
                 color: isSelected
                     ? AppColors.whiteColor
-                    : AppColors.secondaryTextColor,
+                    : AppColors.textTertiary,
                 fontSize: 13,
               ),
             ),

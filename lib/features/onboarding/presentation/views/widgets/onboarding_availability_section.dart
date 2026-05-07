@@ -1,4 +1,4 @@
-import 'package:fit_flow/core/utils/app_colors.dart';
+﻿import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:fit_flow/features/onboarding/presentation/views/widgets/availability_selector.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ class OnboardingAvailabilitySection extends StatelessWidget {
         Text(
           'Weekly Availability',
           style: AppTextStyles.bold18.copyWith(
-            color: AppColors.buttonTextColor,
+            color: AppColors.textPrimary,
           ),
         ),
         const SizedBox(height: 12),

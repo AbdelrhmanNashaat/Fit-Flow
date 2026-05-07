@@ -11,7 +11,15 @@
       "Bash(Get-ChildItem -Path \"d:\\\\Flutter Projects\\\\fit_flow\\\\lib\\\\features\\\\auth\\\\presentation\\\\views\\\\widgets\" -File)",
       "Bash(Select-Object Name, FullName)",
       "Bash(Get-ChildItem -Path \"d:\\\\Flutter Projects\\\\fit_flow\" -Recurse -Directory)",
-      "Bash(Sort-Object)"
+      "Bash(Sort-Object)",
+      "Bash(find \"d:\\\\\\\\Flutter Projects\\\\\\\\fit_flow\" -type f -name \"*.dart\" -o -name \"*.yaml\" -o -name \"*.yml\")",
+      "Bash(find \"d:\\\\\\\\Flutter Projects\\\\\\\\fit_flow\\\\\\\\lib\" -type d -name \"features\")",
+      "Bash(xargs -I {} find {} -maxdepth 1 -type d)",
+      "Bash(cd \"d:\\\\\\\\Flutter Projects\\\\\\\\fit_flow\")",
+      "Bash(cd \"d:\\\\\\\\Flutter Projects\\\\\\\\fit_flow\\\\\\\\lib\")",
+      "Bash(grep -v \"^\\\\.$\")",
+      "Bash(Get-ChildItem -Path \"d:\\\\Flutter Projects\\\\fit_flow\\\\lib\" -Recurse -File)",
+      "PowerShell(New-Item -ItemType Directory -Path \".github\" -Force)"
     ]
   }
 }

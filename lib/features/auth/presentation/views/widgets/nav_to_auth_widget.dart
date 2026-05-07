@@ -1,4 +1,4 @@
-import 'package:fit_flow/core/utils/app_colors.dart';
+﻿import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ class NavToAuthWidget extends StatelessWidget {
         Text(
           text,
           style: AppTextStyles.medium14.copyWith(
-            color: AppColors.buttonTextColor2,
+            color: AppColors.textSecondary,
           ),
         ),
         const SizedBox(width: 4),
@@ -30,7 +30,7 @@ class NavToAuthWidget extends StatelessWidget {
           child: Text(
             navText,
             style: AppTextStyles.medium14.copyWith(
-              color: AppColors.navTextColor,
+              color: AppColors.primaryNavSelected,
               fontWeight: FontWeight.bold,
             ),
           ),

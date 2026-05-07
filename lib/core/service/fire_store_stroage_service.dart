@@ -3,6 +3,7 @@ import 'package:fit_flow/core/service/database_service.dart';
 
 class FirestoreService implements DatabaseService {
   FirestoreService(this._firestore);
+
   final FirebaseFirestore _firestore;
 
   @override
@@ -16,7 +17,6 @@ class FirestoreService implements DatabaseService {
   @override
   Future<Map<String, dynamic>?> getUser({required String uid}) async {
     final doc = await _firestore.collection('users').doc(uid).get();
-
     return doc.data();
   }
 
@@ -26,5 +26,10 @@ class FirestoreService implements DatabaseService {
     required Map<String, dynamic> data,
   }) async {
     await _firestore.collection('users').doc(uid).update(data);
+  }
+
+  @override
+  Future<void> deleteUser({required String uid}) async {
+    await _firestore.collection('users').doc(uid).delete();
   }
 }

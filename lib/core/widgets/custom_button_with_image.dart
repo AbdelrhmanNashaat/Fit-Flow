@@ -1,4 +1,4 @@
-import 'package:fit_flow/core/utils/app_colors.dart';
+﻿import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,8 +23,8 @@ class CustomButtonWithImage extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
-          border: Border.all(color: AppColors.buttonBorderColor, width: 0.6),
-          color: AppColors.buttonBackgroundColor,
+          border: Border.all(color: AppColors.borderButton, width: 0.6),
+          color: AppColors.backgroundButton,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
@@ -37,7 +37,7 @@ class CustomButtonWithImage extends StatelessWidget {
                 child: CircularProgressIndicator(
                   strokeWidth: 3,
                   valueColor: AlwaysStoppedAnimation<Color>(
-                    AppColors.buttonTextColor,
+                    AppColors.textPrimary,
                   ),
                 ),
               ),
@@ -48,7 +48,7 @@ class CustomButtonWithImage extends StatelessWidget {
               Text(
                 text,
                 style: AppTextStyles.regular17.copyWith(
-                  color: AppColors.buttonTextColor,
+                  color: AppColors.textPrimary,
                 ),
               ),
             ],

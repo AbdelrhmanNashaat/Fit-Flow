@@ -1,4 +1,4 @@
-import 'package:fit_flow/core/utils/app_colors.dart';
+﻿import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:fit_flow/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ class OnboardingFooterSection extends StatelessWidget {
           child: Text(
             'YOU CAN CHANGE THIS LATER IN PROFILE',
             style: AppTextStyles.semiBold12.copyWith(
-              color: AppColors.secondaryTextColor,
+              color: AppColors.textTertiary,
             ),
             textAlign: TextAlign.center,
           ),

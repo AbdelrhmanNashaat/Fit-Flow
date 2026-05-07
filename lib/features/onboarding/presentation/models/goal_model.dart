@@ -26,7 +26,7 @@ const List<GoalModel> kGoals = [
     goal: OnboardingGoal.getStrong,
     title: 'Get Strong',
     subtitle: 'Prioritize heavy lifting and power.',
-    icon: Icons.sports_martial_arts_rounded,
+    icon: Icons.sports_gymnastics_rounded,
   ),
   GoalModel(
     goal: OnboardingGoal.generalFitness,

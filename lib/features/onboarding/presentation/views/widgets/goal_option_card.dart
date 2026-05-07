@@ -1,4 +1,4 @@
-import 'package:fit_flow/core/utils/app_colors.dart';
+﻿import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +25,7 @@ class GoalOptionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final animatedContainerBorderColor = isSelected
         ? AppColors.primaryColor
-        : AppColors.divider2Color;
+        : AppColors.dividerLight;
     final roundedContainerBorderColor = isSelected
         ? AppColors.primaryColor
         : AppColors.borderColor;
@@ -51,7 +51,7 @@ class GoalOptionCard extends StatelessWidget {
               children: [
                 DecoratedBox(
                   decoration: BoxDecoration(
-                    color: AppColors.backgroundColor,
+                    color: AppColors.backgroundCard,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Padding(
@@ -71,7 +71,7 @@ class GoalOptionCard extends StatelessWidget {
                       Text(
                         subtitle,
                         style: AppTextStyles.regular12.copyWith(
-                          color: AppColors.buttonTextColor2,
+                          color: AppColors.textSecondary,
                         ),
                       ),
                     ],
