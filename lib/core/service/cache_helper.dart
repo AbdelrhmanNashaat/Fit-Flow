@@ -9,6 +9,7 @@ class CacheHelper {
   static const _isLoggedInKey = 'is_logged_in';
   static const _localeKey = 'app_locale';
   static const _localImagePathPrefix = 'local_image_path_';
+  static const _profilePrefix = 'user_profile_';
 
   final SharedPreferences _preferences;
 
@@ -45,5 +46,23 @@ class CacheHelper {
 
   Future<void> saveLocalImagePath(String uid, String path) async {
     await _preferences.setString('$_localImagePathPrefix$uid', path);
+  }
+
+  Map<String, dynamic>? getCachedProfileJson(String uid) {
+    final raw = _preferences.getString('$_profilePrefix$uid');
+    if (raw == null || raw.isEmpty) return null;
+    try {
+      return jsonDecode(raw) as Map<String, dynamic>;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  Future<void> cacheProfileJson(String uid, Map<String, dynamic> json) async {
+    await _preferences.setString('$_profilePrefix$uid', jsonEncode(json));
+  }
+
+  Future<void> clearProfileCache(String uid) async {
+    await _preferences.remove('$_profilePrefix$uid');
   }
 }

@@ -12,11 +12,12 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authState = context.watch<AuthSessionCubit>().state;
-    final userName = switch (authState) {
-      AuthSessionAuthenticated(:final user) => user.name,
-      _ => '',
-    };
+    final userName = context.select<AuthSessionCubit, String>(
+      (c) => switch (c.state) {
+        AuthSessionAuthenticated(:final user) => user.name,
+        _ => '',
+      },
+    );
 
     return BlocProvider(
       create: (_) => HomeCubit(getIt<WorkoutRepo>())..load(userName),

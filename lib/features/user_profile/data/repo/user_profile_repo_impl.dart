@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:typed_data';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:fit_flow/core/errors/failure.dart';
 import 'package:fit_flow/core/service/cache_helper.dart';
@@ -22,14 +23,42 @@ class UserProfileRepoImpl implements UserProfileRepo {
 
   @override
   Future<Either<Failure, UserProfile?>> getProfile(String uid) async {
+    final cachedJson = _cacheHelper.getCachedProfileJson(uid);
     try {
       final data = await _databaseService.getUser(uid: uid);
-      if (data == null) return const Right(null);
+      if (data == null) {
+        if (cachedJson != null) return Right(_profileFromCacheJson(cachedJson));
+        return const Right(null);
+      }
+      await _cacheHelper.cacheProfileJson(uid, _toCacheableJson(data));
       return Right(UserProfile.fromJson(data));
     } catch (e) {
       log(e.toString(), name: 'UserProfileRepoImpl');
+      if (cachedJson != null) return Right(_profileFromCacheJson(cachedJson));
       return Left(Failure(e.toString().replaceFirst('Exception: ', '')));
     }
+  }
+
+  Map<String, dynamic> _toCacheableJson(Map<String, dynamic> data) {
+    final json = Map<String, dynamic>.from(data);
+    final ts = data['createdAt'];
+    if (ts is Timestamp) json['createdAt'] = ts.millisecondsSinceEpoch;
+    return json;
+  }
+
+  UserProfile _profileFromCacheJson(Map<String, dynamic> json) {
+    final millis = json['createdAt'] as int?;
+    return UserProfile(
+      uid: json['uid'] as String? ?? '',
+      email: json['email'] as String? ?? '',
+      name: json['name'] as String?,
+      myGoal: json['myGoal'] as String?,
+      weeklyAvailability: json['weeklyAvailability'] as int?,
+      isOnboardingCompleted: json['isOnboardingCompleted'] as bool? ?? false,
+      createdAt: millis != null
+          ? DateTime.fromMillisecondsSinceEpoch(millis)
+          : DateTime.now(),
+    );
   }
 
   @override

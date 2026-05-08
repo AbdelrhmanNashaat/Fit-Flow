@@ -71,6 +71,18 @@ class _ActiveExerciseScaffold extends StatelessWidget {
           context.read<ActiveExerciseCubit>().clearValidationError();
         }
       },
+      // Only rebuild the body when exercise content changes — timer ticks are
+      // handled inside _ExerciseTimerDisplay and _RestTimerButton via their
+      // own selectors.
+      buildWhen: (prev, curr) {
+        if (curr is! ActiveExerciseReady || prev is! ActiveExerciseReady) {
+          return true;
+        }
+        return prev.currentIndex != curr.currentIndex ||
+            prev.sets != curr.sets ||
+            prev.showWeightDialog != curr.showWeightDialog ||
+            prev.validationError != curr.validationError;
+      },
       builder: (context, state) {
         if (state is! ActiveExerciseReady) return const SizedBox.shrink();
         return _ActiveExerciseBody(state: state);
@@ -102,6 +114,7 @@ class _ActiveExerciseBody extends StatelessWidget {
         title: Text(l10n.workoutSession, style: AppTextStyles.bold16.copyWith(color: AppColors.blackColor)),
         centerTitle: true,
         actions: [
+          const _ExerciseTimerDisplay(),
           TextButton(
             onPressed: () => cubit.tryFinish(),
             child: Text(
@@ -137,11 +150,10 @@ class _ActiveExerciseBody extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           AddSetButton(onTap: cubit.addSet),
-          // Space for bottom button
           const SizedBox(height: 90),
         ],
       ),
-      bottomSheet: _RestTimerButton(state: state, cubit: cubit),
+      bottomSheet: const _RestTimerButton(),
     );
   }
 
@@ -156,11 +168,36 @@ class _ActiveExerciseBody extends StatelessWidget {
   }
 }
 
-class _RestTimerButton extends StatelessWidget {
-  const _RestTimerButton({required this.state, required this.cubit});
+// ─── Elapsed timer in the app bar — rebuilds only on elapsed-second ticks ─────
 
-  final ActiveExerciseReady state;
-  final ActiveExerciseCubit cubit;
+class _ExerciseTimerDisplay extends StatelessWidget {
+  const _ExerciseTimerDisplay();
+
+  String _format(int seconds) {
+    final m = seconds ~/ 60;
+    final s = seconds % 60;
+    return '${m.toString().padLeft(2, '0')}:${s.toString().padLeft(2, '0')}';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelector<ActiveExerciseCubit, ActiveExerciseState, int>(
+      selector: (s) => s is ActiveExerciseReady ? s.elapsedSeconds : 0,
+      builder: (context, elapsed) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Text(
+          _format(elapsed),
+          style: AppTextStyles.regular14.copyWith(color: AppColors.textSecondary),
+        ),
+      ),
+    );
+  }
+}
+
+// ─── Rest timer button — rebuilds only when restTimerSeconds changes ──────────
+
+class _RestTimerButton extends StatelessWidget {
+  const _RestTimerButton();
 
   String _formatTimer(int seconds) {
     final m = seconds ~/ 60;
@@ -170,41 +207,47 @@ class _RestTimerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    final isRunning = state.restTimerSeconds != null;
-    final label = isRunning
-        ? '${l10n.startRestTimer}  (${_formatTimer(state.restTimerSeconds!)})'
-        : '${l10n.startRestTimer}  (01:30)';
+    return BlocSelector<ActiveExerciseCubit, ActiveExerciseState, int?>(
+      selector: (s) => s is ActiveExerciseReady ? s.restTimerSeconds : null,
+      builder: (context, restSeconds) {
+        final l10n = context.l10n;
+        final cubit = context.read<ActiveExerciseCubit>();
+        final isRunning = restSeconds != null;
+        final label = isRunning
+            ? '${l10n.startRestTimer}  (${_formatTimer(restSeconds)})'
+            : '${l10n.startRestTimer}  (01:30)';
 
-    return Container(
-      color: AppColors.whiteColor,
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
-      child: SizedBox(
-        width: double.infinity,
-        child: ElevatedButton.icon(
-          onPressed: isRunning ? null : cubit.startRestTimer,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: isRunning
-                ? AppColors.success
-                : AppColors.buttonColor,
-            disabledBackgroundColor: AppColors.success,
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
+        return Container(
+          color: AppColors.whiteColor,
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+          child: SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: isRunning ? null : cubit.startRestTimer,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: isRunning
+                    ? AppColors.success
+                    : AppColors.buttonColor,
+                disabledBackgroundColor: AppColors.success,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                elevation: 0,
+              ),
+              icon: Icon(
+                isRunning ? Icons.timer : Icons.timer_outlined,
+                color: AppColors.whiteColor,
+                size: 20,
+              ),
+              label: Text(
+                label,
+                style: AppTextStyles.bold14.copyWith(color: AppColors.whiteColor),
+              ),
             ),
-            elevation: 0,
           ),
-          icon: Icon(
-            isRunning ? Icons.timer : Icons.timer_outlined,
-            color: AppColors.whiteColor,
-            size: 20,
-          ),
-          label: Text(
-            label,
-            style: AppTextStyles.bold14.copyWith(color: AppColors.whiteColor),
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
