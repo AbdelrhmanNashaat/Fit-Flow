@@ -49,7 +49,10 @@ dependencies:
   mocktail: ^1.0.4
   package_info_plus: ^8.3.0
   path_provider: ^2.1.5
+<<<<<<< HEAD
   persistent_bottom_nav_bar: ^6.2.1
+=======
+>>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
   shared_preferences: ^2.5.3
   shimmer: ^3.0.0
   url_launcher: ^6.3.1

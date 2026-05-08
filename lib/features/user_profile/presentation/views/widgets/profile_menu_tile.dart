@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿import 'package:fit_flow/core/utils/app_colors.dart';
+=======
+import 'package:fit_flow/core/utils/app_colors.dart';
+>>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -30,10 +34,17 @@ class ProfileMenuTile extends StatelessWidget {
       iconBgColor = Colors.red.withValues(alpha: 0.08);
     } else if (isLanguage) {
       color = AppColors.buttonColor;
+<<<<<<< HEAD
       iconBgColor = AppColors.primarySurface;
     } else {
       color = AppColors.textPrimary;
       iconBgColor = AppColors.backgroundCard;
+=======
+      iconBgColor = AppColors.lightBlueColor;
+    } else {
+      color = AppColors.buttonTextColor;
+      iconBgColor = AppColors.backgroundColor;
+>>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
     }
 
     return Material(

@@ -17,9 +17,13 @@
       "Bash(xargs -I {} find {} -maxdepth 1 -type d)",
       "Bash(cd \"d:\\\\\\\\Flutter Projects\\\\\\\\fit_flow\")",
       "Bash(cd \"d:\\\\\\\\Flutter Projects\\\\\\\\fit_flow\\\\\\\\lib\")",
+<<<<<<< HEAD
       "Bash(grep -v \"^\\\\.$\")",
       "Bash(Get-ChildItem -Path \"d:\\\\Flutter Projects\\\\fit_flow\\\\lib\" -Recurse -File)",
       "PowerShell(New-Item -ItemType Directory -Path \".github\" -Force)"
+=======
+      "Bash(grep -v \"^\\\\.$\")"
+>>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
     ]
   }
 }

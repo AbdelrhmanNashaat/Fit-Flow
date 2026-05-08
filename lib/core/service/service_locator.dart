@@ -73,6 +73,15 @@ void setupServiceLocator({required SharedPreferences sharedPreferences}) {
         getIt<LocalImageService>(),
         getIt<CacheHelper>(),
       ),
+<<<<<<< HEAD
+=======
+    );
+  }
+
+  if (!getIt.isRegistered<LocaleCubit>()) {
+    getIt.registerLazySingleton<LocaleCubit>(
+      () => LocaleCubit(getIt<CacheHelper>()),
+>>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
     );
   }
 

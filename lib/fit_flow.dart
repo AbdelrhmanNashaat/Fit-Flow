@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿import 'package:fit_flow/core/config/app_config.dart';
+=======
+import 'package:fit_flow/core/config/app_config.dart';
+>>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
 import 'package:fit_flow/core/l10n/app_localizations.dart';
 import 'package:fit_flow/core/service/service_locator.dart';
 import 'package:fit_flow/core/utils/app_colors.dart';
@@ -102,7 +106,11 @@ class _FitFlowState extends State<FitFlow> {
             },
             theme: ThemeData(
               primaryColor: AppColors.primaryColor,
+<<<<<<< HEAD
               scaffoldBackgroundColor: AppColors.backgroundScaffold,
+=======
+              scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
+>>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
             ),
           );
         },

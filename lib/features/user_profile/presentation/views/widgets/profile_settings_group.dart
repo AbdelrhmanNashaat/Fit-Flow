@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿import 'package:fit_flow/core/utils/app_colors.dart';
+=======
+import 'package:fit_flow/core/utils/app_colors.dart';
+>>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +33,11 @@ class ProfileSettingsGroup extends StatelessWidget {
           decoration: BoxDecoration(
             color: AppColors.whiteColor,
             borderRadius: BorderRadius.circular(12),
+<<<<<<< HEAD
             border: Border.all(color: AppColors.borderLight),
+=======
+            border: Border.all(color: AppColors.lightGrayColor),
+>>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -40,7 +48,11 @@ class ProfileSettingsGroup extends StatelessWidget {
                   const Divider(
                     height: 1,
                     thickness: 1,
+<<<<<<< HEAD
                     color: AppColors.dividerLight,
+=======
+                    color: AppColors.divider2Color,
+>>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
                     indent: 16,
                     endIndent: 16,
                   ),

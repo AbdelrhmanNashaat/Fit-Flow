@@ -18,6 +18,7 @@ class AppLocalizations {
   String get appName => _t(en: 'FitFlow', ar: 'فيت فلو');
 
   // ─── Navigation tabs ───────────────────────────────────────────────────────
+<<<<<<< HEAD
   String get home => _t(en: 'Home', ar: 'الرئيسية');
   String get learn => _t(en: 'Learn', ar: 'تعلّم');
   String get profile => _t(en: 'Profile', ar: 'الملف');
@@ -26,6 +27,12 @@ class AppLocalizations {
   String get summary => _t(en: 'Summary', ar: 'ملخص');
   String get activity => _t(en: 'Activity', ar: 'النشاط');
   String get vitals => _t(en: 'Vitals', ar: 'القياسات');
+=======
+  String get summary => _t(en: 'Summary', ar: 'ملخص');
+  String get activity => _t(en: 'Activity', ar: 'النشاط');
+  String get vitals => _t(en: 'Vitals', ar: 'القياسات');
+  String get profile => _t(en: 'Profile', ar: 'الملف');
+>>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
 
   // ─── Profile screen ────────────────────────────────────────────────────────
   String get healthProfile => _t(en: 'Health Profile', ar: 'الملف الصحي');
@@ -98,6 +105,7 @@ class AppLocalizations {
   String get passwordLabel => _t(en: 'Password', ar: 'كلمة المرور');
   String get errorLabel => _t(en: 'Error', ar: 'خطأ');
 
+<<<<<<< HEAD
   // ─── Home dashboard ────────────────────────────────────────────────────────
   String get todayWorkout => _t(en: "Today's Workout", ar: 'تمرين اليوم');
   String get restDay => _t(en: 'Rest Day', ar: 'يوم راحة');
@@ -165,6 +173,8 @@ class AppLocalizations {
   String get saveWeight => _t(en: 'Save', ar: 'حفظ');
   String get skipWeight => _t(en: 'Skip', ar: 'تخطى');
 
+=======
+>>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
   // ─── Parameterized strings ─────────────────────────────────────────────────
   String daysPerWeek(int n) =>
       _t(en: '$n Days/Week', ar: '$n أيام/أسبوع');
@@ -172,6 +182,7 @@ class AppLocalizations {
   String appVersion(String v) =>
       _t(en: 'Version $v', ar: 'الإصدار $v');
 
+<<<<<<< HEAD
   String weekLabel(int n) => _t(en: 'Week $n', ar: 'الأسبوع $n');
 
   String exerciseCount(int n) =>
@@ -180,6 +191,8 @@ class AppLocalizations {
   String setCount(int n) =>
       _t(en: '$n set${n == 1 ? '' : 's'}', ar: '$n مجموعة');
 
+=======
+>>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
   String memberSince(DateTime date) {
     final month = _monthName(date.month);
     return _t(
