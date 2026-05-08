@@ -10,6 +10,8 @@ import 'package:fit_flow/core/service/local_image_service.dart';
 import 'package:fit_flow/core/service/local_image_service_impl.dart';
 import 'package:fit_flow/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:fit_flow/features/auth/domain/repo/auth_repo.dart';
+import 'package:fit_flow/features/learn/data/repo/local_learn_repo.dart';
+import 'package:fit_flow/features/learn/domain/repo/learn_repo.dart';
 import 'package:fit_flow/features/locale/cubit/locale_cubit.dart';
 import 'package:fit_flow/features/user_profile/data/repo/user_profile_repo_impl.dart';
 import 'package:fit_flow/features/user_profile/domain/repo/user_profile_repo.dart';
@@ -89,5 +91,9 @@ void setupServiceLocator({required SharedPreferences sharedPreferences}) {
 
   if (!getIt.isRegistered<WorkoutRepo>()) {
     getIt.registerLazySingleton<WorkoutRepo>(() => const LocalWorkoutRepo());
+  }
+
+  if (!getIt.isRegistered<LearnRepo>()) {
+    getIt.registerLazySingleton<LearnRepo>(() => const LocalLearnRepo());
   }
 }

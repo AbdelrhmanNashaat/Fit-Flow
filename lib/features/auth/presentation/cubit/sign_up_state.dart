@@ -1,17 +1,23 @@
 import 'package:fit_flow/features/auth/data/model/auth_user.dart';
 
-sealed class SignUpState {}
+sealed class SignUpState {
+  const SignUpState();
+}
 
-class SignUpInitial extends SignUpState {}
+final class SignUpInitial extends SignUpState {
+  const SignUpInitial();
+}
 
-class SignUpLoading extends SignUpState {}
+final class SignUpLoading extends SignUpState {
+  const SignUpLoading();
+}
 
-class SignUpSuccess extends SignUpState {
-  SignUpSuccess(this.user);
+final class SignUpSuccess extends SignUpState {
+  const SignUpSuccess(this.user);
   final AuthUser user;
 }
 
-class SignUpFailure extends SignUpState {
-  SignUpFailure(this.message);
+final class SignUpFailure extends SignUpState {
+  const SignUpFailure(this.message);
   final String message;
 }

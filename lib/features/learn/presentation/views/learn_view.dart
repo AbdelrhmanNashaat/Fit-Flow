@@ -1,115 +1,36 @@
+import 'package:fit_flow/core/service/service_locator.dart';
 import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_spacing.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
+import 'package:fit_flow/features/learn/data/models/learn_item.dart';
+import 'package:fit_flow/features/learn/domain/repo/learn_repo.dart';
+import 'package:fit_flow/features/learn/presentation/cubit/learn_cubit.dart';
+import 'package:fit_flow/features/learn/presentation/cubit/learn_state.dart';
 import 'package:flutter/material.dart';
-
-// ─── Static data ─────────────────────────────────────────────────────────────
-
-class _VideoItem {
-  const _VideoItem({
-    required this.title,
-    required this.channel,
-    required this.duration,
-    required this.category,
-    required this.color,
-    required this.icon,
-  });
-  final String title;
-  final String channel;
-  final String duration;
-  final String category;
-  final Color color;
-  final IconData icon;
-}
-
-const _categories = ['All', 'Technique', 'Nutrition', 'Recovery', 'Mindset'];
-
-const _featured = _VideoItem(
-  title: 'How to Perfect Your Squat Form',
-  channel: 'FitFlow Academy',
-  duration: '12:34',
-  category: 'Technique',
-  color: Color(0xFF1A3FAB),
-  icon: Icons.play_circle_fill_rounded,
-);
-
-const _videos = [
-  _VideoItem(
-    title: 'Progressive Overload Explained',
-    channel: 'Strength Science',
-    duration: '08:21',
-    category: 'Technique',
-    color: Color(0xFF2563EB),
-    icon: Icons.fitness_center_rounded,
-  ),
-  _VideoItem(
-    title: 'Pre-Workout Nutrition Timing',
-    channel: 'FitFlow Academy',
-    duration: '06:45',
-    category: 'Nutrition',
-    color: Color(0xFF22C55E),
-    icon: Icons.restaurant_rounded,
-  ),
-  _VideoItem(
-    title: 'Sleep & Muscle Recovery',
-    channel: 'Recovery Lab',
-    duration: '10:12',
-    category: 'Recovery',
-    color: Color(0xFF8B5CF6),
-    icon: Icons.bedtime_rounded,
-  ),
-  _VideoItem(
-    title: 'Bench Press — Full Tutorial',
-    channel: 'Strength Science',
-    duration: '15:07',
-    category: 'Technique',
-    color: Color(0xFFF59E0B),
-    icon: Icons.sports_gymnastics_rounded,
-  ),
-  _VideoItem(
-    title: 'Protein Intake for Muscle Growth',
-    channel: 'FitFlow Academy',
-    duration: '09:30',
-    category: 'Nutrition',
-    color: Color(0xFFEF4444),
-    icon: Icons.egg_alt_rounded,
-  ),
-  _VideoItem(
-    title: 'Foam Rolling: Do It Right',
-    channel: 'Recovery Lab',
-    duration: '07:55',
-    category: 'Recovery',
-    color: Color(0xFF14B8A6),
-    icon: Icons.self_improvement_rounded,
-  ),
-  _VideoItem(
-    title: 'Building a Winning Mindset',
-    channel: 'Mind Over Muscle',
-    duration: '11:20',
-    category: 'Mindset',
-    color: Color(0xFFEC4899),
-    icon: Icons.psychology_rounded,
-  ),
-];
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // ─── View ─────────────────────────────────────────────────────────────────────
 
-class LearnView extends StatefulWidget {
+class LearnView extends StatelessWidget {
   const LearnView({super.key});
 
   @override
-  State<LearnView> createState() => _LearnViewState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => LearnCubit(getIt<LearnRepo>()),
+      child: const _LearnBody(),
+    );
+  }
 }
 
-class _LearnViewState extends State<LearnView> {
-  String _selectedCategory = 'All';
-
-  List<_VideoItem> get _filtered => _selectedCategory == 'All'
-      ? _videos
-      : _videos.where((v) => v.category == _selectedCategory).toList();
+class _LearnBody extends StatelessWidget {
+  const _LearnBody();
 
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<LearnCubit>().state;
+    if (state is! LearnLoaded) return const SizedBox.shrink();
+
     return SafeArea(
       bottom: false,
       child: ListView(
@@ -126,7 +47,12 @@ class _LearnViewState extends State<LearnView> {
             child: Row(
               children: [
                 Expanded(
-                  child: Text('Learn', style: AppTextStyles.extraBold26.copyWith(color: AppColors.blackColor)),
+                  child: Text(
+                    'Learn',
+                    style: AppTextStyles.extraBold26.copyWith(
+                      color: AppColors.blackColor,
+                    ),
+                  ),
                 ),
                 const Icon(
                   Icons.search_rounded,
@@ -138,9 +64,9 @@ class _LearnViewState extends State<LearnView> {
           ),
           const SizedBox(height: 20),
           // ── Featured card ───────────────────────────────────────
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: _FeaturedCard(item: _featured),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: _FeaturedCard(item: state.featured),
           ),
           const SizedBox(height: 20),
           // ── Category chips ──────────────────────────────────────
@@ -149,13 +75,14 @@ class _LearnViewState extends State<LearnView> {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              itemCount: _categories.length,
+              itemCount: state.categories.length,
               separatorBuilder: (_, _) => const SizedBox(width: 8),
               itemBuilder: (_, i) {
-                final cat = _categories[i];
-                final selected = cat == _selectedCategory;
+                final cat = state.categories[i];
+                final selected = cat == state.selectedCategory;
                 return GestureDetector(
-                  onTap: () => setState(() => _selectedCategory = cat),
+                  onTap: () =>
+                      context.read<LearnCubit>().selectCategory(cat),
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
                     padding: const EdgeInsets.symmetric(
@@ -192,9 +119,7 @@ class _LearnViewState extends State<LearnView> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
-              children: _filtered
-                  .map((v) => _VideoCard(item: v))
-                  .toList(),
+              children: state.filtered.map((v) => _VideoCard(item: v)).toList(),
             ),
           ),
         ],
@@ -207,7 +132,7 @@ class _LearnViewState extends State<LearnView> {
 
 class _FeaturedCard extends StatelessWidget {
   const _FeaturedCard({required this.item});
-  final _VideoItem item;
+  final LearnItem item;
 
   @override
   Widget build(BuildContext context) {
@@ -223,7 +148,6 @@ class _FeaturedCard extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          // Background icon
           Positioned(
             right: 16,
             top: 16,
@@ -304,7 +228,7 @@ class _FeaturedCard extends StatelessWidget {
 
 class _VideoCard extends StatelessWidget {
   const _VideoCard({required this.item});
-  final _VideoItem item;
+  final LearnItem item;
 
   @override
   Widget build(BuildContext context) {
@@ -384,7 +308,10 @@ class _VideoCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     item.title,
-                    style: AppTextStyles.bold14.copyWith(fontSize: 13),
+                    style: AppTextStyles.bold14.copyWith(
+                      color: AppColors.textPrimary,
+                      fontSize: 13,
+                    ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),

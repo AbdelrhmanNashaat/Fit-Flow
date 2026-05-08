@@ -1,6 +1,7 @@
 import 'package:fit_flow/core/l10n/app_localizations.dart';
 import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
+import 'package:fit_flow/core/widgets/app_confirm_dialog.dart';
 import 'package:fit_flow/core/widgets/custom_app_bar.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/auth_session_cubit.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/auth_session_state.dart';
@@ -119,7 +120,7 @@ class _ReauthDialogState extends State<_ReauthDialog> {
           },
           child: Text(
             l10n.delete,
-            style: const TextStyle(color: Colors.red),
+            style: const TextStyle(color: AppColors.error),
           ),
         ),
       ],
@@ -230,79 +231,39 @@ class _ProfileContent extends StatelessWidget {
 
   void _confirmSignOut(BuildContext context, AppLocalizations l10n) {
     final authCubit = context.read<AuthSessionCubit>();
-    showDialog<void>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(l10n.logOutConfirmTitle),
-        content: Text(l10n.logOutConfirmMessage),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: Text(l10n.cancel),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(ctx).pop();
-              authCubit.signOut();
-            },
-            child: Text(
-              l10n.logOut,
-              style: const TextStyle(color: Colors.red),
-            ),
-          ),
-        ],
-      ),
+    AppConfirmDialog.show(
+      context,
+      title: l10n.logOutConfirmTitle,
+      message: l10n.logOutConfirmMessage,
+      confirmLabel: l10n.logOut,
+      cancelLabel: l10n.cancel,
+      isDestructive: true,
+      onConfirm: authCubit.signOut,
     );
   }
 
   void _confirmReset(BuildContext context, AppLocalizations l10n) {
     final authCubit = context.read<AuthSessionCubit>();
-    showDialog<void>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(l10n.resetPlanTitle),
-        content: Text(l10n.resetPlanMessage),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: Text(l10n.cancel),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(ctx).pop();
-              authCubit.resetAndStartOnboarding();
-            },
-            child: Text(l10n.reset),
-          ),
-        ],
-      ),
+    AppConfirmDialog.show(
+      context,
+      title: l10n.resetPlanTitle,
+      message: l10n.resetPlanMessage,
+      confirmLabel: l10n.reset,
+      cancelLabel: l10n.cancel,
+      onConfirm: authCubit.resetAndStartOnboarding,
     );
   }
 
   void _confirmDeleteAccount(BuildContext context, AppLocalizations l10n) {
     final authCubit = context.read<AuthSessionCubit>();
-    showDialog<void>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(l10n.deleteAccountTitle),
-        content: Text(l10n.deleteAccountMessage),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: Text(l10n.cancel),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(ctx).pop();
-              authCubit.deleteAccount();
-            },
-            child: Text(
-              l10n.delete,
-              style: const TextStyle(color: Colors.red),
-            ),
-          ),
-        ],
-      ),
+    AppConfirmDialog.show(
+      context,
+      title: l10n.deleteAccountTitle,
+      message: l10n.deleteAccountMessage,
+      confirmLabel: l10n.delete,
+      cancelLabel: l10n.cancel,
+      isDestructive: true,
+      onConfirm: authCubit.deleteAccount,
     );
   }
 }

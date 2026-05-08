@@ -1,8 +1,8 @@
 import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:fit_flow/core/utils/app_validators.dart';
+import 'package:fit_flow/core/widgets/animated_error_banner.dart';
 import 'package:fit_flow/core/widgets/custom_button.dart';
-import 'package:fit_flow/core/widgets/error_banner.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/reset_password_cubit.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/reset_password_state.dart';
 import 'package:fit_flow/features/auth/presentation/views/widgets/auth_container_parent_widget.dart';
@@ -76,36 +76,11 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
                         String?>(
                       selector: (s) =>
                           s is ResetPasswordFailure ? s.message : null,
-                      builder: (context, errorMessage) {
-                        return AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 280),
-                          transitionBuilder: (child, animation) =>
-                              FadeTransition(
-                            opacity: animation,
-                            child: SlideTransition(
-                              position: Tween<Offset>(
-                                begin: const Offset(0, -0.25),
-                                end: Offset.zero,
-                              ).animate(animation),
-                              child: child,
-                            ),
-                          ),
-                          child: errorMessage != null
-                              ? Padding(
-                                  key: ValueKey(errorMessage),
-                                  padding: const EdgeInsets.only(bottom: 12),
-                                  child: ErrorBanner(
-                                    message: errorMessage,
-                                    onDismiss: () => context
-                                        .read<ResetPasswordCubit>()
-                                        .clearError(),
-                                  ),
-                                )
-                              : const SizedBox.shrink(
-                                  key: ValueKey('no-error'),
-                                ),
-                        );
-                      },
+                      builder: (context, errorMessage) => AnimatedErrorBanner(
+                        message: errorMessage,
+                        onDismiss: () =>
+                            context.read<ResetPasswordCubit>().clearError(),
+                      ),
                     ),
                     Form(
                       key: _formKey,

@@ -3,11 +3,11 @@ import 'package:fit_flow/features/auth/presentation/cubit/sign_up_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
-  SignUpCubit(this._authRepo) : super(SignUpInitial());
+  SignUpCubit(this._authRepo) : super(const SignUpInitial());
 
   final AuthRepo _authRepo;
   Future<void> signUp(String email, String password) async {
-    emit(SignUpLoading());
+    emit(const SignUpLoading());
     final result = await _authRepo.signUp(email.trim(), password);
     result.fold(
       (failure) => emit(SignUpFailure(failure.message)),
@@ -15,10 +15,10 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
   }
 
-  void clearError() => emit(SignUpInitial());
+  void clearError() => emit(const SignUpInitial());
 
   Future<void> signUpWithGoogle() async {
-    emit(SignUpLoading());
+    emit(const SignUpLoading());
     final result = await _authRepo.signInWithGoogle();
     result.fold(
       (failure) => emit(SignUpFailure(failure.message)),

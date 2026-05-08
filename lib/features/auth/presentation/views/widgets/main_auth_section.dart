@@ -1,5 +1,5 @@
+import 'package:fit_flow/core/widgets/animated_error_banner.dart';
 import 'package:fit_flow/core/widgets/custom_button.dart';
-import 'package:fit_flow/core/widgets/error_banner.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/sign_in_cubit.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/sign_in_state.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/auth_session_cubit.dart';
@@ -54,32 +54,10 @@ class _MainAuthSectionState extends State<MainAuthSection> {
             BlocSelector<SignInCubit, SignInState, String?>(
               selector: (state) =>
                   state is SignInFailure ? state.message : null,
-              builder: (context, errorMessage) {
-                return AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 280),
-                  transitionBuilder: (child, animation) => FadeTransition(
-                    opacity: animation,
-                    child: SlideTransition(
-                      position: Tween<Offset>(
-                        begin: const Offset(0, -0.25),
-                        end: Offset.zero,
-                      ).animate(animation),
-                      child: child,
-                    ),
-                  ),
-                  child: errorMessage != null
-                      ? Padding(
-                          key: ValueKey(errorMessage),
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: ErrorBanner(
-                            message: errorMessage,
-                            onDismiss: () =>
-                                context.read<SignInCubit>().clearError(),
-                          ),
-                        )
-                      : const SizedBox.shrink(key: ValueKey('no-error')),
-                );
-              },
+              builder: (context, errorMessage) => AnimatedErrorBanner(
+                message: errorMessage,
+                onDismiss: () => context.read<SignInCubit>().clearError(),
+              ),
             ),
             BothTextFiledWidget(
               formKey: _formKey,
