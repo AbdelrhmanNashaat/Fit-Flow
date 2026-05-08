@@ -16,6 +16,11 @@ class AppConfig {
 
   static AppConfig get instance => _instance;
 
+  static const String _googleServerClientId = String.fromEnvironment(
+    'GOOGLE_SERVER_CLIENT_ID',
+    defaultValue: '',
+  );
+
   static void setup(AppFlavor flavor) {
     switch (flavor) {
       case AppFlavor.development:
@@ -23,24 +28,21 @@ class AppConfig {
           flavor: AppFlavor.development,
           appName: 'FitFlow Dev',
           showDebugBanner: true,
-          googleServerClientId:
-              '528662074916-djltr29g5njdrqonqkfnlguar43jllam.apps.googleusercontent.com',
+          googleServerClientId: _googleServerClientId,
         );
       case AppFlavor.staging:
         _instance = const AppConfig._(
           flavor: AppFlavor.staging,
           appName: 'FitFlow Staging',
           showDebugBanner: true,
-          googleServerClientId:
-              '528662074916-djltr29g5njdrqonqkfnlguar43jllam.apps.googleusercontent.com',
+          googleServerClientId: _googleServerClientId,
         );
       case AppFlavor.production:
         _instance = const AppConfig._(
           flavor: AppFlavor.production,
           appName: 'FitFlow',
           showDebugBanner: false,
-          googleServerClientId:
-              '528662074916-djltr29g5njdrqonqkfnlguar43jllam.apps.googleusercontent.com',
+          googleServerClientId: _googleServerClientId,
         );
     }
   }

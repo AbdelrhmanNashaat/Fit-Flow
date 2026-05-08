@@ -57,43 +57,72 @@ class ProfileSettingsViewBody extends StatelessWidget {
   }
 
   void _showReauthDialog(BuildContext context) {
-    final l10n = context.l10n;
     final authCubit = context.read<AuthSessionCubit>();
-    final controller = TextEditingController();
-
     showDialog<void>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(l10n.reauthTitle),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(l10n.reauthMessage),
-            const SizedBox(height: 16),
-            TextField(
-              controller: controller,
-              obscureText: true,
-              decoration: InputDecoration(labelText: l10n.passwordLabel),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: Text(l10n.cancel),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(ctx).pop();
-              authCubit.deleteAccount(password: controller.text.trim());
-            },
-            child: Text(
-              l10n.delete,
-              style: const TextStyle(color: Colors.red),
-            ),
+      builder: (_) => _ReauthDialog(
+        onConfirm: (password) => authCubit.deleteAccount(password: password),
+      ),
+    );
+  }
+}
+
+class _ReauthDialog extends StatefulWidget {
+  const _ReauthDialog({required this.onConfirm});
+  final void Function(String password) onConfirm;
+
+  @override
+  State<_ReauthDialog> createState() => _ReauthDialogState();
+}
+
+class _ReauthDialogState extends State<_ReauthDialog> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    return AlertDialog(
+      title: Text(l10n.reauthTitle),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(l10n.reauthMessage),
+          const SizedBox(height: 16),
+          TextField(
+            controller: _controller,
+            obscureText: true,
+            decoration: InputDecoration(labelText: l10n.passwordLabel),
           ),
         ],
       ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(l10n.cancel),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+            widget.onConfirm(_controller.text.trim());
+          },
+          child: Text(
+            l10n.delete,
+            style: const TextStyle(color: Colors.red),
+          ),
+        ),
+      ],
     );
   }
 }
