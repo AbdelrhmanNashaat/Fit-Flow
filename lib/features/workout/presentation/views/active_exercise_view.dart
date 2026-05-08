@@ -13,13 +13,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ActiveExerciseView extends StatelessWidget {
-  const ActiveExerciseView({super.key});
+  const ActiveExerciseView({super.key, required this.args});
+
+  final ActiveExerciseArgs args;
 
   @override
   Widget build(BuildContext context) {
-    final args =
-        ModalRoute.of(context)!.settings.arguments as ActiveExerciseArgs;
-
     return BlocProvider(
       create: (_) => ActiveExerciseCubit()..start(args.day, args.startIndex),
       child: const _ActiveExerciseScaffold(),

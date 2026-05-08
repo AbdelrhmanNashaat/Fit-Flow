@@ -4,6 +4,7 @@ import 'package:fit_flow/core/utils/app_navigation.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:fit_flow/features/auth/presentation/views/widgets/nav_to_auth_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CreateAccountBottomSection extends StatelessWidget {
   const CreateAccountBottomSection({super.key});
@@ -18,7 +19,7 @@ class CreateAccountBottomSection extends StatelessWidget {
           text: l10n.alreadyHaveAccount,
           navText: l10n.signInNav,
           onTap: () =>
-              Navigator.pushReplacementNamed(context, AppNavigation.signIn),
+              context.go(AppNavigation.signIn),
         ),
         const SizedBox(height: 16),
         Text(

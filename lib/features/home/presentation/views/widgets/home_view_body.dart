@@ -14,6 +14,7 @@ import 'package:fit_flow/features/workout/data/models/workout_day_model.dart';
 import 'package:fit_flow/features/workout/presentation/models/active_exercise_args.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
@@ -138,9 +139,9 @@ class _HomeContent extends StatelessWidget {
     WorkoutDayModel day,
     int index,
   ) {
-    Navigator.of(context, rootNavigator: true).pushNamed(
+    context.push(
       AppNavigation.activeExercise,
-      arguments: ActiveExerciseArgs(day: day, startIndex: index),
+      extra: ActiveExerciseArgs(day: day, startIndex: index),
     );
   }
 }
