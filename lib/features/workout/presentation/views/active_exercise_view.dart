@@ -110,7 +110,10 @@ class _ActiveExerciseBody extends StatelessWidget {
           icon: const Icon(Icons.close, color: AppColors.textPrimary, size: 22),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text(l10n.workoutSession, style: AppTextStyles.bold16.copyWith(color: AppColors.blackColor)),
+        title: Text(
+          l10n.workoutSession,
+          style: AppTextStyles.bold16.copyWith(color: AppColors.blackColor),
+        ),
         centerTitle: true,
         actions: [
           const _ExerciseTimerDisplay(),
@@ -132,7 +135,10 @@ class _ActiveExerciseBody extends StatelessWidget {
           ExerciseMediaSection(exercise: ex),
           const SizedBox(height: 14),
           // ── Exercise name ─────────────────────────────────────────
-          Text(ex.name, style: AppTextStyles.bold18.copyWith(color: AppColors.blackColor)),
+          Text(
+            ex.name,
+            style: AppTextStyles.bold18.copyWith(color: AppColors.blackColor),
+          ),
           const SizedBox(height: 16),
           // ── Form cues ─────────────────────────────────────────────
           FormCueCard(cues: ex.formCues),
@@ -144,7 +150,8 @@ class _ActiveExerciseBody extends StatelessWidget {
             (e) => WorkoutSetRow(
               set: e.value,
               onToggle: () => cubit.toggleSet(e.key),
-              onWeightTap: () => _showWeightDialog(context, cubit, e.key, e.value.weightKg),
+              onWeightTap: () =>
+                  _showWeightDialog(context, cubit, e.key, e.value.weightKg),
             ),
           ),
           const SizedBox(height: 4),
@@ -162,7 +169,10 @@ class _ActiveExerciseBody extends StatelessWidget {
     int setIndex,
     double? current,
   ) async {
-    final weight = await StartingWeightDialog.show(context, initialWeight: current);
+    final weight = await StartingWeightDialog.show(
+      context,
+      initialWeight: current,
+    );
     if (weight != null) cubit.updateSetWeight(setIndex, weight);
   }
 }
@@ -186,7 +196,9 @@ class _ExerciseTimerDisplay extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Text(
           _format(elapsed),
-          style: AppTextStyles.regular14.copyWith(color: AppColors.textSecondary),
+          style: AppTextStyles.regular14.copyWith(
+            color: AppColors.textSecondary,
+          ),
         ),
       ),
     );
@@ -241,7 +253,9 @@ class _RestTimerButton extends StatelessWidget {
               ),
               label: Text(
                 label,
-                style: AppTextStyles.bold14.copyWith(color: AppColors.whiteColor),
+                style: AppTextStyles.bold14.copyWith(
+                  color: AppColors.whiteColor,
+                ),
               ),
             ),
           ),

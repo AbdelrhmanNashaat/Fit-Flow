@@ -18,8 +18,7 @@ class CreateAccountBottomSection extends StatelessWidget {
         NavToAuthWidget(
           text: l10n.alreadyHaveAccount,
           navText: l10n.signInNav,
-          onTap: () =>
-              context.go(AppNavigation.signIn),
+          onTap: () => context.go(AppNavigation.signIn),
         ),
         const SizedBox(height: 16),
         Text(

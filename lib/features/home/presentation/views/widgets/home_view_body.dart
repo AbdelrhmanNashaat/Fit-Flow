@@ -26,7 +26,12 @@ class HomeViewBody extends StatelessWidget {
         HomeInitial() ||
         HomeLoading() => const Center(child: CircularProgressIndicator()),
         HomeError(:final message) => Center(
-          child: Text(message, style: AppTextStyles.regular14.copyWith(color: AppColors.textSecondary)),
+          child: Text(
+            message,
+            style: AppTextStyles.regular14.copyWith(
+              color: AppColors.textSecondary,
+            ),
+          ),
         ),
         HomeLoaded() => _HomeContent(state: state),
       },
@@ -71,7 +76,10 @@ class _HomeContent extends StatelessWidget {
           const SizedBox(height: 24),
           // ── Today's exercises ─────────────────────────────────────
           if (state.todayDay != null) ...[
-            Text(l10n.todayExercises, style: AppTextStyles.bold16.copyWith(color: AppColors.blackColor)),
+            Text(
+              l10n.todayExercises,
+              style: AppTextStyles.bold16.copyWith(color: AppColors.blackColor),
+            ),
             const SizedBox(height: 8),
             Container(
               decoration: BoxDecoration(
@@ -169,7 +177,10 @@ class _RestDayCard extends StatelessWidget {
             color: AppColors.orTextColor,
           ),
           const SizedBox(height: 12),
-          Text(l10n.restDay, style: AppTextStyles.bold16.copyWith(color: AppColors.blackColor)),
+          Text(
+            l10n.restDay,
+            style: AppTextStyles.bold16.copyWith(color: AppColors.blackColor),
+          ),
           const SizedBox(height: 4),
           Text(
             l10n.letsRestToday,
@@ -182,4 +193,3 @@ class _RestDayCard extends StatelessWidget {
     );
   }
 }
-

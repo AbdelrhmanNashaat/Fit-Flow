@@ -18,8 +18,7 @@ class BottomAuthSection extends StatelessWidget {
         NavToAuthWidget(
           text: l10n.newToFitFlow,
           navText: l10n.createAccountNav,
-          onTap: () =>
-              context.go(AppNavigation.signUp),
+          onTap: () => context.go(AppNavigation.signUp),
         ),
         const SizedBox(height: 16),
         Text(

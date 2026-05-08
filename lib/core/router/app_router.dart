@@ -22,28 +22,25 @@ GoRouter createRouter(AuthSessionCubit authCubit) {
     routes: [
       GoRoute(
         path: AppNavigation.splash,
-        builder: (_, __) => const SplashView(),
+        builder: (_, _) => const SplashView(),
       ),
       GoRoute(
         path: AppNavigation.signIn,
-        builder: (_, __) => const SignInView(),
+        builder: (_, _) => const SignInView(),
       ),
       GoRoute(
         path: AppNavigation.signUp,
-        builder: (_, __) => const CreateAccountView(),
+        builder: (_, _) => const CreateAccountView(),
       ),
       GoRoute(
         path: AppNavigation.forgotPassword,
-        builder: (_, __) => const ForgotPasswordView(),
+        builder: (_, _) => const ForgotPasswordView(),
       ),
       GoRoute(
         path: AppNavigation.onboarding,
-        builder: (_, __) => const OnboardingView(),
+        builder: (_, _) => const OnboardingView(),
       ),
-      GoRoute(
-        path: AppNavigation.home,
-        builder: (_, __) => const MainView(),
-      ),
+      GoRoute(path: AppNavigation.home, builder: (_, _) => const MainView()),
       GoRoute(
         path: AppNavigation.activeExercise,
         builder: (_, state) =>
