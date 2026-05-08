@@ -3,35 +3,37 @@ import 'package:fit_flow/features/user_profile/domain/repo/user_profile_repo.dar
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OnboardingCubit extends Cubit<OnboardingState> {
-  OnboardingCubit(this._userProfileRepo) : super(const OnboardingState());
+  OnboardingCubit(this._userProfileRepo) : super(const OnboardingInitial());
 
   final UserProfileRepo _userProfileRepo;
 
   void selectGoal(OnboardingGoal goal) {
-    emit(state.copyWith(selectedGoal: goal));
+    final current = state;
+    if (current is! OnboardingInitial) return;
+    emit(current.copyWith(selectedGoal: goal));
   }
 
   void selectAvailabilityDays(int days) {
-    emit(state.copyWith(selectedAvailabilityDays: days));
+    final current = state;
+    if (current is! OnboardingInitial) return;
+    emit(current.copyWith(selectedDays: days));
   }
 
   Future<void> completeOnboarding(String uid) async {
-    emit(state.copyWith(status: OnboardingStatus.loading));
+    final current = state;
+    if (current is! OnboardingInitial) return;
+
+    emit(const OnboardingLoading());
 
     final result = await _userProfileRepo.updateProfile(uid, {
-      'myGoal': state.selectedGoal.name,
-      'weeklyAvailability': state.selectedAvailabilityDays,
+      'myGoal': current.selectedGoal.name,
+      'weeklyAvailability': current.selectedDays,
       'isOnboardingCompleted': true,
     });
 
     result.fold(
-      (failure) => emit(
-        state.copyWith(
-          status: OnboardingStatus.failure,
-          errorMessage: failure.message,
-        ),
-      ),
-      (_) => emit(state.copyWith(status: OnboardingStatus.success)),
+      (failure) => emit(OnboardingFailure(failure.message)),
+      (_) => emit(const OnboardingSuccess()),
     );
   }
 }

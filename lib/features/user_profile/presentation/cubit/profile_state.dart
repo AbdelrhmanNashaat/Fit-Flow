@@ -15,32 +15,37 @@ class ProfileLoading extends ProfileState {
 class ProfileLoaded extends ProfileState {
   const ProfileLoaded({
     required this.profile,
-    required this.userName,
     required this.appVersion,
     this.localImagePath,
     this.isImageUploading = false,
   });
 
   final UserProfile profile;
-  final String userName;
   final String appVersion;
-
-  /// Absolute path to the locally saved profile image, or null if none.
   final String? localImagePath;
-
-  /// True while a profile picture save is in progress.
   final bool isImageUploading;
+
+  String get displayName {
+    final name = profile.name;
+    if (name != null && name.isNotEmpty) return name;
+    final email = profile.email;
+    final handle = email.split('@').first.trim();
+    if (handle.isEmpty) return 'FitFlow Member';
+    return handle
+        .split(RegExp(r'[._-]+'))
+        .where((s) => s.isNotEmpty)
+        .map((s) => '${s[0].toUpperCase()}${s.substring(1).toLowerCase()}')
+        .join(' ');
+  }
 
   ProfileLoaded copyWith({
     UserProfile? profile,
-    String? userName,
     String? appVersion,
     String? localImagePath,
     bool? isImageUploading,
   }) {
     return ProfileLoaded(
       profile: profile ?? this.profile,
-      userName: userName ?? this.userName,
       appVersion: appVersion ?? this.appVersion,
       localImagePath: localImagePath ?? this.localImagePath,
       isImageUploading: isImageUploading ?? this.isImageUploading,

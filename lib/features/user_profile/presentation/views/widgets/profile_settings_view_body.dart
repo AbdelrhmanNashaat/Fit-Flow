@@ -157,7 +157,7 @@ class _ProfileContent extends StatelessWidget {
                   children: [
                     const SizedBox(height: 16),
                     ProfileHeaderCard(
-                      userName: state.userName,
+                      userName: state.displayName,
                       profile: state.profile,
                       localImagePath: state.localImagePath,
                       isImageUploading: state.isImageUploading,

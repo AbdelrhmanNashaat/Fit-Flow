@@ -1,7 +1,7 @@
 import 'package:fit_flow/core/l10n/app_localizations.dart';
 import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
-import 'package:fit_flow/features/home/presentation/views/widgets/home_view_body.dart';
+import 'package:fit_flow/features/workout/presentation/models/active_exercise_args.dart';
 import 'package:fit_flow/features/workout/presentation/cubit/active_exercise_cubit.dart';
 import 'package:fit_flow/features/workout/presentation/cubit/active_exercise_state.dart';
 import 'package:fit_flow/features/workout/presentation/views/widgets/add_set_button.dart';

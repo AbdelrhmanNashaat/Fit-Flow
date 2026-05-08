@@ -8,6 +8,7 @@ import 'package:fit_flow/features/user_profile/presentation/cubit/profile_cubit.
 import 'package:fit_flow/features/user_profile/presentation/views/widgets/profile_settings_view_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -24,9 +25,10 @@ class ProfileView extends StatelessWidget {
     }
 
     return BlocProvider(
-      create: (_) =>
-          ProfileCubit(getIt<UserProfileRepo>())
-            ..loadProfile(user.id, _displayNameFor(user)),
+      create: (_) => ProfileCubit(
+        userProfileRepo: getIt<UserProfileRepo>(),
+        imagePicker: getIt<ImagePicker>(),
+      )..loadProfile(user.id),
       child: const SafeArea(child: ProfileSettingsViewBody()),
     );
   }
@@ -38,25 +40,5 @@ class ProfileView extends StatelessWidget {
       AuthSessionFailure(:final user?) => user,
       _ => null,
     };
-  }
-
-  String _displayNameFor(AuthUser user) {
-    final trimmedName = user.name.trim();
-    if (trimmedName.isNotEmpty) return trimmedName;
-
-    final trimmedEmail = user.email.trim();
-    if (trimmedEmail.isEmpty) return 'FitFlow Member';
-
-    final emailHandle = trimmedEmail.split('@').first.trim();
-    if (emailHandle.isEmpty) return 'FitFlow Member';
-
-    return emailHandle
-        .split(RegExp(r'[._-]+'))
-        .where((segment) => segment.isNotEmpty)
-        .map(
-          (segment) =>
-              '${segment[0].toUpperCase()}${segment.substring(1).toLowerCase()}',
-        )
-        .join(' ');
   }
 }

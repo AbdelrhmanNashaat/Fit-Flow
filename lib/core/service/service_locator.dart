@@ -17,6 +17,7 @@ import 'package:fit_flow/features/workout/data/repo/local_workout_repo.dart';
 import 'package:fit_flow/features/workout/domain/repo/workout_repo.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final GetIt getIt = GetIt.instance;
@@ -52,6 +53,10 @@ void setupServiceLocator({required SharedPreferences sharedPreferences}) {
     getIt.registerLazySingleton<DatabaseService>(
       () => FirestoreService(FirebaseFirestore.instance),
     );
+  }
+
+  if (!getIt.isRegistered<ImagePicker>()) {
+    getIt.registerLazySingleton<ImagePicker>(() => ImagePicker());
   }
 
   if (!getIt.isRegistered<LocalImageService>()) {

@@ -1,32 +1,35 @@
 enum OnboardingGoal { buildMuscle, getStrong, generalFitness }
 
-enum OnboardingStatus { initial, loading, success, failure }
+sealed class OnboardingState {
+  const OnboardingState();
+}
 
-class OnboardingState {
-  const OnboardingState({
-    this.status = OnboardingStatus.initial,
+final class OnboardingInitial extends OnboardingState {
+  const OnboardingInitial({
     this.selectedGoal = OnboardingGoal.getStrong,
-    this.selectedAvailabilityDays = 3,
-    this.errorMessage,
+    this.selectedDays = 3,
   });
-
-  final OnboardingStatus status;
   final OnboardingGoal selectedGoal;
-  final int selectedAvailabilityDays;
-  final String? errorMessage;
+  final int selectedDays;
 
-  OnboardingState copyWith({
-    OnboardingStatus? status,
+  OnboardingInitial copyWith({
     OnboardingGoal? selectedGoal,
-    int? selectedAvailabilityDays,
-    String? errorMessage,
-  }) {
-    return OnboardingState(
-      status: status ?? this.status,
-      selectedGoal: selectedGoal ?? this.selectedGoal,
-      selectedAvailabilityDays:
-          selectedAvailabilityDays ?? this.selectedAvailabilityDays,
-      errorMessage: errorMessage ?? this.errorMessage,
-    );
-  }
+    int? selectedDays,
+  }) => OnboardingInitial(
+    selectedGoal: selectedGoal ?? this.selectedGoal,
+    selectedDays: selectedDays ?? this.selectedDays,
+  );
+}
+
+final class OnboardingLoading extends OnboardingState {
+  const OnboardingLoading();
+}
+
+final class OnboardingSuccess extends OnboardingState {
+  const OnboardingSuccess();
+}
+
+final class OnboardingFailure extends OnboardingState {
+  const OnboardingFailure(this.message);
+  final String message;
 }

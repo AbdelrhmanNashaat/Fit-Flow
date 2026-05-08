@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:fit_flow/core/errors/failure.dart';
+import 'package:fit_flow/core/utils/future_utils.dart';
 import 'package:fit_flow/features/user_profile/data/model/user_profile.dart';
 import 'package:fit_flow/features/user_profile/domain/repo/user_profile_repo.dart';
 import 'package:fit_flow/features/user_profile/presentation/cubit/profile_state.dart';
@@ -10,12 +11,17 @@ import 'package:image_picker/image_picker.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
-  ProfileCubit(this._userProfileRepo) : super(const ProfileInitial());
+  ProfileCubit({
+    required UserProfileRepo userProfileRepo,
+    required ImagePicker imagePicker,
+  }) : _userProfileRepo = userProfileRepo,
+       _imagePicker = imagePicker,
+       super(const ProfileInitial());
 
   final UserProfileRepo _userProfileRepo;
-  final ImagePicker _imagePicker = ImagePicker();
+  final ImagePicker _imagePicker;
 
-  Future<void> loadProfile(String uid, String userName) async {
+  Future<void> loadProfile(String uid) async {
     emit(const ProfileLoading());
 
     final (profileResult, packageInfo) = await (
@@ -36,7 +42,6 @@ class ProfileCubit extends Cubit<ProfileState> {
         emit(
           ProfileLoaded(
             profile: profile,
-            userName: userName,
             appVersion: packageInfo.version,
             localImagePath: localImagePath,
           ),
@@ -76,18 +81,5 @@ class ProfileCubit extends Cubit<ProfileState> {
       log(e.toString(), name: 'ProfileCubit');
       emit(loaded.copyWith(isImageUploading: false));
     }
-  }
-}
-
-// Dart 3 record-based parallel await helper
-extension _WaitTwo<A, B> on (Future<A>, Future<B>) {
-  Future<(A, B)> get wait async {
-    late A a;
-    late B b;
-    await Future.wait([
-      $1.then((v) => a = v),
-      $2.then((v) => b = v),
-    ]);
-    return (a, b);
   }
 }

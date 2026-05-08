@@ -1,6 +1,7 @@
 import 'package:fit_flow/core/l10n/app_localizations.dart';
 import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
+import 'package:fit_flow/core/utils/date_utils_ext.dart';
 import 'package:fit_flow/features/home/presentation/cubit/home_state.dart';
 import 'package:flutter/material.dart';
 
@@ -9,25 +10,10 @@ class WeeklyBlueprintSection extends StatelessWidget {
 
   final List<DayStatus> weekSchedule;
 
-  /// Returns the date (day-of-month) for the given ISO weekday in the current week.
-  static int _dateForWeekday(int weekday) {
-    final now = DateTime.now();
-    final diff = weekday - now.weekday;
-    return now.add(Duration(days: diff)).day;
-  }
-
-  /// Week-of-year (ISO).
-  static int _currentWeekNumber() {
-    final now = DateTime.now();
-    final startOfYear = DateTime(now.year, 1, 1);
-    final diff = now.difference(startOfYear).inDays;
-    return ((diff + startOfYear.weekday - 1) ~/ 7) + 1;
-  }
-
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final weekNum = _currentWeekNumber();
+    final weekNum = AppDateUtils.currentWeekNumber();
 
     return Column(
       children: [
@@ -57,7 +43,7 @@ class WeeklyBlueprintSection extends StatelessWidget {
           children: weekSchedule
               .map((day) => _DayChip(
                     status: day,
-                    date: _dateForWeekday(day.weekday),
+                    date: AppDateUtils.dateForWeekday(day.weekday).day,
                   ))
               .toList(),
         ),

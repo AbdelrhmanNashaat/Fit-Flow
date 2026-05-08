@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:fit_flow/features/auth/data/model/auth_user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheHelper {
@@ -17,20 +16,18 @@ class CacheHelper {
 
   String? get savedLocale => _preferences.getString(_localeKey);
 
-  AuthUser? getCachedUser() {
-    final rawUser = _preferences.getString(_authUserKey);
-    if (rawUser == null || rawUser.isEmpty) return null;
+  Map<String, dynamic>? getCachedUserJson() {
+    final raw = _preferences.getString(_authUserKey);
+    if (raw == null || raw.isEmpty) return null;
     try {
-      final json = jsonDecode(rawUser) as Map<String, dynamic>;
-      return AuthUser.fromJson(json);
+      return jsonDecode(raw) as Map<String, dynamic>;
     } catch (_) {
-      // Corrupted cache — treat as unauthenticated; restoreSession will clear it.
       return null;
     }
   }
 
-  Future<void> cacheUser(AuthUser user) async {
-    await _preferences.setString(_authUserKey, jsonEncode(user.toJson()));
+  Future<void> cacheUserJson(Map<String, dynamic> json) async {
+    await _preferences.setString(_authUserKey, jsonEncode(json));
     await _preferences.setBool(_isLoggedInKey, true);
   }
 

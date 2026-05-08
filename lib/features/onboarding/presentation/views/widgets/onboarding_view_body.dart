@@ -22,9 +22,9 @@ class OnboardingViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<OnboardingCubit, OnboardingState>(
-      listenWhen: (prev, curr) => curr.status != prev.status,
+      listenWhen: (_, curr) => curr is OnboardingSuccess || curr is OnboardingFailure,
       listener: (context, state) {
-        if (state.status == OnboardingStatus.success) {
+        if (state is OnboardingSuccess) {
           final authState = context.read<AuthSessionCubit>().state;
           if (authState is AuthSessionNeedsOnboarding) {
             context.read<AuthSessionCubit>().setOnboardingCompleted(
@@ -35,6 +35,7 @@ class OnboardingViewBody extends StatelessWidget {
       },
       builder: (context, state) {
         final cubit = context.read<OnboardingCubit>();
+        final initial = state is OnboardingInitial ? state : null;
         return CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
@@ -48,17 +49,17 @@ class OnboardingViewBody extends StatelessWidget {
                       children: [
                         const SizedBox(height: 24),
                         OnboardingGoalSection(
-                          selectedGoal: state.selectedGoal,
+                          selectedGoal: initial?.selectedGoal ?? OnboardingGoal.getStrong,
                           onGoalSelected: cubit.selectGoal,
                         ),
                         const SizedBox(height: 28),
                         OnboardingAvailabilitySection(
-                          selectedDays: state.selectedAvailabilityDays,
+                          selectedDays: initial?.selectedDays ?? 3,
                           onSelected: cubit.selectAvailabilityDays,
                         ),
                         const SizedBox(height: 24),
                         OnboardingFooterSection(
-                          isLoading: state.status == OnboardingStatus.loading,
+                          isLoading: state is OnboardingLoading,
                           onContinue: () => _onContinue(context),
                         ),
                       ],
