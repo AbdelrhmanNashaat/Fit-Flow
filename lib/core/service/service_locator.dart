@@ -15,7 +15,9 @@ import 'package:fit_flow/features/learn/domain/repo/learn_repo.dart';
 import 'package:fit_flow/features/locale/cubit/locale_cubit.dart';
 import 'package:fit_flow/features/user_profile/data/repo/user_profile_repo_impl.dart';
 import 'package:fit_flow/features/user_profile/domain/repo/user_profile_repo.dart';
+import 'package:fit_flow/features/workout/data/repo/firestore_current_workout_plan_repo.dart';
 import 'package:fit_flow/features/workout/data/repo/local_workout_repo.dart';
+import 'package:fit_flow/features/workout/domain/repo/current_workout_plan_repo.dart';
 import 'package:fit_flow/features/workout/domain/repo/workout_repo.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -105,6 +107,12 @@ void setupServiceLocator({
 
   if (!getIt.isRegistered<WorkoutRepo>()) {
     getIt.registerLazySingleton<WorkoutRepo>(() => const LocalWorkoutRepo());
+  }
+
+  if (!getIt.isRegistered<CurrentWorkoutPlanRepo>()) {
+    getIt.registerLazySingleton<CurrentWorkoutPlanRepo>(
+      () => FirestoreCurrentWorkoutPlanRepo(getIt<DatabaseService>()),
+    );
   }
 
   if (!getIt.isRegistered<LearnRepo>()) {

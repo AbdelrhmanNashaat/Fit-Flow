@@ -1,5 +1,3 @@
-import 'package:fit_flow/features/auth/data/model/auth_user.dart';
-
 sealed class SignInState {
   const SignInState();
 }
@@ -22,9 +20,7 @@ class SignInFieldFailure extends SignInState {
 }
 
 class SignInSuccess extends SignInState {
-  const SignInSuccess(this.user);
-
-  final AuthUser user;
+  const SignInSuccess();
 }
 
 class SignInFailure extends SignInState {

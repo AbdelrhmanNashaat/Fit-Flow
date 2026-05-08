@@ -1,19 +1,31 @@
+import 'package:fit_flow/features/workout/domain/repo/current_workout_plan_repo.dart';
 import 'package:fit_flow/features/home/presentation/cubit/home_state.dart';
 import 'package:fit_flow/features/workout/data/models/workout_day_model.dart';
 import 'package:fit_flow/features/workout/domain/repo/workout_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit(this._workoutRepo) : super(const HomeInitial());
+  HomeCubit(this._workoutRepo, this._currentWorkoutPlanRepo)
+    : super(const HomeInitial());
 
   final WorkoutRepo _workoutRepo;
+  final CurrentWorkoutPlanRepo _currentWorkoutPlanRepo;
 
-  void load(String userName) {
+  Future<void> load({
+    required String uid,
+    required String userName,
+    required String noPlanMessage,
+  }) async {
     emit(const HomeLoading());
 
-    try {
-      final plan = _workoutRepo.getPlan();
-      final todayDay = _workoutRepo.getTodayDay();
+    final result = await _currentWorkoutPlanRepo.getCurrentPlan(uid);
+    result.fold((failure) => emit(HomeError(failure.message)), (plan) {
+      if (plan == null) {
+        emit(HomeError(noPlanMessage));
+        return;
+      }
+
+      final todayDay = _workoutRepo.getTodayDay(plan);
       final weekSchedule = _buildWeekSchedule(plan.days);
       final greeting = _greeting();
 
@@ -26,9 +38,7 @@ class HomeCubit extends Cubit<HomeState> {
           todayDay: todayDay,
         ),
       );
-    } catch (e) {
-      emit(HomeError(e.toString()));
-    }
+    });
   }
 
   List<DayStatus> _buildWeekSchedule(List<WorkoutDayModel> days) {

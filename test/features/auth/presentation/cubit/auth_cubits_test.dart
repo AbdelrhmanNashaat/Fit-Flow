@@ -92,14 +92,7 @@ void main() {
         return SignInCubit(authRepo);
       },
       act: (cubit) => cubit.signIn('abdelrhman@example.com', 'password123'),
-      expect: () => [
-        isA<SignInLoading>(),
-        isA<SignInSuccess>().having(
-          (state) => state.user.email,
-          'user.email',
-          testUser.email,
-        ),
-      ],
+      expect: () => [isA<SignInLoading>(), isA<SignInSuccess>()],
     );
   });
 
@@ -149,14 +142,7 @@ void main() {
       },
       act: (cubit) =>
           cubit.signUp(' Abdelrhman ', 'abdelrhman@example.com', 'password123'),
-      expect: () => [
-        isA<SignUpLoading>(),
-        isA<SignUpSuccess>().having(
-          (state) => state.user.name,
-          'user.name',
-          testUser.name,
-        ),
-      ],
+      expect: () => [isA<SignUpLoading>(), isA<SignUpSuccess>()],
       verify: (_) {
         verify(
           () => authRepo.signUp(

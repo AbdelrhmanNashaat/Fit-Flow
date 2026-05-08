@@ -1,9 +1,12 @@
+import 'package:fit_flow/features/onboarding/domain/models/onboarding_goal.dart';
 import 'package:fit_flow/features/workout/data/models/workout_day_model.dart';
 import 'package:fit_flow/features/workout/data/models/workout_plan_model.dart';
 
 abstract class WorkoutRepo {
-  WorkoutPlanModel getPlan();
+  WorkoutPlanModel generatePlan({
+    required OnboardingGoal goal,
+    required int selectedDays,
+  });
 
-  /// Returns the day matching today's weekday, or null on a rest day.
-  WorkoutDayModel? getTodayDay();
+  WorkoutDayModel? getTodayDay(WorkoutPlanModel plan);
 }

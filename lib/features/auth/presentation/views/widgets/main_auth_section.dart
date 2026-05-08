@@ -1,7 +1,6 @@
 import 'package:fit_flow/core/l10n/app_localizations.dart';
 import 'package:fit_flow/core/widgets/animated_error_banner.dart';
 import 'package:fit_flow/core/widgets/custom_button.dart';
-import 'package:fit_flow/features/auth/presentation/cubit/auth_session_cubit.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/sign_in_cubit.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/sign_in_state.dart';
 import 'package:fit_flow/features/auth/presentation/views/widgets/auth_container_parent_widget.dart';
@@ -44,63 +43,53 @@ class _MainAuthSectionState extends State<MainAuthSection> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
-    return BlocListener<SignInCubit, SignInState>(
-      listenWhen: (_, current) => current is SignInSuccess,
-      listener: (context, state) {
-        context.read<AuthSessionCubit>().setAuthenticated(
-          (state as SignInSuccess).user,
-        );
-      },
-      child: AuthContainerParentWidget(
-        child: Column(
-          children: [
-            BlocSelector<SignInCubit, SignInState, String?>(
-              selector: (state) =>
-                  state is SignInFailure ? state.message : null,
-              builder: (context, errorMessage) => AnimatedErrorBanner(
-                message: errorMessage,
-                onDismiss: () => context.read<SignInCubit>().clearError(),
-              ),
+    return AuthContainerParentWidget(
+      child: Column(
+        children: [
+          BlocSelector<SignInCubit, SignInState, String?>(
+            selector: (state) => state is SignInFailure ? state.message : null,
+            builder: (context, errorMessage) => AnimatedErrorBanner(
+              message: errorMessage,
+              onDismiss: () => context.read<SignInCubit>().clearError(),
             ),
-            BlocSelector<SignInCubit, SignInState, (String?, String?)>(
-              selector: (state) => state is SignInFieldFailure
-                  ? (state.emailError, state.passwordError)
-                  : (null, null),
-              builder: (context, fieldErrors) {
-                final (emailError, passwordError) = fieldErrors;
+          ),
+          BlocSelector<SignInCubit, SignInState, (String?, String?)>(
+            selector: (state) => state is SignInFieldFailure
+                ? (state.emailError, state.passwordError)
+                : (null, null),
+            builder: (context, fieldErrors) {
+              final (emailError, passwordError) = fieldErrors;
 
-                return BothTextFiledWidget(
-                  formKey: _formKey,
-                  emailController: _emailController,
-                  passwordController: _passwordController,
-                  emailErrorText: emailError,
-                  passwordErrorText: passwordError,
-                  onEmailChanged: (_) =>
-                      context.read<SignInCubit>().clearError(),
-                  onPasswordChanged: (_) =>
-                      context.read<SignInCubit>().clearError(),
-                );
-              },
-            ),
-            const SizedBox(height: 6),
-            const ForgetPassButton(),
-            const SizedBox(height: 12),
-            BlocSelector<SignInCubit, SignInState, bool>(
-              selector: (state) => state is SignInLoading && !state.isGoogle,
-              builder: (context, isLoading) {
-                return CustomButton(
-                  text: l10n.signIn,
-                  onPressed: _onSubmit,
-                  isLoading: isLoading,
-                );
-              },
-            ),
-            const SizedBox(height: 12),
-            const OrWidget(),
-            const SizedBox(height: 12),
-            const RowOFSignInOptionsButtons(),
-          ],
-        ),
+              return BothTextFiledWidget(
+                formKey: _formKey,
+                emailController: _emailController,
+                passwordController: _passwordController,
+                emailErrorText: emailError,
+                passwordErrorText: passwordError,
+                onEmailChanged: (_) => context.read<SignInCubit>().clearError(),
+                onPasswordChanged: (_) =>
+                    context.read<SignInCubit>().clearError(),
+              );
+            },
+          ),
+          const SizedBox(height: 6),
+          const ForgetPassButton(),
+          const SizedBox(height: 12),
+          BlocSelector<SignInCubit, SignInState, bool>(
+            selector: (state) => state is SignInLoading && !state.isGoogle,
+            builder: (context, isLoading) {
+              return CustomButton(
+                text: l10n.signIn,
+                onPressed: _onSubmit,
+                isLoading: isLoading,
+              );
+            },
+          ),
+          const SizedBox(height: 12),
+          const OrWidget(),
+          const SizedBox(height: 12),
+          const RowOFSignInOptionsButtons(),
+        ],
       ),
     );
   }

@@ -63,6 +63,33 @@ class AppLocalizations {
   String get google => _t(en: 'Google', ar: 'جوجل');
   String get apple => _t(en: 'Apple', ar: 'أبل');
 
+  // ─── Onboarding ───────────────────────────────────────────────────────────
+  String get onboardingTitle => _t(en: 'Select Your Goal', ar: 'اختر هدفك');
+  String get onboardingSubtitle => _t(
+    en: 'Customize your journey for precision performance.',
+    ar: 'خصص رحلتك لتناسب أداءك بدقة.',
+  );
+  String get onboardingAvailabilityTitle =>
+      _t(en: 'Weekly Availability', ar: 'التوفر الأسبوعي');
+  String get onboardingContinue => _t(en: 'Continue', ar: 'متابعة');
+  String get onboardingChangeLater => _t(
+    en: 'YOU CAN CHANGE THIS LATER IN PROFILE',
+    ar: 'يمكنك تغيير هذا لاحقاً من الملف الشخصي',
+  );
+  String get buildMuscleSubtitle => _t(
+    en: 'Focus on hypertrophy and strength.',
+    ar: 'ركز على التضخيم وبناء القوة.',
+  );
+  String get getStrongSubtitle => _t(
+    en: 'Prioritize heavy lifting and power.',
+    ar: 'اجعل الأولوية للقوة والأوزان الثقيلة.',
+  );
+  String get generalFitnessSubtitle =>
+      _t(en: 'Balanced health and mobility.', ar: 'توازن بين الصحة والحركة.');
+  String get recommendedLabel => _t(en: 'RECOMMENDED', ar: 'موصى به');
+  String get recommendationRecoveryCycle =>
+      _t(en: 'Optimal recovery cycle', ar: 'دورة تعافٍ مثالية');
+
   // ─── Validation ────────────────────────────────────────────────────────────
   String get emailRequiredError =>
       _t(en: 'Email is required', ar: 'البريد الإلكتروني مطلوب');
@@ -228,6 +255,11 @@ class AppLocalizations {
 
   // ─── Parameterized strings ─────────────────────────────────────────────────
   String daysPerWeek(int n) => _t(en: '$n Days/Week', ar: '$n أيام/أسبوع');
+
+  String availabilityDaysOption(int n) => _t(
+    en: n == 5 ? '5+ Days' : '$n Days',
+    ar: n == 5 ? '5+ أيام' : '$n أيام',
+  );
 
   String appVersion(String v) => _t(en: 'Version $v', ar: 'الإصدار $v');
 

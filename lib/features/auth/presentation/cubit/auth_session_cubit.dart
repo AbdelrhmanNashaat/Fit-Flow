@@ -1,17 +1,35 @@
+import 'dart:async';
+
 import 'package:fit_flow/core/errors/failure.dart';
 import 'package:fit_flow/features/auth/data/model/auth_user.dart';
 import 'package:fit_flow/features/auth/domain/repo/auth_repo.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/auth_session_state.dart';
 import 'package:fit_flow/features/user_profile/data/model/user_profile.dart';
 import 'package:fit_flow/features/user_profile/domain/repo/user_profile_repo.dart';
+import 'package:fit_flow/features/workout/domain/repo/current_workout_plan_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthSessionCubit extends Cubit<AuthSessionState> {
-  AuthSessionCubit(this._authRepo, this._userProfileRepo)
-    : super(const AuthSessionInitial());
+  AuthSessionCubit(
+    this._authRepo,
+    this._userProfileRepo,
+    this._currentWorkoutPlanRepo,
+  ) : super(const AuthSessionChecking()) {
+    _authStateSubscription = _authRepo.authStateChanges().listen(
+      _onAuthStateChanged,
+      onError: _onAuthStreamError,
+    );
+  }
 
   final AuthRepo _authRepo;
   final UserProfileRepo _userProfileRepo;
+  final CurrentWorkoutPlanRepo _currentWorkoutPlanRepo;
+
+  late final StreamSubscription<AuthUser?> _authStateSubscription;
+
+  /// Set to true during explicit sign-out / account-deletion to prevent
+  /// the Firebase authStateChanges null event from double-emitting.
+  bool _isTransitioning = false;
 
   AuthUser? get _currentUser => switch (state) {
     AuthSessionAuthenticated(:final user) => user,
@@ -22,20 +40,24 @@ class AuthSessionCubit extends Cubit<AuthSessionState> {
     _ => null,
   };
 
-  Future<void> checkAuthStatus() async {
-    emit(const AuthSessionChecking());
-    final result = await _authRepo.restoreSession();
-    result.fold(
-      (failure) => emit(AuthSessionFailure(failure.message)),
-      (user) => user == null
-          ? emit(const AuthSessionUnauthenticated())
-          : _resolveUserDestination(user),
-    );
+  @override
+  Future<void> close() {
+    _authStateSubscription.cancel();
+    return super.close();
   }
 
-  Future<void> setAuthenticated(AuthUser user) async {
-    emit(const AuthSessionChecking());
-    await _resolveUserDestination(user);
+  void _onAuthStateChanged(AuthUser? user) {
+    if (state is AuthSessionSigningOut || _isTransitioning) return;
+
+    if (user == null) {
+      emit(const AuthSessionUnauthenticated());
+    } else {
+      _resolveUserDestination(user);
+    }
+  }
+
+  void _onAuthStreamError(Object error) {
+    emit(AuthSessionFailure(error.toString()));
   }
 
   void setOnboardingCompleted(AuthUser user) {
@@ -58,6 +80,8 @@ class AuthSessionCubit extends Cubit<AuthSessionState> {
     final user = _currentUser;
     if (user == null) return;
 
+    await _currentWorkoutPlanRepo.clearCurrentPlan(user.id);
+
     final result = await _userProfileRepo.updateProfile(user.id, {
       'isOnboardingCompleted': false,
     });
@@ -75,9 +99,11 @@ class AuthSessionCubit extends Cubit<AuthSessionState> {
     final user = _currentUser;
     if (user == null) return;
 
+    _isTransitioning = true;
     final authResult = await _authRepo.deleteAccount(password: password);
     await authResult.fold(
       (failure) async {
+        _isTransitioning = false;
         if (failure is ReauthRequiredFailure) {
           emit(AuthSessionNeedsReauth(user, failure.provider));
         } else {
@@ -87,6 +113,7 @@ class AuthSessionCubit extends Cubit<AuthSessionState> {
       (_) async {
         // Best-effort Firestore cleanup — ignore errors so Auth deletion is not blocked.
         await _userProfileRepo.deleteProfile(user.id);
+        _isTransitioning = false;
         emit(const AuthSessionUnauthenticated());
       },
     );

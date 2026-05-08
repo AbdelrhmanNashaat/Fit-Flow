@@ -1,4 +1,5 @@
-﻿import 'package:fit_flow/core/utils/app_assets.dart';
+﻿import 'package:fit_flow/core/l10n/app_localizations.dart';
+import 'package:fit_flow/core/utils/app_assets.dart';
 import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ class RecommendationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       height: 138,
       width: double.infinity,
@@ -36,7 +38,7 @@ class RecommendationCard extends StatelessWidget {
           children: [
             const Spacer(),
             Text(
-              'RECOMMENDED',
+              l10n.recommendedLabel,
               style: AppTextStyles.semiBold12.copyWith(
                 color: AppColors.primaryColor,
                 letterSpacing: 1.2,
@@ -46,7 +48,7 @@ class RecommendationCard extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: Text(
-                'Optimal recovery cycle',
+                l10n.recommendationRecoveryCycle,
                 style: AppTextStyles.medium12.copyWith(
                   color: AppColors.textSecondary,
                 ),

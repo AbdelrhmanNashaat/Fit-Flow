@@ -1,4 +1,5 @@
-﻿import 'package:fit_flow/core/utils/app_colors.dart';
+﻿import 'package:fit_flow/core/l10n/app_localizations.dart';
+import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -14,10 +15,9 @@ class AvailabilityOptionCard extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
-  String get _label => days == 5 ? '+5 Days' : '$days Days';
-
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Expanded(
       child: GestureDetector(
         onTap: onTap,
@@ -40,7 +40,7 @@ class AvailabilityOptionCard extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              _label,
+              l10n.availabilityDaysOption(days),
               style: AppTextStyles.semiBold12.copyWith(
                 color: isSelected
                     ? AppColors.whiteColor

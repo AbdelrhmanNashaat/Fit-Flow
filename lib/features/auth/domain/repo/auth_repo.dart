@@ -11,6 +11,7 @@ abstract class AuthRepo {
   );
   Future<Either<Failure, AuthUser>> signInWithGoogle();
   Future<Either<Failure, void>> resetPassword(String email);
+  Stream<AuthUser?> authStateChanges();
   Future<Either<Failure, AuthUser?>> restoreSession();
   Future<Either<Failure, void>> signOut();
 

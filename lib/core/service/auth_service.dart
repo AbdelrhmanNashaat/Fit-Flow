@@ -10,6 +10,8 @@ abstract class AuthService {
   });
   Future<AuthUser> signInWithGoogle();
   Future<void> sendPasswordResetEmail({required String email});
+  Stream<AuthUser?> authStateChanges();
+
   Future<void> signOut();
 
   /// Permanently deletes the current Firebase Auth account.

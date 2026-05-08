@@ -1,7 +1,6 @@
 import 'package:fit_flow/core/l10n/app_localizations.dart';
 import 'package:fit_flow/core/widgets/animated_error_banner.dart';
 import 'package:fit_flow/core/widgets/custom_button.dart';
-import 'package:fit_flow/features/auth/presentation/cubit/auth_session_cubit.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/sign_up_cubit.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/sign_up_state.dart';
 import 'package:fit_flow/features/auth/presentation/views/widgets/auth_container_parent_widget.dart';
@@ -47,65 +46,54 @@ class _CreateAccountMainSectionState extends State<CreateAccountMainSection> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
-    return BlocListener<SignUpCubit, SignUpState>(
-      listenWhen: (_, current) => current is SignUpSuccess,
-      listener: (context, state) {
-        context.read<AuthSessionCubit>().setAuthenticated(
-          (state as SignUpSuccess).user,
-        );
-      },
-      child: AuthContainerParentWidget(
-        child: Column(
-          children: [
-            BlocSelector<SignUpCubit, SignUpState, String?>(
-              selector: (state) =>
-                  state is SignUpFailure ? state.message : null,
-              builder: (context, errorMessage) => AnimatedErrorBanner(
-                message: errorMessage,
-                onDismiss: () => context.read<SignUpCubit>().clearError(),
-              ),
+    return AuthContainerParentWidget(
+      child: Column(
+        children: [
+          BlocSelector<SignUpCubit, SignUpState, String?>(
+            selector: (state) => state is SignUpFailure ? state.message : null,
+            builder: (context, errorMessage) => AnimatedErrorBanner(
+              message: errorMessage,
+              onDismiss: () => context.read<SignUpCubit>().clearError(),
             ),
-            BlocSelector<SignUpCubit, SignUpState, (String?, String?, String?)>(
-              selector: (state) => state is SignUpFieldFailure
-                  ? (state.nameError, state.emailError, state.passwordError)
-                  : (null, null, null),
-              builder: (context, fieldErrors) {
-                final (nameError, emailError, passwordError) = fieldErrors;
+          ),
+          BlocSelector<SignUpCubit, SignUpState, (String?, String?, String?)>(
+            selector: (state) => state is SignUpFieldFailure
+                ? (state.nameError, state.emailError, state.passwordError)
+                : (null, null, null),
+            builder: (context, fieldErrors) {
+              final (nameError, emailError, passwordError) = fieldErrors;
 
-                return CreateAccountFieldsWidget(
-                  formKey: _formKey,
-                  nameController: _nameController,
-                  emailController: _emailController,
-                  passwordController: _passwordController,
-                  confirmPasswordController: _confirmPasswordController,
-                  nameErrorText: nameError,
-                  emailErrorText: emailError,
-                  passwordErrorText: passwordError,
-                  onNameChanged: (_) =>
-                      context.read<SignUpCubit>().clearError(),
-                  onEmailChanged: (_) =>
-                      context.read<SignUpCubit>().clearError(),
-                  onPasswordChanged: (_) =>
-                      context.read<SignUpCubit>().clearError(),
-                  onConfirmPasswordChanged: (_) =>
-                      context.read<SignUpCubit>().clearError(),
-                );
-              },
-            ),
-            const SizedBox(height: 16),
-            BlocSelector<SignUpCubit, SignUpState, bool>(
-              selector: (state) => state is SignUpLoading,
-              builder: (context, isLoading) {
-                return CustomButton(
-                  text: l10n.createAccount,
-                  onPressed: _onSubmit,
-                  isLoading: isLoading,
-                );
-              },
-            ),
-            const SizedBox(height: 12),
-          ],
-        ),
+              return CreateAccountFieldsWidget(
+                formKey: _formKey,
+                nameController: _nameController,
+                emailController: _emailController,
+                passwordController: _passwordController,
+                confirmPasswordController: _confirmPasswordController,
+                nameErrorText: nameError,
+                emailErrorText: emailError,
+                passwordErrorText: passwordError,
+                onNameChanged: (_) => context.read<SignUpCubit>().clearError(),
+                onEmailChanged: (_) => context.read<SignUpCubit>().clearError(),
+                onPasswordChanged: (_) =>
+                    context.read<SignUpCubit>().clearError(),
+                onConfirmPasswordChanged: (_) =>
+                    context.read<SignUpCubit>().clearError(),
+              );
+            },
+          ),
+          const SizedBox(height: 16),
+          BlocSelector<SignUpCubit, SignUpState, bool>(
+            selector: (state) => state is SignUpLoading,
+            builder: (context, isLoading) {
+              return CustomButton(
+                text: l10n.createAccount,
+                onPressed: _onSubmit,
+                isLoading: isLoading,
+              );
+            },
+          ),
+          const SizedBox(height: 12),
+        ],
       ),
     );
   }

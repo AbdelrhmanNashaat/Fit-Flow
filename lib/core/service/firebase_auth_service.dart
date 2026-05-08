@@ -24,6 +24,11 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
+  Stream<AuthUser?> authStateChanges() {
+    return _auth.authStateChanges().map(_mapNullableUser);
+  }
+
+  @override
   Future<AuthUser?> getCurrentUser() async {
     try {
       await _ensureLanguageCode();

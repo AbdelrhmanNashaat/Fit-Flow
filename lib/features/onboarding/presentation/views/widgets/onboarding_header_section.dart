@@ -1,3 +1,4 @@
+import 'package:fit_flow/core/l10n/app_localizations.dart';
 import 'package:fit_flow/core/utils/app_assets.dart';
 import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
@@ -9,20 +10,28 @@ class OnboardingHeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CustomAppBarWidget(title: 'FitFlow', imagePath: Assets.questionIcon),
+        CustomAppBarWidget(title: l10n.appName, imagePath: Assets.questionIcon),
         const SizedBox(height: 28),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Select Your Goal', style: AppTextStyles.extraBold30.copyWith(color: AppColors.blackColor)),
               Text(
-                'Customize your journey for precision performance.',
-                style: AppTextStyles.regular14.copyWith(color: AppColors.textSecondary),
+                l10n.onboardingTitle,
+                style: AppTextStyles.extraBold30.copyWith(
+                  color: AppColors.blackColor,
+                ),
+              ),
+              Text(
+                l10n.onboardingSubtitle,
+                style: AppTextStyles.regular14.copyWith(
+                  color: AppColors.textSecondary,
+                ),
               ),
             ],
           ),

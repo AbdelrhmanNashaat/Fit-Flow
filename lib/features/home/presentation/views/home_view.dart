@@ -1,8 +1,10 @@
 import 'package:fit_flow/core/service/service_locator.dart';
+import 'package:fit_flow/core/l10n/app_localizations.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/auth_session_cubit.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/auth_session_state.dart';
 import 'package:fit_flow/features/home/presentation/cubit/home_cubit.dart';
 import 'package:fit_flow/features/home/presentation/views/widgets/home_view_body.dart';
+import 'package:fit_flow/features/workout/domain/repo/current_workout_plan_repo.dart';
 import 'package:fit_flow/features/workout/domain/repo/workout_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +14,13 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final userId = context.select<AuthSessionCubit, String>(
+      (c) => switch (c.state) {
+        AuthSessionAuthenticated(:final user) => user.id,
+        _ => '',
+      },
+    );
     final userName = context.select<AuthSessionCubit, String>(
       (c) => switch (c.state) {
         AuthSessionAuthenticated(:final user) => user.name,
@@ -20,7 +29,13 @@ class HomeView extends StatelessWidget {
     );
 
     return BlocProvider(
-      create: (_) => HomeCubit(getIt<WorkoutRepo>())..load(userName),
+      create: (_) =>
+          HomeCubit(getIt<WorkoutRepo>(), getIt<CurrentWorkoutPlanRepo>())
+            ..load(
+              uid: userId,
+              userName: userName,
+              noPlanMessage: l10n.noWorkoutPlan,
+            ),
       child: const HomeViewBody(),
     );
   }

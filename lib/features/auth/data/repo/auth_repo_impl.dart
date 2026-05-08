@@ -15,6 +15,11 @@ class AuthRepoImpl implements AuthRepo {
   final CacheHelper _cacheHelper;
 
   @override
+  Stream<AuthUser?> authStateChanges() {
+    return _authService.authStateChanges();
+  }
+
+  @override
   Future<Either<Failure, AuthUser>> signIn(
     String email,
     String password,
