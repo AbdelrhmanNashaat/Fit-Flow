@@ -51,7 +51,7 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
             ),
           ),
           const SizedBox(height: 28),
-          const Text('Forgot Password?', style: AppTextStyles.extraBold26),
+          Text('Forgot Password?', style: AppTextStyles.extraBold26.copyWith(color: AppColors.blackColor)),
           const SizedBox(height: 8),
           Text(
             'Enter the email linked to your account\nand we\'ll send you a reset link.',
@@ -150,22 +150,22 @@ class _SuccessCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFFDCFCE7),
+        color: AppColors.successLight,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: const Color(0xFF86EFAC), width: 0.8),
+        border: Border.all(color: AppColors.successBorder, width: 0.8),
       ),
       child: Column(
         children: [
           const Icon(
             Icons.mark_email_read_outlined,
             size: 48,
-            color: Color(0xFF16A34A),
+            color: AppColors.successText,
           ),
           const SizedBox(height: 12),
           Text(
             'Check Your Inbox',
             style: AppTextStyles.bold18.copyWith(
-              color: const Color(0xFF16A34A),
+              color: AppColors.successText,
             ),
           ),
           const SizedBox(height: 8),
@@ -173,7 +173,7 @@ class _SuccessCard extends StatelessWidget {
             "If an account exists for this email, you'll receive a password reset link shortly.",
             textAlign: TextAlign.center,
             style: AppTextStyles.medium14.copyWith(
-              color: const Color(0xFF15803D),
+              color: AppColors.successTextDark,
               height: 1.5,
             ),
           ),

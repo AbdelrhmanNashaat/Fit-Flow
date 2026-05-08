@@ -37,7 +37,7 @@ class ProfileHeaderCard extends StatelessWidget {
         const SizedBox(height: 12),
         Text(
           userName,
-          style: AppTextStyles.extraBold26,
+          style: AppTextStyles.extraBold26.copyWith(color: AppColors.blackColor),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),

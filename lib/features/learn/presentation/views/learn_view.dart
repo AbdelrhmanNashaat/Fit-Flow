@@ -1,4 +1,5 @@
 import 'package:fit_flow/core/utils/app_colors.dart';
+import 'package:fit_flow/core/utils/app_spacing.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -112,17 +113,22 @@ class _LearnViewState extends State<LearnView> {
     return SafeArea(
       bottom: false,
       child: ListView(
-        padding: const EdgeInsets.fromLTRB(0, 16, 0, 120),
+        padding: const EdgeInsets.fromLTRB(
+          0,
+          AppSpacing.md,
+          0,
+          AppSpacing.tabBarClearance + AppSpacing.md,
+        ),
         children: [
           // ── Title bar ───────────────────────────────────────────
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: [
                 Expanded(
-                  child: Text('Learn', style: AppTextStyles.extraBold26),
+                  child: Text('Learn', style: AppTextStyles.extraBold26.copyWith(color: AppColors.blackColor)),
                 ),
-                Icon(
+                const Icon(
                   Icons.search_rounded,
                   color: AppColors.orTextColor,
                   size: 24,

@@ -48,7 +48,7 @@ class ProfileSettingsViewBody extends StatelessWidget {
         builder: (context, state) => switch (state) {
           ProfileInitial() || ProfileLoading() => const ProfileShimmer(),
           ProfileError(:final message) => Center(
-            child: Text(message, style: AppTextStyles.regular14),
+            child: Text(message, style: AppTextStyles.regular14.copyWith(color: AppColors.textSecondary)),
           ),
           ProfileLoaded() => _ProfileContent(state: state),
         },

@@ -50,7 +50,7 @@ class ProfileStatItem extends StatelessWidget {
             const SizedBox(height: 5),
             Text(
               value,
-              style: AppTextStyles.bold14,
+              style: AppTextStyles.bold14.copyWith(color: AppColors.textPrimary),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),

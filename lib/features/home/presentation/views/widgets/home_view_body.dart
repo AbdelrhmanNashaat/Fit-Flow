@@ -1,6 +1,7 @@
 import 'package:fit_flow/core/l10n/app_localizations.dart';
 import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_navigation.dart';
+import 'package:fit_flow/core/utils/app_spacing.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:fit_flow/features/home/presentation/cubit/home_cubit.dart';
 import 'package:fit_flow/features/home/presentation/cubit/home_state.dart';
@@ -24,7 +25,7 @@ class HomeViewBody extends StatelessWidget {
         HomeInitial() ||
         HomeLoading() => const Center(child: CircularProgressIndicator()),
         HomeError(:final message) => Center(
-          child: Text(message, style: AppTextStyles.regular14),
+          child: Text(message, style: AppTextStyles.regular14.copyWith(color: AppColors.textSecondary)),
         ),
         HomeLoaded() => _HomeContent(state: state),
       },
@@ -44,7 +45,12 @@ class _HomeContent extends StatelessWidget {
     return SafeArea(
       bottom: false,
       child: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 120),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.md,
+          AppSpacing.md,
+          AppSpacing.md,
+          AppSpacing.tabBarClearance + AppSpacing.md,
+        ),
         children: [
           // ── Header ───────────────────────────────────────────────
           DashboardHeader(greeting: state.greeting, userName: state.userName),
@@ -64,7 +70,7 @@ class _HomeContent extends StatelessWidget {
           const SizedBox(height: 24),
           // ── Today's exercises ─────────────────────────────────────
           if (state.todayDay != null) ...[
-            Text(l10n.todayExercises, style: AppTextStyles.bold16),
+            Text(l10n.todayExercises, style: AppTextStyles.bold16.copyWith(color: AppColors.blackColor)),
             const SizedBox(height: 8),
             Container(
               decoration: BoxDecoration(
@@ -162,7 +168,7 @@ class _RestDayCard extends StatelessWidget {
             color: AppColors.orTextColor,
           ),
           const SizedBox(height: 12),
-          Text(l10n.restDay, style: AppTextStyles.bold16),
+          Text(l10n.restDay, style: AppTextStyles.bold16.copyWith(color: AppColors.blackColor)),
           const SizedBox(height: 4),
           Text(
             l10n.letsRestToday,

@@ -99,7 +99,7 @@ class _ActiveExerciseBody extends StatelessWidget {
           icon: const Icon(Icons.close, color: AppColors.textPrimary, size: 22),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text(l10n.workoutSession, style: AppTextStyles.bold16),
+        title: Text(l10n.workoutSession, style: AppTextStyles.bold16.copyWith(color: AppColors.blackColor)),
         centerTitle: true,
         actions: [
           TextButton(
@@ -120,7 +120,7 @@ class _ActiveExerciseBody extends StatelessWidget {
           ExerciseMediaSection(exercise: ex),
           const SizedBox(height: 14),
           // ── Exercise name ─────────────────────────────────────────
-          Text(ex.name, style: AppTextStyles.bold18),
+          Text(ex.name, style: AppTextStyles.bold18.copyWith(color: AppColors.blackColor)),
           const SizedBox(height: 16),
           // ── Form cues ─────────────────────────────────────────────
           FormCueCard(cues: ex.formCues),

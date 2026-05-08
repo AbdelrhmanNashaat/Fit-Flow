@@ -8,7 +8,7 @@ class ProfileShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: AppColors.fillColor,
+      baseColor: AppColors.backgroundButton,
       highlightColor: AppColors.whiteColor,
       child: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
@@ -67,7 +67,7 @@ class ProfileShimmer extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: AppColors.fillColor,
+        color: AppColors.backgroundButton,
         borderRadius: BorderRadius.circular(radius),
       ),
     );

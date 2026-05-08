@@ -23,7 +23,7 @@ class SplashViewBody extends StatelessWidget {
                 curve: Curves.elasticOut,
               ),
           const SizedBox(height: 15),
-          const Text('FitFlow', style: AppTextStyles.bold48)
+          Text('FitFlow', style: AppTextStyles.bold48.copyWith(color: AppColors.whiteColor))
               .animate(delay: 400.ms)
               .fadeIn(duration: 600.ms)
               .slideY(

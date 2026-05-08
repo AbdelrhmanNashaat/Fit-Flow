@@ -66,7 +66,7 @@ class GoalOptionCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(title, style: AppTextStyles.bold16),
+                      Text(title, style: AppTextStyles.bold16.copyWith(color: AppColors.blackColor)),
                       const SizedBox(height: 4),
                       Text(
                         subtitle,

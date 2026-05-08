@@ -1,3 +1,4 @@
+import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ErrorBanner extends StatelessWidget {
@@ -16,9 +17,9 @@ class ErrorBanner extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
-        color: const Color(0xFFFEE2E2),
+        color: AppColors.errorLight,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: const Color(0xFFFCA5A5)),
+        border: Border.all(color: AppColors.errorBorder),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,7 +28,7 @@ class ErrorBanner extends StatelessWidget {
             padding: EdgeInsets.only(top: 1),
             child: Icon(
               Icons.error_outline_rounded,
-              color: Color(0xFFDC2626),
+              color: AppColors.error,
               size: 18,
             ),
           ),
@@ -36,7 +37,7 @@ class ErrorBanner extends StatelessWidget {
             child: Text(
               message,
               style: const TextStyle(
-                color: Color(0xFFDC2626),
+                color: AppColors.error,
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
                 height: 1.4,
@@ -47,7 +48,7 @@ class ErrorBanner extends StatelessWidget {
             const SizedBox(width: 8),
             GestureDetector(
               onTap: onDismiss,
-              child: const Icon(Icons.close, color: Color(0xFFDC2626), size: 16),
+              child: const Icon(Icons.close, color: AppColors.error, size: 16),
             ),
           ],
         ],

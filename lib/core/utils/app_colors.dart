@@ -13,8 +13,6 @@ class AppColors {
   static const Color backgroundCard = Color(0xFFF8FAFC);
   static const Color backgroundSecondary = Color(0xFFF1F5F9);
   static const Color backgroundButton = Color(0xFFF3F3F3);
-  static const Color fillColor = Color(0xFFF3F3F3);
-  static const Color secondaryColor = Color(0xFFF1F5F9);
 
   // ─── Text ──────────────────────────────────────────────────────────────────
   static const Color textPrimary = Color(0xFF1A1C1C);
@@ -25,7 +23,6 @@ class AppColors {
 
   // ─── Borders & Dividers ────────────────────────────────────────────────────
   static const Color borderColor = Color(0xFFC3C6D7);
-  static const Color borderButton = Color(0xFFC3C6D7);
   static const Color borderLight = Color(0xFFE2E2E2);
   static const Color dividerColor = Color(0x4DC3C6D7);
   static const Color dividerLight = Color(0xFFF2F2F7);
@@ -38,6 +35,15 @@ class AppColors {
   // ─── Semantic ──────────────────────────────────────────────────────────────
   static const Color success = Color(0xFF22C55E);
   static const Color successLight = Color(0xFFDCFCE7);
+  static const Color successBorder = Color(0xFF86EFAC);
+  static const Color successText = Color(0xFF16A34A);
+  static const Color successTextDark = Color(0xFF15803D);
   static const Color warning = Color(0xFFF59E0B);
   static const Color warningLight = Color(0xFFFEF3C7);
+  static const Color error = Color(0xFFDC2626);
+  static const Color errorLight = Color(0xFFFEE2E2);
+  static const Color errorBorder = Color(0xFFFCA5A5);
+
+  // ─── Extended Brand ────────────────────────────────────────────────────────
+  static const Color primaryDark = Color(0xFF1A3FAB);
 }

@@ -1,3 +1,4 @@
+import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:fit_flow/core/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class TextFieldWithLabel extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: AppTextStyles.semiBold12),
+        Text(label, style: AppTextStyles.semiBold12.copyWith(color: AppColors.hintTextColor)),
         const SizedBox(height: 6),
         CustomTextField(
           textInputAction: textInputAction,

@@ -23,7 +23,7 @@ class CustomButtonWithImage extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
-          border: Border.all(color: AppColors.borderButton, width: 0.6),
+          border: Border.all(color: AppColors.borderColor, width: 0.6),
           color: AppColors.backgroundButton,
           borderRadius: BorderRadius.circular(8),
         ),

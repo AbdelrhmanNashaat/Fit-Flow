@@ -61,7 +61,7 @@ class _StartingWeightDialogState extends State<StartingWeightDialog> {
           children: [
             Text(
               l10n.startingWeight,
-              style: AppTextStyles.bold18,
+              style: AppTextStyles.bold18.copyWith(color: AppColors.blackColor),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),

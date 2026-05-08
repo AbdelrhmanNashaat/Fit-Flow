@@ -29,7 +29,7 @@ class FormCueCard extends StatelessWidget {
                 color: AppColors.warning,
               ),
               const SizedBox(width: 8),
-              Text(context.l10n.formCues, style: AppTextStyles.bold14),
+              Text(context.l10n.formCues, style: AppTextStyles.bold14.copyWith(color: AppColors.textPrimary)),
             ],
           ),
           const SizedBox(height: 12),

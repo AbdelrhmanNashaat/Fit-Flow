@@ -20,7 +20,7 @@ class WeeklyBlueprintSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(l10n.weeklyBlueprint, style: AppTextStyles.bold16),
+            Text(l10n.weeklyBlueprint, style: AppTextStyles.bold16.copyWith(color: AppColors.blackColor)),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(

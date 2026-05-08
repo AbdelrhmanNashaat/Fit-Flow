@@ -67,7 +67,7 @@ class _LegalTile extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: Row(
             children: [
-              Expanded(child: Text(label, style: AppTextStyles.regular14)),
+              Expanded(child: Text(label, style: AppTextStyles.regular14.copyWith(color: AppColors.textSecondary))),
               const Icon(
                 Icons.open_in_new_rounded,
                 size: 20,

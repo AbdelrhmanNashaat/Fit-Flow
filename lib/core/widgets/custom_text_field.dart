@@ -49,7 +49,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       validator: widget.validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       cursorColor: AppColors.hintTextColor,
-      style: AppTextStyles.medium14,
+      style: AppTextStyles.medium14.copyWith(color: AppColors.blackColor),
       decoration: InputDecoration(
         hintText: widget.hintText,
         hintStyle: AppTextStyles.medium14.copyWith(
@@ -65,7 +65,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 ),
               )
             : null,
-        fillColor: AppColors.fillColor,
+        fillColor: AppColors.backgroundButton,
         filled: true,
         border: _border(),
         enabledBorder: _border(),
@@ -80,7 +80,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   OutlineInputBorder _border() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
-      borderSide: const BorderSide(color: AppColors.secondaryColor, width: 1),
+      borderSide: const BorderSide(color: AppColors.borderColor, width: 1),
     );
   }
 

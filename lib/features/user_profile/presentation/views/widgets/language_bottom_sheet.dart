@@ -43,7 +43,7 @@ class LanguageBottomSheet extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          Text(l10n.selectLanguage, style: AppTextStyles.bold16),
+          Text(l10n.selectLanguage, style: AppTextStyles.bold16.copyWith(color: AppColors.blackColor)),
           const SizedBox(height: 8),
           _LanguageTile(
             label: l10n.english,
