@@ -328,7 +328,7 @@ class _VideoCard extends StatelessWidget {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.only(right: 8),
+            padding: EdgeInsetsDirectional.only(end: 8),
             child: Icon(
               Icons.chevron_right_rounded,
               color: AppColors.orTextColor,

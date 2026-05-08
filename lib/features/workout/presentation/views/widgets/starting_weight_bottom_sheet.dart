@@ -106,7 +106,7 @@ class _StartingWeightDialogState extends State<StartingWeightDialog> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 16),
+                    padding: const EdgeInsetsDirectional.only(end: 16),
                     child: Text(
                       l10n.kg,
                       style: AppTextStyles.bold16.copyWith(

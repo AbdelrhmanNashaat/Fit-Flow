@@ -19,7 +19,7 @@ class ProfileSettingsGroup extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 4, bottom: 8),
+          padding: const EdgeInsetsDirectional.only(start: 4, bottom: 8),
           child: Text(
             label.toUpperCase(),
             style: AppTextStyles.bold14.copyWith(color: AppColors.orTextColor),
