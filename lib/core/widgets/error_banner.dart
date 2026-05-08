@@ -2,11 +2,7 @@ import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ErrorBanner extends StatelessWidget {
-  const ErrorBanner({
-    super.key,
-    required this.message,
-    this.onDismiss,
-  });
+  const ErrorBanner({super.key, required this.message, this.onDismiss});
 
   final String message;
   final VoidCallback? onDismiss;

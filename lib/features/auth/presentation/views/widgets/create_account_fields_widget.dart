@@ -1,3 +1,4 @@
+import 'package:fit_flow/core/l10n/app_localizations.dart';
 import 'package:fit_flow/core/utils/app_validators.dart';
 import 'package:fit_flow/features/auth/presentation/views/widgets/text_field_with_label.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,14 @@ class CreateAccountFieldsWidget extends StatefulWidget {
     required this.emailController,
     required this.passwordController,
     required this.confirmPasswordController,
+    this.nameErrorText,
+    this.emailErrorText,
+    this.passwordErrorText,
+    this.confirmPasswordErrorText,
+    this.onNameChanged,
+    this.onEmailChanged,
+    this.onPasswordChanged,
+    this.onConfirmPasswordChanged,
   });
 
   final GlobalKey<FormState> formKey;
@@ -17,6 +26,14 @@ class CreateAccountFieldsWidget extends StatefulWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final TextEditingController confirmPasswordController;
+  final String? nameErrorText;
+  final String? emailErrorText;
+  final String? passwordErrorText;
+  final String? confirmPasswordErrorText;
+  final ValueChanged<String>? onNameChanged;
+  final ValueChanged<String>? onEmailChanged;
+  final ValueChanged<String>? onPasswordChanged;
+  final ValueChanged<String>? onConfirmPasswordChanged;
 
   @override
   State<CreateAccountFieldsWidget> createState() =>
@@ -49,59 +66,70 @@ class _CreateAccountFieldsWidgetState extends State<CreateAccountFieldsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Form(
       key: widget.formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextFieldWithLabel(
-            label: 'FULL NAME',
+            label: l10n.fullNameLabel.toUpperCase(),
             hintText: 'John Doe',
+            errorText: widget.nameErrorText,
             keyboardType: TextInputType.name,
             controller: widget.nameController,
             focusNode: _nameFocusNode,
+            onChanged: widget.onNameChanged,
             textInputAction: TextInputAction.next,
             onFieldSubmitted: (_) =>
                 FocusScope.of(context).requestFocus(_emailFocusNode),
-            validator: AppValidators.validateName,
+            validator: (value) => AppValidators.validateName(value, l10n),
           ),
           const SizedBox(height: 16),
           TextFieldWithLabel(
-            label: 'EMAIL ADDRESS',
+            label: l10n.emailAddressLabel.toUpperCase(),
             hintText: 'name@example.com',
+            errorText: widget.emailErrorText,
             keyboardType: TextInputType.emailAddress,
             controller: widget.emailController,
             focusNode: _emailFocusNode,
+            onChanged: widget.onEmailChanged,
             textInputAction: TextInputAction.next,
             onFieldSubmitted: (_) =>
                 FocusScope.of(context).requestFocus(_passwordFocusNode),
-            validator: AppValidators.validateEmail,
+            validator: (value) => AppValidators.validateEmail(value, l10n),
           ),
           const SizedBox(height: 16),
           TextFieldWithLabel(
-            label: 'PASSWORD',
+            label: l10n.passwordLabel.toUpperCase(),
             obscureText: true,
             hintText: '••••••••',
+            errorText: widget.passwordErrorText,
             keyboardType: TextInputType.visiblePassword,
             controller: widget.passwordController,
             focusNode: _passwordFocusNode,
+            onChanged: widget.onPasswordChanged,
             textInputAction: TextInputAction.next,
             onFieldSubmitted: (_) =>
                 FocusScope.of(context).requestFocus(_confirmPasswordFocusNode),
-            validator: AppValidators.validatePassword,
+            validator: (value) => AppValidators.validatePassword(value, l10n),
           ),
           const SizedBox(height: 16),
           TextFieldWithLabel(
-            label: 'CONFIRM PASSWORD',
+            label: l10n.confirmPasswordLabel.toUpperCase(),
             obscureText: true,
             hintText: '••••••••',
+            errorText: widget.confirmPasswordErrorText,
             keyboardType: TextInputType.visiblePassword,
             controller: widget.confirmPasswordController,
             focusNode: _confirmPasswordFocusNode,
+            onChanged: widget.onConfirmPasswordChanged,
             textInputAction: TextInputAction.done,
             onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
             validator: (value) => AppValidators.confirmPasswordValidator(
               widget.passwordController.text,
+              l10n,
             )(value),
           ),
         ],

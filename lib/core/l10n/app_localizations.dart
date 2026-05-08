@@ -16,6 +16,76 @@ class AppLocalizations {
 
   // ─── App ───────────────────────────────────────────────────────────────────
   String get appName => _t(en: 'FitFlow', ar: 'فيت فلو');
+  String get authBrandName => _t(en: 'FitFlow Pure', ar: 'فيت فلو بيور');
+  String get splashTagline =>
+      _t(en: 'Elevate Your Movement', ar: 'ارتق بحركتك');
+
+  // ─── Auth ──────────────────────────────────────────────────────────────────
+  String get signIn => _t(en: 'Sign In', ar: 'تسجيل الدخول');
+  String get createAccount => _t(en: 'Create Account', ar: 'إنشاء حساب');
+  String get forgotPassword =>
+      _t(en: 'Forgot Password?', ar: 'هل نسيت كلمة المرور؟');
+  String get welcomeBackSubtitle => _t(
+    en: 'Welcome back. Let\'s keep moving.',
+    ar: 'مرحباً بعودتك. لنواصل التقدم.',
+  );
+  String get createAccountSubtitle =>
+      _t(en: 'Create your account to get started.', ar: 'أنشئ حسابك للبدء.');
+  String get emailAddressLabel =>
+      _t(en: 'Email Address', ar: 'البريد الإلكتروني');
+  String get fullNameLabel => _t(en: 'Full Name', ar: 'الاسم الكامل');
+  String get confirmPasswordLabel =>
+      _t(en: 'Confirm Password', ar: 'تأكيد كلمة المرور');
+  String get forgotPasswordDescription => _t(
+    en: 'Enter the email linked to your account and we\'ll send you a reset link.',
+    ar: 'أدخل البريد الإلكتروني المرتبط بحسابك وسنرسل لك رابط إعادة التعيين.',
+  );
+  String get sendResetLink =>
+      _t(en: 'Send Reset Link', ar: 'إرسال رابط إعادة التعيين');
+  String get checkYourInbox => _t(en: 'Check Your Inbox', ar: 'تحقق من بريدك');
+  String get resetLinkSentBody => _t(
+    en: 'If an account exists for this email, you\'ll receive a password reset link shortly.',
+    ar: 'إذا وُجد حساب لهذا البريد، فستتلقى قريباً رابطاً لإعادة تعيين كلمة المرور.',
+  );
+  String get backToSignIn =>
+      _t(en: 'Back to Sign In', ar: 'العودة إلى تسجيل الدخول');
+  String get newToFitFlow => _t(en: 'New to FitFlow?', ar: 'جديد على FitFlow؟');
+  String get createAccountNav => _t(en: 'Create an account', ar: 'إنشاء حساب');
+  String get alreadyHaveAccount =>
+      _t(en: 'Already have an account?', ar: 'لديك حساب بالفعل؟');
+  String get signInNav => _t(en: 'Sign in', ar: 'تسجيل الدخول');
+  String get termsAndPrivacyLabel => _t(
+    en: 'Terms of Use  ·  Privacy Policy',
+    ar: 'شروط الاستخدام  ·  سياسة الخصوصية',
+  );
+  String get orContinueWith =>
+      _t(en: 'or continue with', ar: 'أو تابع باستخدام');
+  String get google => _t(en: 'Google', ar: 'جوجل');
+  String get apple => _t(en: 'Apple', ar: 'أبل');
+
+  // ─── Validation ────────────────────────────────────────────────────────────
+  String get emailRequiredError =>
+      _t(en: 'Email is required', ar: 'البريد الإلكتروني مطلوب');
+  String get emailInvalidError => _t(
+    en: 'Enter a valid email address',
+    ar: 'أدخل بريداً إلكترونياً صالحاً',
+  );
+  String get passwordRequiredError =>
+      _t(en: 'Password is required', ar: 'كلمة المرور مطلوبة');
+  String get passwordTooShortError => _t(
+    en: 'Password must be at least 8 characters',
+    ar: 'يجب أن تكون كلمة المرور 8 أحرف على الأقل',
+  );
+  String get fullNameRequiredError =>
+      _t(en: 'Full name is required', ar: 'الاسم الكامل مطلوب');
+  String get fullNameTooShortError => _t(
+    en: 'Name must be at least 2 characters',
+    ar: 'يجب أن يتكون الاسم من حرفين على الأقل',
+  );
+  String get confirmPasswordRequiredError =>
+      _t(en: 'Please confirm your password', ar: 'يرجى تأكيد كلمة المرور');
+  String get passwordsDoNotMatchError =>
+      _t(en: 'Passwords do not match', ar: 'كلمتا المرور غير متطابقتين');
 
   // ─── Navigation tabs ───────────────────────────────────────────────────────
   String get home => _t(en: 'Home', ar: 'الرئيسية');

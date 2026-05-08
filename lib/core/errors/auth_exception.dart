@@ -1,10 +1,12 @@
-class AuthException implements Exception {
-  const AuthException(this.message);
+import 'package:fit_flow/core/errors/failure.dart';
 
-  final String message;
+class AuthException implements Exception {
+  const AuthException(this.failure);
+
+  final Failure failure;
 
   @override
-  String toString() => message;
+  String toString() => failure.message;
 }
 
 /// Thrown by [FirebaseAuthService.deleteAccount] when Firebase requires

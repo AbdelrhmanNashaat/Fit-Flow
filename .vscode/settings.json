@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["Lexend"]
+  "cSpell.words": ["Lexend"],
+  "python.terminal.useEnvFile": true
 }

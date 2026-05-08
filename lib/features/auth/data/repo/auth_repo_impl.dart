@@ -23,6 +23,8 @@ class AuthRepoImpl implements AuthRepo {
       final user = await _authService.signIn(email: email, password: password);
       await _cacheHelper.cacheUserJson(user.toJson());
       return Right(user);
+    } on AuthException catch (e) {
+      return Left(e.failure);
     } catch (e) {
       return Left(Failure(_extractMessage(e)));
     }
@@ -30,13 +32,20 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Either<Failure, AuthUser>> signUp(
+    String name,
     String email,
     String password,
   ) async {
     try {
-      final user = await _authService.signUp(email: email, password: password);
+      final user = await _authService.signUp(
+        email: email,
+        password: password,
+        displayName: name.trim(),
+      );
       await _cacheHelper.cacheUserJson(user.toJson());
       return Right(user);
+    } on AuthException catch (e) {
+      return Left(e.failure);
     } catch (e) {
       return Left(Failure(_extractMessage(e)));
     }
@@ -48,6 +57,8 @@ class AuthRepoImpl implements AuthRepo {
       final user = await _authService.signInWithGoogle();
       await _cacheHelper.cacheUserJson(user.toJson());
       return Right(user);
+    } on AuthException catch (e) {
+      return Left(e.failure);
     } catch (e) {
       return Left(Failure(_extractMessage(e)));
     }
@@ -58,6 +69,8 @@ class AuthRepoImpl implements AuthRepo {
     try {
       await _authService.sendPasswordResetEmail(email: email);
       return const Right(null);
+    } on AuthException catch (e) {
+      return Left(e.failure);
     } catch (e) {
       return Left(Failure(_extractMessage(e)));
     }
@@ -72,11 +85,11 @@ class AuthRepoImpl implements AuthRepo {
         return Right(firebaseUser);
       }
 
-      if (_cacheHelper.isLoggedIn || _cacheHelper.getCachedUserJson() != null) {
-        await _cacheHelper.clearAuthData();
-      }
-
+      await _cacheHelper.clearAuthData();
       return const Right(null);
+    } on AuthException catch (e) {
+      await _cacheHelper.clearAuthData();
+      return Left(e.failure);
     } catch (e) {
       await _cacheHelper.clearAuthData();
       return Left(Failure(_extractMessage(e)));
@@ -89,6 +102,8 @@ class AuthRepoImpl implements AuthRepo {
       await _authService.signOut();
       await _cacheHelper.clearAuthData();
       return const Right(null);
+    } on AuthException catch (e) {
+      return Left(e.failure);
     } catch (e) {
       return Left(Failure(_extractMessage(e)));
     }
@@ -102,6 +117,8 @@ class AuthRepoImpl implements AuthRepo {
       return const Right(null);
     } on ReauthRequiredException catch (e) {
       return Left(ReauthRequiredFailure(e.provider));
+    } on AuthException catch (e) {
+      return Left(e.failure);
     } catch (e) {
       return Left(Failure(_extractMessage(e)));
     }

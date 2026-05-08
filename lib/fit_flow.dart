@@ -24,16 +24,46 @@ class FitFlow extends StatefulWidget {
 class _FitFlowState extends State<FitFlow> {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
-  @override
-  void initState() {
-    super.initState();
-    _removeSplash();
-  }
+  bool _didRemoveNativeSplash = false;
 
-  void _removeSplash() {
+  void _removeNativeSplash() {
+    if (_didRemoveNativeSplash) {
+      return;
+    }
+
+    _didRemoveNativeSplash = true;
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) {
+        return;
+      }
+
       FlutterNativeSplash.remove();
     });
+  }
+
+  void _handleSessionState(AuthSessionState state) {
+    _removeNativeSplash();
+
+    final navigator = _navigatorKey.currentState;
+    if (navigator == null) {
+      return;
+    }
+
+    final routeName = switch (state) {
+      AuthSessionAuthenticated() => AppNavigation.home,
+      AuthSessionNeedsOnboarding() => AppNavigation.onboarding,
+      AuthSessionUnauthenticated() => AppNavigation.signIn,
+      AuthSessionFailure() =>
+        state.user == null ? AppNavigation.signIn : AppNavigation.home,
+      _ => null,
+    };
+
+    if (routeName == null) {
+      return;
+    }
+
+    navigator.pushNamedAndRemoveUntil(routeName, (route) => false);
   }
 
   @override
@@ -69,35 +99,10 @@ class _FitFlowState extends State<FitFlow> {
                   return current is AuthSessionAuthenticated ||
                       current is AuthSessionNeedsOnboarding ||
                       current is AuthSessionUnauthenticated ||
-                      (current is AuthSessionFailure && current.user == null);
+                      current is AuthSessionFailure;
                 },
-                listener: (context, state) {
-                  final navigator = _navigatorKey.currentState;
-                  if (navigator == null) return;
-
-                  if (state is AuthSessionAuthenticated) {
-                    navigator.pushNamedAndRemoveUntil(
-                      AppNavigation.home,
-                      (route) => false,
-                    );
-                  }
-
-                  if (state is AuthSessionNeedsOnboarding) {
-                    navigator.pushNamedAndRemoveUntil(
-                      AppNavigation.onboarding,
-                      (route) => false,
-                    );
-                  }
-
-                  if (state is AuthSessionUnauthenticated ||
-                      (state is AuthSessionFailure && state.user == null)) {
-                    navigator.pushNamedAndRemoveUntil(
-                      AppNavigation.signIn,
-                      (route) => false,
-                    );
-                  }
-                },
-                child: child ?? const SizedBox.shrink(),
+                listener: (_, state) => _handleSessionState(state),
+                child: child,
               );
             },
             theme: ThemeData(

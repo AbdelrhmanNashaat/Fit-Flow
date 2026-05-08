@@ -15,6 +15,8 @@ class TextFieldWithLabel extends StatelessWidget {
     this.focusNode,
     this.validator,
     this.keyboardType,
+    this.errorText,
+    this.onChanged,
   });
 
   final String label;
@@ -26,13 +28,20 @@ class TextFieldWithLabel extends StatelessWidget {
   final FocusNode? focusNode;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
+  final String? errorText;
+  final ValueChanged<String>? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: AppTextStyles.semiBold12.copyWith(color: AppColors.hintTextColor)),
+        Text(
+          label,
+          style: AppTextStyles.semiBold12.copyWith(
+            color: AppColors.hintTextColor,
+          ),
+        ),
         const SizedBox(height: 6),
         CustomTextField(
           textInputAction: textInputAction,
@@ -40,9 +49,11 @@ class TextFieldWithLabel extends StatelessWidget {
           focusNode: focusNode,
           controller: controller,
           hintText: hintText,
+          errorText: errorText,
           obscureText: obscureText,
           validator: validator,
           keyboardType: keyboardType,
+          onChanged: onChanged,
         ),
       ],
     );

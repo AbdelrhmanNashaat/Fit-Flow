@@ -1,3 +1,4 @@
+import 'package:fit_flow/core/l10n/app_localizations.dart';
 import 'package:fit_flow/core/utils/app_assets.dart';
 import 'package:fit_flow/core/widgets/custom_button_with_image.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/sign_in_cubit.dart';
@@ -10,6 +11,8 @@ class RowOFSignInOptionsButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return BlocSelector<SignInCubit, SignInState, (bool, bool)>(
       selector: (state) =>
           (state is SignInLoading, state is SignInLoading && state.isGoogle),
@@ -21,7 +24,7 @@ class RowOFSignInOptionsButtons extends StatelessWidget {
             Flexible(
               child: CustomButtonWithImage(
                 imagePath: Assets.googleLogo,
-                text: 'Google',
+                text: l10n.google,
                 isLoading: isGoogleLoading,
                 onPressed: isAnyLoading
                     ? () {}
@@ -32,7 +35,7 @@ class RowOFSignInOptionsButtons extends StatelessWidget {
             Flexible(
               child: CustomButtonWithImage(
                 imagePath: Assets.appleLogo,
-                text: 'Apple',
+                text: l10n.apple,
                 isLoading: false,
                 onPressed: isAnyLoading ? () {} : () {},
               ),

@@ -16,15 +16,14 @@ class AppNavigation {
   static const String forgotPassword = '/forgotPassword';
   static const String activeExercise = '/activeExercise';
 
-  static final Map<String, WidgetBuilder> routes = Map.unmodifiable(
-    <String, WidgetBuilder>{
-      splash: (_) => const SplashView(),
-      signIn: (_) => const SignInView(),
-      signUp: (_) => const CreateAccountView(),
-      onboarding: (_) => const OnboardingView(),
-      home: (_) => const MainView(),
-      forgotPassword: (_) => const ForgotPasswordView(),
-      activeExercise: (_) => const ActiveExerciseView(),
-    },
-  );
+  static final Map<String, WidgetBuilder> routes =
+      Map.unmodifiable(<String, WidgetBuilder>{
+        splash: (_) => const SplashView(),
+        signIn: (_) => const SignInView(),
+        signUp: (_) => const CreateAccountView(),
+        onboarding: (_) => const OnboardingView(),
+        home: (_) => const MainView(),
+        forgotPassword: (_) => const ForgotPasswordView(),
+        activeExercise: (_) => const ActiveExerciseView(),
+      });
 }

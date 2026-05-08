@@ -23,7 +23,7 @@ class UserProfileRepoImpl implements UserProfileRepo {
 
   @override
   Future<Either<Failure, UserProfile?>> getProfile(String uid) async {
-    final cachedJson = _cacheHelper.getCachedProfileJson(uid);
+    final cachedJson = await _cacheHelper.getCachedProfileJson(uid);
     try {
       final data = await _databaseService.getUser(uid: uid);
       if (data == null) {
@@ -68,6 +68,10 @@ class UserProfileRepoImpl implements UserProfileRepo {
         uid: profile.uid,
         data: profile.toJson(),
       );
+      await _cacheHelper.cacheProfileJson(
+        profile.uid,
+        _toCacheableJson(profile.toJson()),
+      );
       return const Right(null);
     } catch (e) {
       log(e.toString(), name: 'UserProfileRepoImpl');
@@ -82,6 +86,12 @@ class UserProfileRepoImpl implements UserProfileRepo {
   ) async {
     try {
       await _databaseService.updateUser(uid: uid, data: data);
+      final cachedJson = await _cacheHelper.getCachedProfileJson(uid);
+      if (cachedJson != null) {
+        final mergedJson = Map<String, dynamic>.from(cachedJson)
+          ..addAll(_toCacheableJson(data));
+        await _cacheHelper.cacheProfileJson(uid, mergedJson);
+      }
       return const Right(null);
     } catch (e) {
       log(e.toString(), name: 'UserProfileRepoImpl');
@@ -93,6 +103,7 @@ class UserProfileRepoImpl implements UserProfileRepo {
   Future<Either<Failure, void>> deleteProfile(String uid) async {
     try {
       await _databaseService.deleteUser(uid: uid);
+      await _cacheHelper.clearProfileCache(uid);
       return const Right(null);
     } catch (e) {
       log(e.toString(), name: 'UserProfileRepoImpl');

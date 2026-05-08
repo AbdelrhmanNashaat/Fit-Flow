@@ -1,3 +1,4 @@
+import 'package:fit_flow/core/l10n/app_localizations.dart';
 import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_navigation.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
@@ -13,7 +14,7 @@ class ForgetPassButton extends StatelessWidget {
       child: GestureDetector(
         onTap: () => Navigator.pushNamed(context, AppNavigation.forgotPassword),
         child: Text(
-          'Forgot Password?',
+          context.l10n.forgotPassword,
           style: AppTextStyles.medium12.copyWith(color: AppColors.primaryColor),
         ),
       ),

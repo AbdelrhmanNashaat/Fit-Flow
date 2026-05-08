@@ -1,24 +1,23 @@
 import 'dart:convert';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheHelper {
-  CacheHelper(this._preferences);
+  CacheHelper(this._preferences, this._secureStorage);
 
   static const _authUserKey = 'auth_user';
-  static const _isLoggedInKey = 'is_logged_in';
   static const _localeKey = 'app_locale';
   static const _localImagePathPrefix = 'local_image_path_';
   static const _profilePrefix = 'user_profile_';
 
   final SharedPreferences _preferences;
-
-  bool get isLoggedIn => _preferences.getBool(_isLoggedInKey) ?? false;
+  final FlutterSecureStorage _secureStorage;
 
   String? get savedLocale => _preferences.getString(_localeKey);
 
-  Map<String, dynamic>? getCachedUserJson() {
-    final raw = _preferences.getString(_authUserKey);
+  Future<Map<String, dynamic>?> getCachedUserJson() async {
+    final raw = await _secureStorage.read(key: _authUserKey);
     if (raw == null || raw.isEmpty) return null;
     try {
       return jsonDecode(raw) as Map<String, dynamic>;
@@ -28,13 +27,17 @@ class CacheHelper {
   }
 
   Future<void> cacheUserJson(Map<String, dynamic> json) async {
-    await _preferences.setString(_authUserKey, jsonEncode(json));
-    await _preferences.setBool(_isLoggedInKey, true);
+    await _secureStorage.write(key: _authUserKey, value: jsonEncode(json));
   }
 
   Future<void> clearAuthData() async {
-    await _preferences.remove(_authUserKey);
-    await _preferences.setBool(_isLoggedInKey, false);
+    await _secureStorage.delete(key: _authUserKey);
+    final entries = await _secureStorage.readAll();
+    for (final key in entries.keys.where(
+      (key) => key.startsWith(_profilePrefix),
+    )) {
+      await _secureStorage.delete(key: key);
+    }
   }
 
   Future<void> saveLocale(String languageCode) async {
@@ -48,8 +51,8 @@ class CacheHelper {
     await _preferences.setString('$_localImagePathPrefix$uid', path);
   }
 
-  Map<String, dynamic>? getCachedProfileJson(String uid) {
-    final raw = _preferences.getString('$_profilePrefix$uid');
+  Future<Map<String, dynamic>?> getCachedProfileJson(String uid) async {
+    final raw = await _secureStorage.read(key: '$_profilePrefix$uid');
     if (raw == null || raw.isEmpty) return null;
     try {
       return jsonDecode(raw) as Map<String, dynamic>;
@@ -59,10 +62,13 @@ class CacheHelper {
   }
 
   Future<void> cacheProfileJson(String uid, Map<String, dynamic> json) async {
-    await _preferences.setString('$_profilePrefix$uid', jsonEncode(json));
+    await _secureStorage.write(
+      key: '$_profilePrefix$uid',
+      value: jsonEncode(json),
+    );
   }
 
   Future<void> clearProfileCache(String uid) async {
-    await _preferences.remove('$_profilePrefix$uid');
+    await _secureStorage.delete(key: '$_profilePrefix$uid');
   }
 }

@@ -1,3 +1,4 @@
+import 'package:fit_flow/core/l10n/app_localizations.dart';
 import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:fit_flow/core/utils/app_validators.dart';
@@ -29,14 +30,16 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
 
   void _onSubmit() {
     if (_formKey.currentState?.validate() ?? false) {
-      context
-          .read<ResetPasswordCubit>()
-          .resetPassword(_emailController.text.trim());
+      context.read<ResetPasswordCubit>().resetPassword(
+        _emailController.text.trim(),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       child: Column(
@@ -51,10 +54,15 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
             ),
           ),
           const SizedBox(height: 28),
-          Text('Forgot Password?', style: AppTextStyles.extraBold26.copyWith(color: AppColors.blackColor)),
+          Text(
+            l10n.forgotPassword,
+            style: AppTextStyles.extraBold26.copyWith(
+              color: AppColors.blackColor,
+            ),
+          ),
           const SizedBox(height: 8),
           Text(
-            'Enter the email linked to your account\nand we\'ll send you a reset link.',
+            l10n.forgotPasswordDescription,
             style: AppTextStyles.medium14.copyWith(
               color: AppColors.orTextColor,
               height: 1.5,
@@ -72,8 +80,11 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
               return AuthContainerParentWidget(
                 child: Column(
                   children: [
-                    BlocSelector<ResetPasswordCubit, ResetPasswordState,
-                        String?>(
+                    BlocSelector<
+                      ResetPasswordCubit,
+                      ResetPasswordState,
+                      String?
+                    >(
                       selector: (s) =>
                           s is ResetPasswordFailure ? s.message : null,
                       builder: (context, errorMessage) => AnimatedErrorBanner(
@@ -82,24 +93,39 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
                             context.read<ResetPasswordCubit>().clearError(),
                       ),
                     ),
-                    Form(
-                      key: _formKey,
-                      child: TextFieldWithLabel(
-                        label: 'Email Address',
-                        hintText: 'name@example.com',
-                        keyboardType: TextInputType.emailAddress,
-                        controller: _emailController,
-                        textInputAction: TextInputAction.done,
-                        onFieldSubmitted: (_) => _onSubmit(),
-                        validator: AppValidators.validateEmail,
-                      ),
+                    BlocSelector<
+                      ResetPasswordCubit,
+                      ResetPasswordState,
+                      String?
+                    >(
+                      selector: (state) => state is ResetPasswordFieldFailure
+                          ? state.emailError
+                          : null,
+                      builder: (context, emailError) {
+                        return Form(
+                          key: _formKey,
+                          child: TextFieldWithLabel(
+                            label: l10n.emailAddressLabel,
+                            hintText: 'name@example.com',
+                            errorText: emailError,
+                            keyboardType: TextInputType.emailAddress,
+                            controller: _emailController,
+                            textInputAction: TextInputAction.done,
+                            onChanged: (_) =>
+                                context.read<ResetPasswordCubit>().clearError(),
+                            onFieldSubmitted: (_) => _onSubmit(),
+                            validator: (value) =>
+                                AppValidators.validateEmail(value, l10n),
+                          ),
+                        );
+                      },
                     ),
                     const SizedBox(height: 16),
                     BlocSelector<ResetPasswordCubit, ResetPasswordState, bool>(
                       selector: (s) => s is ResetPasswordLoading,
                       builder: (context, isLoading) {
                         return CustomButton(
-                          text: 'Send Reset Link',
+                          text: l10n.sendResetLink,
                           onPressed: _onSubmit,
                           isLoading: isLoading,
                         );
@@ -138,14 +164,12 @@ class _SuccessCard extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Text(
-            'Check Your Inbox',
-            style: AppTextStyles.bold18.copyWith(
-              color: AppColors.successText,
-            ),
+            context.l10n.checkYourInbox,
+            style: AppTextStyles.bold18.copyWith(color: AppColors.successText),
           ),
           const SizedBox(height: 8),
           Text(
-            "If an account exists for this email, you'll receive a password reset link shortly.",
+            context.l10n.resetLinkSentBody,
             textAlign: TextAlign.center,
             style: AppTextStyles.medium14.copyWith(
               color: AppColors.successTextDark,
@@ -156,7 +180,7 @@ class _SuccessCard extends StatelessWidget {
           GestureDetector(
             onTap: () => Navigator.pop(context),
             child: Text(
-              'Back to Sign In',
+              context.l10n.backToSignIn,
               style: AppTextStyles.medium14.copyWith(
                 color: AppColors.primaryColor,
                 decoration: TextDecoration.underline,

@@ -10,6 +10,12 @@ class ResetPasswordLoading extends ResetPasswordState {
   const ResetPasswordLoading();
 }
 
+class ResetPasswordFieldFailure extends ResetPasswordState {
+  const ResetPasswordFieldFailure({this.emailError});
+
+  final String? emailError;
+}
+
 class ResetPasswordSuccess extends ResetPasswordState {
   const ResetPasswordSuccess();
 }

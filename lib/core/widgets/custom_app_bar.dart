@@ -1,4 +1,4 @@
-﻿import 'package:fit_flow/core/utils/app_colors.dart';
+import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -24,7 +24,12 @@ class CustomAppBarWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: [
-                Text(title, style: AppTextStyles.bold18.copyWith(color: AppColors.blackColor)),
+                Text(
+                  title,
+                  style: AppTextStyles.bold18.copyWith(
+                    color: AppColors.blackColor,
+                  ),
+                ),
                 const Spacer(),
                 if (trailing != null)
                   trailing!

@@ -12,8 +12,21 @@ final class SignUpLoading extends SignUpState {
   const SignUpLoading();
 }
 
+final class SignUpFieldFailure extends SignUpState {
+  const SignUpFieldFailure({
+    this.nameError,
+    this.emailError,
+    this.passwordError,
+  });
+
+  final String? nameError;
+  final String? emailError;
+  final String? passwordError;
+}
+
 final class SignUpSuccess extends SignUpState {
   const SignUpSuccess(this.user);
+
   final AuthUser user;
 }
 

@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthSessionCubit extends Cubit<AuthSessionState> {
   AuthSessionCubit(this._authRepo, this._userProfileRepo)
-      : super(const AuthSessionInitial());
+    : super(const AuthSessionInitial());
 
   final AuthRepo _authRepo;
   final UserProfileRepo _userProfileRepo;
@@ -58,10 +58,9 @@ class AuthSessionCubit extends Cubit<AuthSessionState> {
     final user = _currentUser;
     if (user == null) return;
 
-    final result = await _userProfileRepo.updateProfile(
-      user.id,
-      {'isOnboardingCompleted': false},
-    );
+    final result = await _userProfileRepo.updateProfile(user.id, {
+      'isOnboardingCompleted': false,
+    });
     result.fold(
       (failure) => emit(AuthSessionFailure(failure.message, user: user)),
       (_) => emit(AuthSessionNeedsOnboarding(user)),

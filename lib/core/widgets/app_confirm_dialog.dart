@@ -45,8 +45,14 @@ class AppConfirmDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(title, style: AppTextStyles.bold16.copyWith(color: AppColors.blackColor)),
-      content: Text(message, style: AppTextStyles.regular14.copyWith(color: AppColors.textSecondary)),
+      title: Text(
+        title,
+        style: AppTextStyles.bold16.copyWith(color: AppColors.blackColor),
+      ),
+      content: Text(
+        message,
+        style: AppTextStyles.regular14.copyWith(color: AppColors.textSecondary),
+      ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),

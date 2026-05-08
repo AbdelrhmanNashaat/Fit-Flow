@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fit_flow/core/errors/auth_exception.dart';
+import 'package:fit_flow/core/errors/failure.dart';
 import 'package:fit_flow/core/errors/firebase_errors.dart';
 import 'package:fit_flow/core/service/auth_service.dart';
 import 'package:fit_flow/features/auth/data/model/auth_user.dart';
@@ -36,7 +37,7 @@ class FirebaseAuthService implements AuthService {
         await signOut();
         return null;
       }
-      throw Exception(FirebaseErrors.fromCode(e.code).message);
+      throw AuthException(FirebaseErrors.fromCode(e.code));
     }
   }
 
@@ -53,7 +54,7 @@ class FirebaseAuthService implements AuthService {
       );
       return _mapUser(credential.user);
     } on FirebaseAuthException catch (e) {
-      throw Exception(FirebaseErrors.fromCode(e.code).message);
+      throw AuthException(FirebaseErrors.fromCode(e.code));
     }
   }
 
@@ -61,6 +62,7 @@ class FirebaseAuthService implements AuthService {
   Future<AuthUser> signUp({
     required String email,
     required String password,
+    required String displayName,
   }) async {
     try {
       await _ensureLanguageCode();
@@ -68,9 +70,26 @@ class FirebaseAuthService implements AuthService {
         email: email,
         password: password,
       );
-      return _mapUser(credential.user);
+
+      final user = credential.user;
+      if (user == null) {
+        throw const AuthException(
+          AuthFailure(
+            message: 'Authentication failed: user is null.',
+            code: AuthErrorCode.unknown,
+            field: FailureField.general,
+          ),
+        );
+      }
+
+      if (displayName.trim().isNotEmpty) {
+        await user.updateDisplayName(displayName.trim());
+        await user.reload();
+      }
+
+      return _mapUser(_auth.currentUser ?? user);
     } on FirebaseAuthException catch (e) {
-      throw Exception(FirebaseErrors.fromCode(e.code).message);
+      throw AuthException(FirebaseErrors.fromCode(e.code));
     }
   }
 
@@ -79,12 +98,24 @@ class FirebaseAuthService implements AuthService {
     try {
       await _ensureLanguageCode();
       final googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) throw Exception('Google sign-in was cancelled.');
+      if (googleUser == null) {
+        throw const AuthException(
+          AuthFailure(
+            message: 'Google sign-in was cancelled.',
+            code: AuthErrorCode.cancelled,
+            field: FailureField.general,
+          ),
+        );
+      }
 
       final googleAuth = await googleUser.authentication;
       if (googleAuth.idToken == null) {
-        throw Exception(
-          'Google sign-in failed: missing ID token. Check the server client ID configuration.',
+        throw const AuthException(
+          AuthFailure(
+            message: 'Google sign-in is not configured correctly.',
+            code: AuthErrorCode.googleConfiguration,
+            field: FailureField.general,
+          ),
         );
       }
 
@@ -96,7 +127,7 @@ class FirebaseAuthService implements AuthService {
       final userCredential = await _auth.signInWithCredential(credential);
       return _mapUser(userCredential.user);
     } on FirebaseAuthException catch (e) {
-      throw Exception(FirebaseErrors.fromCode(e.code).message);
+      throw AuthException(FirebaseErrors.fromCode(e.code));
     } catch (e) {
       rethrow;
     }
@@ -108,7 +139,7 @@ class FirebaseAuthService implements AuthService {
       await _ensureLanguageCode();
       await _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
-      throw Exception(FirebaseErrors.fromCode(e.code).message);
+      throw AuthException(FirebaseErrors.fromCode(e.code));
     }
   }
 
@@ -117,7 +148,7 @@ class FirebaseAuthService implements AuthService {
     try {
       await _auth.signOut();
     } on FirebaseAuthException catch (e) {
-      throw Exception(FirebaseErrors.fromCode(e.code).message);
+      throw AuthException(FirebaseErrors.fromCode(e.code));
     } finally {
       try {
         await _googleSignIn.signOut();
@@ -128,7 +159,15 @@ class FirebaseAuthService implements AuthService {
   @override
   Future<void> deleteAccount({String? password}) async {
     final user = _auth.currentUser;
-    if (user == null) throw Exception('No authenticated user.');
+    if (user == null) {
+      throw const AuthException(
+        AuthFailure(
+          message: 'No authenticated user.',
+          code: AuthErrorCode.unknown,
+          field: FailureField.general,
+        ),
+      );
+    }
 
     try {
       await user.delete();
@@ -136,7 +175,7 @@ class FirebaseAuthService implements AuthService {
       if (e.code == 'requires-recent-login') {
         await _reauthAndDelete(user, password);
       } else {
-        throw Exception(FirebaseErrors.fromCode(e.code).message);
+        throw AuthException(FirebaseErrors.fromCode(e.code));
       }
     }
 
@@ -153,7 +192,13 @@ class FirebaseAuthService implements AuthService {
     if (provider == 'google.com') {
       final googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
-        throw Exception('Re-authentication was cancelled.');
+        throw const AuthException(
+          AuthFailure(
+            message: 'Re-authentication was cancelled.',
+            code: AuthErrorCode.cancelled,
+            field: FailureField.general,
+          ),
+        );
       }
       final googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
@@ -175,7 +220,16 @@ class FirebaseAuthService implements AuthService {
   }
 
   AuthUser _mapUser(User? user) {
-    if (user == null) throw Exception('Authentication failed: user is null.');
+    if (user == null) {
+      throw const AuthException(
+        AuthFailure(
+          message: 'Authentication failed: user is null.',
+          code: AuthErrorCode.unknown,
+          field: FailureField.general,
+        ),
+      );
+    }
+
     return AuthUser(
       id: user.uid,
       name: user.displayName ?? '',
