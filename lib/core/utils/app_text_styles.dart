@@ -15,11 +15,7 @@ class AppTextStyles {
     fontFamily: _fontFamily,
     fontWeight: FontWeight.bold,
     fontSize: 14,
-<<<<<<< HEAD
     color: AppColors.textPrimary,
-=======
-    color: AppColors.buttonTextColor,
->>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
   );
   static const TextStyle bold20 = TextStyle(
     fontFamily: _fontFamily,
@@ -87,11 +83,7 @@ class AppTextStyles {
     fontFamily: _fontFamily,
     fontWeight: FontWeight.w400,
     fontSize: 16,
-<<<<<<< HEAD
     color: AppColors.textPrimary,
-=======
-    color: AppColors.buttonTextColor,
->>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
   );
   static const TextStyle bold26 = TextStyle(
     fontFamily: _fontFamily,

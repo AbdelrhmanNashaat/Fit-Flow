@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿import 'package:fit_flow/core/utils/app_colors.dart';
-=======
 import 'package:fit_flow/core/utils/app_colors.dart';
->>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -26,17 +22,10 @@ class ProfileStatItem extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.whiteColor,
           borderRadius: BorderRadius.circular(12),
-<<<<<<< HEAD
           border: Border.all(color: AppColors.dividerLight),
           boxShadow: const [
             BoxShadow(
               color: AppColors.shadow,
-=======
-          border: Border.all(color: AppColors.divider2Color),
-          boxShadow: const [
-            BoxShadow(
-              color: AppColors.shadowColor,
->>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
               blurRadius: 4,
               offset: Offset(0, 2),
             ),

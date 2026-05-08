@@ -12,7 +12,6 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     final authState = context.watch<AuthSessionCubit>().state;
     final userName = switch (authState) {
       AuthSessionAuthenticated(:final user) => user.name,
@@ -23,8 +22,5 @@ class HomeView extends StatelessWidget {
       create: (_) => HomeCubit(getIt<WorkoutRepo>())..load(userName),
       child: const HomeViewBody(),
     );
-=======
-    return const SafeArea(child: HomeViewBody());
->>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
   }
 }

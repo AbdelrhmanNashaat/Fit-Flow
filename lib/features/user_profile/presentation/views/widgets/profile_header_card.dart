@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿import 'dart:io';
-=======
 import 'dart:io';
->>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
 
 import 'package:fit_flow/core/l10n/app_localizations.dart';
 import 'package:fit_flow/core/utils/app_colors.dart';
@@ -101,8 +97,9 @@ class _ProfileAvatar extends StatelessWidget {
         .map((w) => w[0].toUpperCase())
         .join();
 
-    final ImageProvider? imageProvider =
-        localImagePath != null ? FileImage(File(localImagePath!)) : null;
+    final ImageProvider? imageProvider = localImagePath != null
+        ? FileImage(File(localImagePath!))
+        : null;
 
     return Stack(
       children: [
@@ -147,8 +144,7 @@ class _ProfileAvatar extends StatelessWidget {
                       width: 18,
                       height: 18,
                       child: CircularProgressIndicator(
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(Colors.white),
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                         strokeWidth: 2,
                       ),
                     )

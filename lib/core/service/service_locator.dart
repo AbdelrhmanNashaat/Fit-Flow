@@ -5,7 +5,7 @@ import 'package:fit_flow/core/service/auth_service.dart';
 import 'package:fit_flow/core/service/cache_helper.dart';
 import 'package:fit_flow/core/service/database_service.dart';
 import 'package:fit_flow/core/service/firebase_auth_service.dart';
-import 'package:fit_flow/core/service/fire_store_stroage_service.dart';
+import 'package:fit_flow/core/service/fire_store_storage_service.dart';
 import 'package:fit_flow/core/service/local_image_service.dart';
 import 'package:fit_flow/core/service/local_image_service_impl.dart';
 import 'package:fit_flow/features/auth/data/repo/auth_repo_impl.dart';
@@ -73,15 +73,6 @@ void setupServiceLocator({required SharedPreferences sharedPreferences}) {
         getIt<LocalImageService>(),
         getIt<CacheHelper>(),
       ),
-<<<<<<< HEAD
-=======
-    );
-  }
-
-  if (!getIt.isRegistered<LocaleCubit>()) {
-    getIt.registerLazySingleton<LocaleCubit>(
-      () => LocaleCubit(getIt<CacheHelper>()),
->>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
     );
   }
 

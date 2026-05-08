@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿import 'package:fit_flow/core/l10n/app_localizations.dart';
-=======
 import 'package:fit_flow/core/l10n/app_localizations.dart';
->>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
 import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:fit_flow/features/locale/cubit/locale_cubit.dart';
@@ -41,11 +37,7 @@ class LanguageBottomSheet extends StatelessWidget {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-<<<<<<< HEAD
                 color: AppColors.borderLight,
-=======
-                color: AppColors.lightGrayColor,
->>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -58,11 +50,7 @@ class LanguageBottomSheet extends StatelessWidget {
             languageCode: 'en',
             isSelected: current == 'en',
           ),
-<<<<<<< HEAD
           const Divider(height: 1, color: AppColors.dividerLight),
-=======
-          const Divider(height: 1, color: AppColors.divider2Color),
->>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
           _LanguageTile(
             label: l10n.arabic,
             languageCode: 'ar',
@@ -104,12 +92,10 @@ class _LanguageTile extends StatelessWidget {
                   style: AppTextStyles.regular16.copyWith(
                     color: isSelected
                         ? AppColors.buttonColor
-<<<<<<< HEAD
                         : AppColors.textPrimary,
-=======
-                        : AppColors.buttonTextColor,
->>>>>>> 6e1e05bb329e007ed72045362810255f370f1d26
-                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                    fontWeight: isSelected
+                        ? FontWeight.w600
+                        : FontWeight.normal,
                   ),
                 ),
               ),
