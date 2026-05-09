@@ -2,8 +2,6 @@ import 'package:fit_flow/features/auth/presentation/cubit/auth_session_cubit.dar
 import 'package:fit_flow/features/auth/presentation/cubit/auth_session_state.dart';
 import 'package:fit_flow/features/onboarding/domain/models/onboarding_goal.dart';
 import 'package:fit_flow/features/onboarding/presentation/cubit/complete_onboarding_cubit.dart';
-import 'package:fit_flow/features/onboarding/presentation/cubit/onboarding_draft_cubit.dart';
-import 'package:fit_flow/features/onboarding/presentation/cubit/onboarding_draft_state.dart';
 import 'package:fit_flow/features/onboarding/presentation/views/widgets/onboarding_availability_section.dart';
 import 'package:fit_flow/features/onboarding/presentation/views/widgets/onboarding_footer_section.dart';
 import 'package:fit_flow/features/onboarding/presentation/views/widgets/onboarding_goal_section.dart';
@@ -11,19 +9,40 @@ import 'package:fit_flow/features/onboarding/presentation/views/widgets/onboardi
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class OnboardingViewBody extends StatelessWidget {
+class OnboardingViewBody extends StatefulWidget {
   const OnboardingViewBody({super.key});
 
-  void _onContinue(BuildContext context) {
+  @override
+  State<OnboardingViewBody> createState() => _OnboardingViewBodyState();
+}
+
+class _OnboardingViewBodyState extends State<OnboardingViewBody> {
+  late final ValueNotifier<OnboardingGoal> _selectedGoalNotifier;
+
+  late final ValueNotifier<int> _selectedDaysNotifier;
+  void _onContinue() {
     final authState = context.read<AuthSessionCubit>().state;
-    final draftState = context.read<OnboardingDraftCubit>().state;
     if (authState is AuthSessionNeedsOnboarding) {
       context.read<CompleteOnboardingCubit>().completeOnboarding(
         uid: authState.user.id,
-        goal: draftState.selectedGoal,
-        selectedDays: draftState.selectedDays,
+        goal: _selectedGoalNotifier.value,
+        selectedDays: _selectedDaysNotifier.value,
       );
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedGoalNotifier = ValueNotifier(OnboardingGoal.getStrong);
+    _selectedDaysNotifier = ValueNotifier(3);
+  }
+
+  @override
+  void dispose() {
+    _selectedGoalNotifier.dispose();
+    _selectedDaysNotifier.dispose();
+    super.dispose();
   }
 
   @override
@@ -60,34 +79,26 @@ class OnboardingViewBody extends StatelessWidget {
                   child: Column(
                     children: [
                       const SizedBox(height: 24),
-                      BlocSelector<
-                        OnboardingDraftCubit,
-                        OnboardingDraftState,
-                        OnboardingGoal
-                      >(
-                        selector: (state) => state.selectedGoal,
-                        builder: (context, selectedGoal) {
+                      ValueListenableBuilder<OnboardingGoal>(
+                        valueListenable: _selectedGoalNotifier,
+                        builder: (_, selectedGoal, _) {
                           return OnboardingGoalSection(
                             selectedGoal: selectedGoal,
-                            onGoalSelected: context
-                                .read<OnboardingDraftCubit>()
-                                .selectGoal,
+                            onGoalSelected: (goal) {
+                              _selectedGoalNotifier.value = goal;
+                            },
                           );
                         },
                       ),
                       const SizedBox(height: 28),
-                      BlocSelector<
-                        OnboardingDraftCubit,
-                        OnboardingDraftState,
-                        int
-                      >(
-                        selector: (state) => state.selectedDays,
-                        builder: (context, selectedDays) {
+                      ValueListenableBuilder<int>(
+                        valueListenable: _selectedDaysNotifier,
+                        builder: (_, selectedDays, _) {
                           return OnboardingAvailabilitySection(
                             selectedDays: selectedDays,
-                            onSelected: context
-                                .read<OnboardingDraftCubit>()
-                                .selectAvailabilityDays,
+                            onSelected: (days) {
+                              _selectedDaysNotifier.value = days;
+                            },
                           );
                         },
                       ),
@@ -101,7 +112,7 @@ class OnboardingViewBody extends StatelessWidget {
                         builder: (context, isLoading) {
                           return OnboardingFooterSection(
                             isLoading: isLoading,
-                            onContinue: () => _onContinue(context),
+                            onContinue: _onContinue,
                           );
                         },
                       ),

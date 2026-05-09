@@ -3,7 +3,6 @@ import 'package:fit_flow/features/user_profile/domain/repo/user_profile_repo.dar
 import 'package:fit_flow/features/workout/domain/repo/current_workout_plan_repo.dart';
 import 'package:fit_flow/features/workout/domain/repo/workout_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 part 'complete_onboarding_state.dart';
 
 class CompleteOnboardingCubit extends Cubit<CompleteOnboardingState> {

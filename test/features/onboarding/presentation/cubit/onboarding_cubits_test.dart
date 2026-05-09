@@ -3,8 +3,6 @@ import 'package:dartz/dartz.dart';
 import 'package:fit_flow/core/errors/failure.dart';
 import 'package:fit_flow/features/onboarding/domain/models/onboarding_goal.dart';
 import 'package:fit_flow/features/onboarding/presentation/cubit/complete_onboarding_cubit.dart';
-import 'package:fit_flow/features/onboarding/presentation/cubit/onboarding_draft_cubit.dart';
-import 'package:fit_flow/features/onboarding/presentation/cubit/onboarding_draft_state.dart';
 import 'package:fit_flow/features/user_profile/domain/repo/user_profile_repo.dart';
 import 'package:fit_flow/features/workout/data/models/workout_day_model.dart';
 import 'package:fit_flow/features/workout/data/models/workout_plan_model.dart';
@@ -39,38 +37,6 @@ void main() {
     userProfileRepo = _MockUserProfileRepo();
     workoutRepo = _MockWorkoutRepo();
     currentWorkoutPlanRepo = _MockCurrentWorkoutPlanRepo();
-  });
-
-  group('OnboardingDraftCubit', () {
-    blocTest<OnboardingDraftCubit, OnboardingDraftState>(
-      'emits updated goal and keeps selected day count',
-      build: OnboardingDraftCubit.new,
-      act: (cubit) => cubit.selectGoal(OnboardingGoal.buildMuscle),
-      expect: () => [
-        isA<OnboardingDraftReady>()
-            .having(
-              (state) => state.selectedGoal,
-              'selectedGoal',
-              OnboardingGoal.buildMuscle,
-            )
-            .having((state) => state.selectedDays, 'selectedDays', 3),
-      ],
-    );
-
-    blocTest<OnboardingDraftCubit, OnboardingDraftState>(
-      'emits updated availability and keeps selected goal',
-      build: OnboardingDraftCubit.new,
-      act: (cubit) => cubit.selectAvailabilityDays(5),
-      expect: () => [
-        isA<OnboardingDraftReady>()
-            .having(
-              (state) => state.selectedGoal,
-              'selectedGoal',
-              OnboardingGoal.getStrong,
-            )
-            .having((state) => state.selectedDays, 'selectedDays', 5),
-      ],
-    );
   });
 
   group('CompleteOnboardingCubit', () {
