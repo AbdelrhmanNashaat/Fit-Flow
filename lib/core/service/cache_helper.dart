@@ -8,6 +8,7 @@ class CacheHelper {
 
   static const _authUserKey = 'auth_user';
   static const _localeKey = 'app_locale';
+  static const _hasSelectedLanguageKey = 'has_selected_language';
   static const _localImagePathPrefix = 'local_image_path_';
   static const _profilePrefix = 'user_profile_';
 
@@ -15,6 +16,16 @@ class CacheHelper {
   final FlutterSecureStorage _secureStorage;
 
   String? get savedLocale => _preferences.getString(_localeKey);
+
+  /// True only after the user explicitly completes the first-run language
+  /// setup screen. Uses a dedicated key so it is never accidentally set by
+  /// the profile language toggle or any previous app version.
+  bool get hasLanguageBeenSelected =>
+      _preferences.getBool(_hasSelectedLanguageKey) == true;
+
+  Future<void> markLanguageSetupDone() async {
+    await _preferences.setBool(_hasSelectedLanguageKey, true);
+  }
 
   Future<Map<String, dynamic>?> getCachedUserJson() async {
     final raw = await _secureStorage.read(key: _authUserKey);

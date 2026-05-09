@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:fit_flow/core/config/app_config.dart';
 import 'package:fit_flow/core/l10n/app_localizations.dart';
 import 'package:fit_flow/core/router/app_router.dart';
+import 'package:fit_flow/core/service/cache_helper.dart';
 import 'package:fit_flow/core/service/service_locator.dart';
 import 'package:fit_flow/core/theme/app_theme.dart';
 import 'package:fit_flow/features/auth/domain/repo/auth_repo.dart';
@@ -28,6 +29,7 @@ class _FitFlowState extends State<FitFlow> {
   late final AuthSessionCubit _authSessionCubit;
   late final GoRouter _router;
   late final StreamSubscription<AuthSessionState> _splashSub;
+  final _languageSetupNotifier = ValueNotifier<int>(0);
   bool _nativeSplashRemoved = false;
 
   @override
@@ -38,7 +40,11 @@ class _FitFlowState extends State<FitFlow> {
       getIt<UserProfileRepo>(),
       getIt<CurrentWorkoutPlanRepo>(),
     );
-    _router = createRouter(_authSessionCubit);
+    _router = createRouter(
+      _authSessionCubit,
+      getIt<CacheHelper>(),
+      _languageSetupNotifier,
+    );
     _splashSub = _authSessionCubit.stream.listen(_onAuthStateChanged);
   }
 
@@ -55,6 +61,7 @@ class _FitFlowState extends State<FitFlow> {
   void dispose() {
     _splashSub.cancel();
     _authSessionCubit.close();
+    _languageSetupNotifier.dispose();
     super.dispose();
   }
 

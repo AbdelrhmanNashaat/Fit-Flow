@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:fit_flow/core/service/cache_helper.dart';
 import 'package:fit_flow/core/utils/app_navigation.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/auth_session_cubit.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/auth_session_state.dart';
 import 'package:fit_flow/features/auth/presentation/views/create_account_view.dart';
 import 'package:fit_flow/features/auth/presentation/views/forgot_password_view.dart';
 import 'package:fit_flow/features/auth/presentation/views/sign_in_view.dart';
+import 'package:fit_flow/features/locale/presentation/views/language_setup_view.dart';
 import 'package:fit_flow/features/main/presentation/views/main_view.dart';
 import 'package:fit_flow/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:fit_flow/features/splash/presentation/views/splash_view.dart';
@@ -14,12 +16,26 @@ import 'package:fit_flow/features/workout/presentation/views/active_exercise_vie
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-GoRouter createRouter(AuthSessionCubit authCubit) {
+GoRouter createRouter(
+  AuthSessionCubit authCubit,
+  CacheHelper cacheHelper,
+  ValueNotifier<int> languageSetupNotifier,
+) {
   return GoRouter(
     initialLocation: AppNavigation.splash,
-    refreshListenable: _AuthRefreshNotifier(authCubit.stream),
-    redirect: (_, state) => _redirect(authCubit.state, state.uri.path),
+    refreshListenable: Listenable.merge([
+      _AuthRefreshNotifier(authCubit.stream),
+      languageSetupNotifier,
+    ]),
+    redirect: (_, state) =>
+        _redirect(authCubit.state, state.uri.path, cacheHelper),
     routes: [
+      GoRoute(
+        path: AppNavigation.languageSetup,
+        builder: (_, state) => LanguageSetupView(
+          onLanguageSelected: () => languageSetupNotifier.value++,
+        ),
+      ),
       GoRoute(
         path: AppNavigation.splash,
         builder: (_, _) => const SplashView(),
@@ -70,7 +86,18 @@ GoRouter createRouter(AuthSessionCubit authCubit) {
   );
 }
 
-String? _redirect(AuthSessionState authState, String location) {
+String? _redirect(
+  AuthSessionState authState,
+  String location,
+  CacheHelper cacheHelper,
+) {
+  // Language must be selected before anything else.
+  if (!cacheHelper.hasLanguageBeenSelected) {
+    return location == AppNavigation.languageSetup
+        ? null
+        : AppNavigation.languageSetup;
+  }
+
   // Still resolving — keep showing splash.
   if (authState is AuthSessionChecking || authState is AuthSessionInitial) {
     return location == AppNavigation.splash ? null : AppNavigation.splash;
@@ -108,7 +135,8 @@ String? _redirect(AuthSessionState authState, String location) {
         location == AppNavigation.signIn ||
         location == AppNavigation.signUp ||
         location == AppNavigation.forgotPassword ||
-        location == AppNavigation.onboarding;
+        location == AppNavigation.onboarding ||
+        location == AppNavigation.languageSetup;
     return onGate ? AppNavigation.home : null;
   }
 

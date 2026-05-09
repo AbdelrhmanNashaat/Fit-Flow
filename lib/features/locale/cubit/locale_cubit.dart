@@ -16,4 +16,6 @@ class LocaleCubit extends Cubit<Locale> {
     await _cacheHelper.saveLocale(languageCode);
     emit(Locale(languageCode));
   }
+
+  Future<void> markLanguageSetupDone() => _cacheHelper.markLanguageSetupDone();
 }
