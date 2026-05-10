@@ -30,7 +30,7 @@ void main() {
       );
 
       expect(plan.name, 'Strength Focus Split');
-      expect(plan.days.first.exercises.first.defaultReps, 6);
+      expect(plan.days.first.exercises.first.defaultReps, '6');
     });
   });
 }

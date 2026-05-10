@@ -23,7 +23,7 @@ class CompleteOnboardingCubit extends Cubit<CompleteOnboardingState> {
   }) async {
     emit(const CompleteOnboardingLoading());
 
-    final plan = _workoutRepo.generatePlan(
+    final plan = await _workoutRepo.generatePlan(
       goal: goal,
       selectedDays: selectedDays,
     );

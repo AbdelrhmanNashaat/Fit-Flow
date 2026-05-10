@@ -7,13 +7,13 @@ class WorkoutSetModel {
   });
 
   final int setNumber;
-  final int reps;
+  final String reps;
   final double? weightKg;
   final bool isCompleted;
 
   WorkoutSetModel copyWith({
     int? setNumber,
-    int? reps,
+    String? reps,
     double? weightKg,
     bool? isCompleted,
   }) {

@@ -44,8 +44,7 @@ class TodayExerciseTile extends StatelessWidget {
     final ex = dayExercise.exercise;
     final color = _muscleColors[ex.muscleGroup] ?? AppColors.primaryColor;
     final icon = _muscleIcons[ex.muscleGroup] ?? Icons.fitness_center_rounded;
-    final repsMin = dayExercise.defaultReps;
-    final repsMax = repsMin + 2;
+    final repsLabel = dayExercise.defaultReps;
 
     return InkWell(
       onTap: onTap,
@@ -89,7 +88,7 @@ class TodayExerciseTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  '${dayExercise.defaultSets} × $repsMin-$repsMax',
+                  '${dayExercise.defaultSets} × $repsLabel',
                   style: AppTextStyles.bold14.copyWith(
                     color: AppColors.buttonColor,
                     fontSize: 13,

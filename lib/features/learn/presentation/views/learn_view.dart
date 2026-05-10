@@ -1,3 +1,4 @@
+import 'package:fit_flow/core/l10n/app_localizations.dart';
 import 'package:fit_flow/core/service/service_locator.dart';
 import 'package:fit_flow/core/utils/app_colors.dart';
 import 'package:fit_flow/core/utils/app_spacing.dart';
@@ -29,6 +30,23 @@ class _LearnBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<LearnCubit>().state;
+    if (state is LearnLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    if (state is LearnError) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Text(
+            state.message,
+            style: AppTextStyles.regular14.copyWith(
+              color: AppColors.textSecondary,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+    }
     if (state is! LearnLoaded) return const SizedBox.shrink();
 
     return SafeArea(
@@ -48,7 +66,7 @@ class _LearnBody extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'Learn',
+                    AppLocalizations.of(context).learn,
                     style: AppTextStyles.extraBold26.copyWith(
                       color: AppColors.blackColor,
                     ),

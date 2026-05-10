@@ -16,13 +16,13 @@ class WorkoutDayExercise {
         ),
       ),
       defaultSets: json['defaultSets'] as int? ?? 0,
-      defaultReps: json['defaultReps'] as int? ?? 0,
+      defaultReps: json['defaultReps']?.toString() ?? '',
     );
   }
 
   final ExerciseModel exercise;
   final int defaultSets;
-  final int defaultReps;
+  final String defaultReps;
 
   Map<String, dynamic> toJson() {
     return {

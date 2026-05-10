@@ -107,7 +107,7 @@ class ActiveExerciseCubit extends Cubit<ActiveExerciseState> {
     final s = state;
     if (s is! ActiveExerciseReady) return;
     final next = s.sets.length + 1;
-    final lastReps = s.sets.isNotEmpty ? s.sets.last.reps : 10;
+    final lastReps = s.sets.isNotEmpty ? s.sets.last.reps : '10';
     final lastWeight = s.sets.isNotEmpty ? s.sets.last.weightKg : null;
     emit(
       s.copyWith(

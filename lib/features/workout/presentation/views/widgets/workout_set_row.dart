@@ -83,7 +83,7 @@ class WorkoutSetRow extends StatelessWidget {
                 ),
                 alignment: Alignment.center,
                 child: Text(
-                  '${set.reps}',
+                  set.reps,
                   style: AppTextStyles.bold14.copyWith(fontSize: 13),
                 ),
               ),

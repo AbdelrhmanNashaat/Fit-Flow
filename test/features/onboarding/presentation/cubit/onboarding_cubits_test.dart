@@ -48,7 +48,7 @@ void main() {
             goal: OnboardingGoal.getStrong,
             selectedDays: 3,
           ),
-        ).thenReturn(generatedPlan);
+        ).thenAnswer((_) async => generatedPlan);
         when(
           () => currentWorkoutPlanRepo.saveCurrentPlan('user-1', generatedPlan),
         ).thenAnswer((_) async => const Right(null));
@@ -97,7 +97,7 @@ void main() {
             goal: OnboardingGoal.generalFitness,
             selectedDays: 4,
           ),
-        ).thenReturn(generatedPlan);
+        ).thenAnswer((_) async => generatedPlan);
         when(
           () => currentWorkoutPlanRepo.saveCurrentPlan('user-1', generatedPlan),
         ).thenAnswer(

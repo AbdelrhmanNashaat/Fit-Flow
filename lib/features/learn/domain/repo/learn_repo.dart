@@ -1,7 +1,5 @@
-import 'package:fit_flow/features/learn/data/models/learn_item.dart';
+import 'package:fit_flow/features/learn/data/models/learn_feed_model.dart';
 
 abstract interface class LearnRepo {
-  LearnItem getFeatured();
-  List<LearnItem> getItems();
-  List<String> getCategories();
+  Future<LearnFeedModel> loadFeed();
 }

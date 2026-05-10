@@ -3,14 +3,29 @@ import 'package:fit_flow/features/learn/presentation/cubit/learn_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LearnCubit extends Cubit<LearnState> {
-  LearnCubit(LearnRepo repo) : super(_load(repo));
+  LearnCubit(this._repo) : super(const LearnLoading()) {
+    load();
+  }
 
-  static LearnState _load(LearnRepo repo) => LearnLoaded(
-        featured: repo.getFeatured(),
-        items: repo.getItems(),
-        categories: repo.getCategories(),
-        selectedCategory: 'All',
+  final LearnRepo _repo;
+
+  Future<void> load() async {
+    emit(const LearnLoading());
+    try {
+      final feed = await _repo.loadFeed();
+      emit(
+        LearnLoaded(
+          featured: feed.featured,
+          items: feed.items,
+          categories: feed.categories,
+          allCategory: feed.allCategory,
+          selectedCategory: feed.allCategory,
+        ),
       );
+    } catch (error) {
+      emit(LearnError(error.toString().replaceFirst('Exception: ', '')));
+    }
+  }
 
   void selectCategory(String category) {
     final current = state;
