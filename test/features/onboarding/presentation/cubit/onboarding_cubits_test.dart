@@ -28,9 +28,7 @@ void main() {
           }),
         ).thenAnswer((_) async => const Right(null));
 
-        return CompleteOnboardingCubit(
-          userProfileRepo,
-        );
+        return CompleteOnboardingCubit(userProfileRepo);
       },
       act: (cubit) => cubit.completeOnboarding(
         uid: 'user-1',
@@ -61,13 +59,9 @@ void main() {
             'weeklyAvailability': 4,
             'isOnboardingCompleted': true,
           }),
-        ).thenAnswer(
-          (_) async => const Left(Failure('Update failed')),
-        );
+        ).thenAnswer((_) async => const Left(Failure('Update failed')));
 
-        return CompleteOnboardingCubit(
-          userProfileRepo,
-        );
+        return CompleteOnboardingCubit(userProfileRepo);
       },
       act: (cubit) => cubit.completeOnboarding(
         uid: 'user-1',

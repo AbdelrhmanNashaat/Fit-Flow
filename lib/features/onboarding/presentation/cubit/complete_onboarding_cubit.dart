@@ -4,9 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'complete_onboarding_state.dart';
 
 class CompleteOnboardingCubit extends Cubit<CompleteOnboardingState> {
-  CompleteOnboardingCubit(
-    this._userProfileRepo,
-  ) : super(const CompleteOnboardingIdle());
+  CompleteOnboardingCubit(this._userProfileRepo)
+    : super(const CompleteOnboardingIdle());
 
   final UserProfileRepo _userProfileRepo;
 

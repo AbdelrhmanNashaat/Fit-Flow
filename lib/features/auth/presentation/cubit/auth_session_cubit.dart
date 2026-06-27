@@ -9,10 +9,8 @@ import 'package:fit_flow/features/user_profile/domain/repo/user_profile_repo.dar
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthSessionCubit extends Cubit<AuthSessionState> {
-  AuthSessionCubit(
-    this._authRepo,
-    this._userProfileRepo,
-  ) : super(const AuthSessionChecking()) {
+  AuthSessionCubit(this._authRepo, this._userProfileRepo)
+    : super(const AuthSessionChecking()) {
     _authStateSubscription = _authRepo.authStateChanges().listen(
       _onAuthStateChanged,
       onError: _onAuthStreamError,

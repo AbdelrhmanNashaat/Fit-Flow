@@ -11,9 +11,7 @@ class OnboardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => CompleteOnboardingCubit(
-        getIt<UserProfileRepo>(),
-      ),
+      create: (_) => CompleteOnboardingCubit(getIt<UserProfileRepo>()),
       child: const Scaffold(body: SafeArea(child: OnboardingViewBody())),
     );
   }

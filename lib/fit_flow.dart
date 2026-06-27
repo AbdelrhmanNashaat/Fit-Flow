@@ -42,10 +42,7 @@ class _FitFlowState extends State<FitFlow> {
   }
 
   AuthSessionCubit _createAuthSessionCubit() {
-    return AuthSessionCubit(
-      getIt<AuthRepo>(),
-      getIt<UserProfileRepo>(),
-    );
+    return AuthSessionCubit(getIt<AuthRepo>(), getIt<UserProfileRepo>());
   }
 
   @override

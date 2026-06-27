@@ -43,7 +43,9 @@ void setupServiceLocator({
   }
 
   if (!getIt.isRegistered<FirebaseFirestore>()) {
-    getIt.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);
+    getIt.registerLazySingleton<FirebaseFirestore>(
+      () => FirebaseFirestore.instance,
+    );
   }
 
   if (!getIt.isRegistered<GoogleSignIn>()) {
