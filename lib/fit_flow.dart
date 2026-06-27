@@ -31,7 +31,6 @@ class _FitFlowState extends State<FitFlow> {
   @override
   void initState() {
     super.initState();
-
     _authSessionCubit = _createAuthSessionCubit();
 
     _router = createRouter(

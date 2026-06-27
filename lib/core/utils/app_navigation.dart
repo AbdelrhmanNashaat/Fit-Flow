@@ -5,6 +5,8 @@ abstract final class AppNavigation {
   static const String signIn = '/signIn';
   static const String onboarding = '/onboarding';
   static const String home = '/home';
+  static const String learn = '/learn';
+  static const String profile = '/profile';
   static const String forgotPassword = '/forgotPassword';
   static const String activeExercise = '/activeExercise';
 }

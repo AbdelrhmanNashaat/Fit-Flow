@@ -1,116 +1,68 @@
 import 'package:fit_flow/core/l10n/app_localizations.dart';
 import 'package:fit_flow/core/utils/app_colors.dart';
-import 'package:fit_flow/features/home/presentation/views/home_view.dart';
-import 'package:fit_flow/features/learn/presentation/views/learn_view.dart';
-import 'package:fit_flow/features/user_profile/presentation/views/profile_view.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
+import 'package:go_router/go_router.dart';
 
 class MainView extends StatelessWidget {
-  const MainView({super.key});
+  const MainView({super.key, required this.navigationShell});
 
-  @override
-  Widget build(BuildContext context) => const _MainScaffold();
-}
-
-class _MainScaffold extends StatefulWidget {
-  const _MainScaffold();
-
-  @override
-  State<_MainScaffold> createState() => _MainScaffoldState();
-}
-
-class _MainScaffoldState extends State<_MainScaffold> {
-  late final PersistentTabController _controller;
-  late final ValueNotifier<int> _tabIndex;
-
-  static const List<Widget> _screens = [HomeView(), LearnView(), ProfileView()];
-
-  @override
-  void initState() {
-    super.initState();
-    _tabIndex = ValueNotifier(0);
-    _controller = PersistentTabController(initialIndex: 0);
-    _tabIndex.addListener(() {
-      if (_controller.index != _tabIndex.value) {
-        _controller.index = _tabIndex.value;
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _tabIndex.dispose();
-    super.dispose();
-  }
-
-  List<PersistentBottomNavBarItem> _navBarsItems(AppLocalizations l10n) {
-    return [
-      PersistentBottomNavBarItem(
-        icon: const Icon(Icons.home_rounded),
-        inactiveIcon: const Icon(Icons.home_outlined),
-        title: l10n.home,
-        activeColorPrimary: AppColors.buttonColor,
-        activeColorSecondary: AppColors.whiteColor,
-        inactiveColorPrimary: AppColors.orTextColor,
-      ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(Icons.menu_book_rounded),
-        inactiveIcon: const Icon(Icons.menu_book_outlined),
-        title: l10n.learn,
-        activeColorPrimary: AppColors.buttonColor,
-        activeColorSecondary: AppColors.whiteColor,
-        inactiveColorPrimary: AppColors.orTextColor,
-      ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(Icons.person_rounded),
-        inactiveIcon: const Icon(Icons.person_outline_rounded),
-        title: l10n.profile,
-        activeColorPrimary: AppColors.buttonColor,
-        activeColorSecondary: AppColors.whiteColor,
-        inactiveColorPrimary: AppColors.orTextColor,
-      ),
-    ];
-  }
+  final StatefulNavigationShell navigationShell;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-
-    return PersistentTabView(
-      context,
-      controller: _controller,
-      screens: _screens,
-      items: _navBarsItems(l10n),
-      backgroundColor: AppColors.whiteColor,
-      navBarStyle: NavBarStyle.style10,
-      decoration: NavBarDecoration(
-        colorBehindNavBar: AppColors.whiteColor,
-        borderRadius: BorderRadius.circular(18),
-        boxShadow: const [
-          BoxShadow(
-            color: AppColors.shadow,
-            blurRadius: 18,
-            offset: Offset(0, -4),
-          ),
-        ],
-      ),
-      confineToSafeArea: true,
-      resizeToAvoidBottomInset: true,
-      stateManagement: true,
-      handleAndroidBackButtonPress: true,
-      hideNavigationBarWhenKeyboardAppears: true,
-      popBehaviorOnSelectedNavBarItemPress: PopBehavior.all,
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      margin: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-      onItemSelected: (i) => _tabIndex.value = i,
-      animationSettings: const NavBarAnimationSettings(
-        screenTransitionAnimation: ScreenTransitionAnimationSettings(
-          animateTabTransition: true,
-          curve: Curves.easeOutCubic,
-          duration: Duration(milliseconds: 250),
+    return Scaffold(
+      body: navigationShell,
+      bottomNavigationBar: _BottomNav(
+        currentIndex: navigationShell.currentIndex,
+        onTap: (index) => navigationShell.goBranch(
+          index,
+          initialLocation: index == navigationShell.currentIndex,
         ),
+        l10n: l10n,
       ),
     );
   }
 }
+
+class _BottomNav extends StatelessWidget {
+  const _BottomNav({
+    required this.currentIndex,
+    required this.onTap,
+    required this.l10n,
+  });
+
+  final int currentIndex;
+  final ValueChanged<int> onTap;
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      currentIndex: currentIndex,
+      onTap: onTap,
+      selectedItemColor: AppColors.buttonColor,
+      unselectedItemColor: AppColors.orTextColor,
+      backgroundColor: AppColors.whiteColor,
+      type: BottomNavigationBarType.fixed,
+      items: [
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.home_outlined),
+          activeIcon: const Icon(Icons.home_rounded),
+          label: l10n.home,
+        ),
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.menu_book_outlined),
+          activeIcon: const Icon(Icons.menu_book_rounded),
+          label: l10n.learn,
+        ),
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.person_outline_rounded),
+          activeIcon: const Icon(Icons.person_rounded),
+          label: l10n.profile,
+        ),
+      ],
+    );
+  }
+}
+
