@@ -9,7 +9,6 @@ import 'package:fit_flow/features/auth/domain/repo/auth_repo.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/auth_session_cubit.dart';
 import 'package:fit_flow/features/locale/cubit/locale_cubit.dart';
 import 'package:fit_flow/features/user_profile/domain/repo/user_profile_repo.dart';
-import 'package:fit_flow/features/workout/domain/repo/current_workout_plan_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -46,7 +45,6 @@ class _FitFlowState extends State<FitFlow> {
     return AuthSessionCubit(
       getIt<AuthRepo>(),
       getIt<UserProfileRepo>(),
-      getIt<CurrentWorkoutPlanRepo>(),
     );
   }
 

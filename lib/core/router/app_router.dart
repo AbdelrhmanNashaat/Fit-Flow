@@ -6,15 +6,10 @@ import 'package:fit_flow/features/auth/presentation/cubit/auth_session_state.dar
 import 'package:fit_flow/features/auth/presentation/views/create_account_view.dart';
 import 'package:fit_flow/features/auth/presentation/views/forgot_password_view.dart';
 import 'package:fit_flow/features/auth/presentation/views/sign_in_view.dart';
-import 'package:fit_flow/features/home/presentation/views/home_view.dart';
-import 'package:fit_flow/features/learn/presentation/views/learn_view.dart';
 import 'package:fit_flow/features/locale/presentation/views/language_setup_view.dart';
-import 'package:fit_flow/features/main/presentation/views/main_view.dart';
 import 'package:fit_flow/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:fit_flow/features/splash/presentation/views/splash_view.dart';
 import 'package:fit_flow/features/user_profile/presentation/views/profile_view.dart';
-import 'package:fit_flow/features/workout/presentation/models/active_exercise_args.dart';
-import 'package:fit_flow/features/workout/presentation/views/active_exercise_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -58,40 +53,9 @@ GoRouter createRouter(
         path: AppNavigation.onboarding,
         builder: (_, _) => const OnboardingView(),
       ),
-      StatefulShellRoute.indexedStack(
-        builder: (_, _, navigationShell) =>
-            MainView(navigationShell: navigationShell),
-        branches: [
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: AppNavigation.home,
-                builder: (_, _) => const HomeView(),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: AppNavigation.learn,
-                builder: (_, _) => const LearnView(),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: AppNavigation.profile,
-                builder: (_, _) => const ProfileView(),
-              ),
-            ],
-          ),
-        ],
-      ),
       GoRoute(
-        path: AppNavigation.activeExercise,
-        builder: (_, state) =>
-            ActiveExerciseView(args: state.extra! as ActiveExerciseArgs),
+        path: AppNavigation.profile,
+        builder: (_, _) => const ProfileView(),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(
@@ -168,7 +132,7 @@ String? _redirect(
         location == AppNavigation.forgotPassword ||
         location == AppNavigation.onboarding ||
         location == AppNavigation.languageSetup;
-    return onGate ? AppNavigation.home : null;
+    return onGate ? AppNavigation.profile : null;
   }
 
   return null;

@@ -4,54 +4,22 @@ import 'package:fit_flow/core/errors/failure.dart';
 import 'package:fit_flow/features/onboarding/domain/models/onboarding_goal.dart';
 import 'package:fit_flow/features/onboarding/presentation/cubit/complete_onboarding_cubit.dart';
 import 'package:fit_flow/features/user_profile/domain/repo/user_profile_repo.dart';
-import 'package:fit_flow/features/workout/data/models/workout_day_model.dart';
-import 'package:fit_flow/features/workout/data/models/workout_plan_model.dart';
-import 'package:fit_flow/features/workout/domain/repo/current_workout_plan_repo.dart';
-import 'package:fit_flow/features/workout/domain/repo/workout_repo.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 class _MockUserProfileRepo extends Mock implements UserProfileRepo {}
 
-class _MockWorkoutRepo extends Mock implements WorkoutRepo {}
-
-class _MockCurrentWorkoutPlanRepo extends Mock
-    implements CurrentWorkoutPlanRepo {}
-
 void main() {
   late UserProfileRepo userProfileRepo;
-  late WorkoutRepo workoutRepo;
-  late CurrentWorkoutPlanRepo currentWorkoutPlanRepo;
-
-  const generatedPlan = WorkoutPlanModel(
-    id: 'getStrong_3_day_plan',
-    name: 'Strength Focus Split',
-    days: [
-      WorkoutDayModel(name: 'Push', workoutDays: [1], exercises: []),
-      WorkoutDayModel(name: 'Pull', workoutDays: [3], exercises: []),
-      WorkoutDayModel(name: 'Legs', workoutDays: [5], exercises: []),
-    ],
-  );
 
   setUp(() {
     userProfileRepo = _MockUserProfileRepo();
-    workoutRepo = _MockWorkoutRepo();
-    currentWorkoutPlanRepo = _MockCurrentWorkoutPlanRepo();
   });
 
   group('CompleteOnboardingCubit', () {
     blocTest<CompleteOnboardingCubit, CompleteOnboardingState>(
-      'saves generated current plan and updates profile on success',
+      'updates profile on success',
       build: () {
-        when(
-          () => workoutRepo.generatePlan(
-            goal: OnboardingGoal.getStrong,
-            selectedDays: 3,
-          ),
-        ).thenAnswer((_) async => generatedPlan);
-        when(
-          () => currentWorkoutPlanRepo.saveCurrentPlan('user-1', generatedPlan),
-        ).thenAnswer((_) async => const Right(null));
         when(
           () => userProfileRepo.updateProfile('user-1', {
             'myGoal': OnboardingGoal.getStrong.name,
@@ -62,8 +30,6 @@ void main() {
 
         return CompleteOnboardingCubit(
           userProfileRepo,
-          workoutRepo,
-          currentWorkoutPlanRepo,
         );
       },
       act: (cubit) => cubit.completeOnboarding(
@@ -77,9 +43,6 @@ void main() {
       ],
       verify: (_) {
         verify(
-          () => currentWorkoutPlanRepo.saveCurrentPlan('user-1', generatedPlan),
-        ).called(1);
-        verify(
           () => userProfileRepo.updateProfile('user-1', {
             'myGoal': OnboardingGoal.getStrong.name,
             'weeklyAvailability': 3,
@@ -90,24 +53,20 @@ void main() {
     );
 
     blocTest<CompleteOnboardingCubit, CompleteOnboardingState>(
-      'fails fast when current plan cannot be saved',
+      'emits failure when profile update fails',
       build: () {
         when(
-          () => workoutRepo.generatePlan(
-            goal: OnboardingGoal.generalFitness,
-            selectedDays: 4,
-          ),
-        ).thenAnswer((_) async => generatedPlan);
-        when(
-          () => currentWorkoutPlanRepo.saveCurrentPlan('user-1', generatedPlan),
+          () => userProfileRepo.updateProfile('user-1', {
+            'myGoal': OnboardingGoal.generalFitness.name,
+            'weeklyAvailability': 4,
+            'isOnboardingCompleted': true,
+          }),
         ).thenAnswer(
-          (_) async => const Left(Failure('Plan persistence failed')),
+          (_) async => const Left(Failure('Update failed')),
         );
 
         return CompleteOnboardingCubit(
           userProfileRepo,
-          workoutRepo,
-          currentWorkoutPlanRepo,
         );
       },
       act: (cubit) => cubit.completeOnboarding(
@@ -120,12 +79,9 @@ void main() {
         isA<CompleteOnboardingFailure>().having(
           (state) => state.message,
           'message',
-          'Plan persistence failed',
+          'Update failed',
         ),
       ],
-      verify: (_) {
-        verifyNever(() => userProfileRepo.updateProfile(any(), any()));
-      },
     );
   });
 }

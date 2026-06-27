@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fit_flow/core/config/app_config.dart';
-import 'package:fit_flow/core/firestore/normalization/firestore_normalization_migration_service.dart';
-import 'package:fit_flow/core/firestore/normalization/firestore_workout_tracking_service.dart';
 import 'package:fit_flow/core/service/auth_service.dart';
 import 'package:fit_flow/core/service/cache_helper.dart';
 import 'package:fit_flow/core/service/database_service.dart';
@@ -12,16 +10,9 @@ import 'package:fit_flow/core/service/local_image_service.dart';
 import 'package:fit_flow/core/service/local_image_service_impl.dart';
 import 'package:fit_flow/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:fit_flow/features/auth/domain/repo/auth_repo.dart';
-import 'package:fit_flow/features/learn/data/repo/firestore_learn_repo.dart';
-import 'package:fit_flow/features/learn/domain/repo/learn_repo.dart';
 import 'package:fit_flow/features/locale/cubit/locale_cubit.dart';
 import 'package:fit_flow/features/user_profile/data/repo/user_profile_repo_impl.dart';
 import 'package:fit_flow/features/user_profile/domain/repo/user_profile_repo.dart';
-import 'package:fit_flow/features/workout/data/repo/firestore_current_workout_plan_repo.dart';
-import 'package:fit_flow/features/workout/data/repo/firestore_workout_plan_mapper.dart';
-import 'package:fit_flow/features/workout/data/repo/firestore_workout_repo.dart';
-import 'package:fit_flow/features/workout/domain/repo/current_workout_plan_repo.dart';
-import 'package:fit_flow/features/workout/domain/repo/workout_repo.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
@@ -80,27 +71,6 @@ void setupServiceLocator({
     );
   }
 
-  if (!getIt.isRegistered<FirestoreNormalizationMigrationService>()) {
-    getIt.registerLazySingleton<FirestoreNormalizationMigrationService>(
-      () => FirestoreNormalizationMigrationService(getIt<FirebaseFirestore>()),
-    );
-  }
-
-  if (!getIt.isRegistered<FirestoreWorkoutTrackingService>()) {
-    getIt.registerLazySingleton<FirestoreWorkoutTrackingService>(
-      () => FirestoreWorkoutTrackingService(getIt<FirebaseFirestore>()),
-    );
-  }
-
-  if (!getIt.isRegistered<FirestoreWorkoutPlanMapper>()) {
-    getIt.registerLazySingleton<FirestoreWorkoutPlanMapper>(
-      () => FirestoreWorkoutPlanMapper(
-        getIt<FirebaseFirestore>(),
-        getIt<CacheHelper>(),
-      ),
-    );
-  }
-
   if (!getIt.isRegistered<ImagePicker>()) {
     getIt.registerLazySingleton<ImagePicker>(() => ImagePicker());
   }
@@ -130,30 +100,6 @@ void setupServiceLocator({
   if (!getIt.isRegistered<LocaleCubit>()) {
     getIt.registerLazySingleton<LocaleCubit>(
       () => LocaleCubit(getIt<CacheHelper>()),
-    );
-  }
-
-  if (!getIt.isRegistered<WorkoutRepo>()) {
-    getIt.registerLazySingleton<WorkoutRepo>(
-      () => FirestoreWorkoutRepo(getIt<FirestoreWorkoutPlanMapper>()),
-    );
-  }
-
-  if (!getIt.isRegistered<CurrentWorkoutPlanRepo>()) {
-    getIt.registerLazySingleton<CurrentWorkoutPlanRepo>(
-      () => FirestoreCurrentWorkoutPlanRepo(
-        getIt<FirebaseFirestore>(),
-        getIt<FirestoreWorkoutPlanMapper>(),
-      ),
-    );
-  }
-
-  if (!getIt.isRegistered<LearnRepo>()) {
-    getIt.registerLazySingleton<LearnRepo>(
-      () => FirestoreLearnRepo(
-        getIt<FirebaseFirestore>(),
-        getIt<CacheHelper>(),
-      ),
     );
   }
 }

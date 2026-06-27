@@ -6,14 +6,12 @@ import 'package:fit_flow/features/auth/domain/repo/auth_repo.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/auth_session_state.dart';
 import 'package:fit_flow/features/user_profile/data/model/user_profile.dart';
 import 'package:fit_flow/features/user_profile/domain/repo/user_profile_repo.dart';
-import 'package:fit_flow/features/workout/domain/repo/current_workout_plan_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthSessionCubit extends Cubit<AuthSessionState> {
   AuthSessionCubit(
     this._authRepo,
     this._userProfileRepo,
-    this._currentWorkoutPlanRepo,
   ) : super(const AuthSessionChecking()) {
     _authStateSubscription = _authRepo.authStateChanges().listen(
       _onAuthStateChanged,
@@ -23,7 +21,6 @@ class AuthSessionCubit extends Cubit<AuthSessionState> {
 
   final AuthRepo _authRepo;
   final UserProfileRepo _userProfileRepo;
-  final CurrentWorkoutPlanRepo _currentWorkoutPlanRepo;
 
   late final StreamSubscription<AuthUser?> _authStateSubscription;
 
@@ -79,8 +76,6 @@ class AuthSessionCubit extends Cubit<AuthSessionState> {
   Future<void> resetAndStartOnboarding() async {
     final user = _currentUser;
     if (user == null) return;
-
-    await _currentWorkoutPlanRepo.clearCurrentPlan(user.id);
 
     final result = await _userProfileRepo.updateProfile(user.id, {
       'isOnboardingCompleted': false,
