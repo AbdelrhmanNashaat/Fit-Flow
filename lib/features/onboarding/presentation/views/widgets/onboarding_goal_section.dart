@@ -35,7 +35,7 @@ class OnboardingGoalSection extends StatelessWidget {
     );
   }
 
-  String _titleForGoal(AppLocalizations l10n, OnboardingGoal goal) {
+  String _titleForGoal(S l10n, OnboardingGoal goal) {
     return switch (goal) {
       OnboardingGoal.buildMuscle => l10n.buildMuscle,
       OnboardingGoal.getStrong => l10n.getStrong,
@@ -43,7 +43,7 @@ class OnboardingGoalSection extends StatelessWidget {
     };
   }
 
-  String _subtitleForGoal(AppLocalizations l10n, OnboardingGoal goal) {
+  String _subtitleForGoal(S l10n, OnboardingGoal goal) {
     return switch (goal) {
       OnboardingGoal.buildMuscle => l10n.buildMuscleSubtitle,
       OnboardingGoal.getStrong => l10n.getStrongSubtitle,

@@ -6,6 +6,7 @@ analyzer:
     - .dart_tool/**
     - ios/**
     - android/**
+    - lib/generated/**
   errors:
     missing_required_param: error
     missing_return: error

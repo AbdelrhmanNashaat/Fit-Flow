@@ -1,0 +1,186 @@
+{
+  "@@locale": "ar",
+  "appName": "فيت فلو",
+  "authBrandName": "فيت فلو بيور",
+  "splashTagline": "ارتق بحركتك",
+  "signIn": "تسجيل الدخول",
+  "createAccount": "إنشاء حساب",
+  "forgotPassword": "هل نسيت كلمة المرور؟",
+  "welcomeBackSubtitle": "مرحباً بعودتك. لنواصل التقدم.",
+  "createAccountSubtitle": "أنشئ حسابك للبدء.",
+  "emailAddressLabel": "البريد الإلكتروني",
+  "fullNameLabel": "الاسم الكامل",
+  "confirmPasswordLabel": "تأكيد كلمة المرور",
+  "forgotPasswordDescription": "أدخل البريد الإلكتروني المرتبط بحسابك وسنرسل لك رابط إعادة التعيين.",
+  "sendResetLink": "إرسال رابط إعادة التعيين",
+  "checkYourInbox": "تحقق من بريدك",
+  "resetLinkSentBody": "إذا وُجد حساب لهذا البريد، فستتلقى قريباً رابطاً لإعادة تعيين كلمة المرور.",
+  "backToSignIn": "العودة إلى تسجيل الدخول",
+  "newToFitFlow": "جديد على FitFlow؟",
+  "createAccountNav": "إنشاء حساب",
+  "alreadyHaveAccount": "لديك حساب بالفعل؟",
+  "signInNav": "تسجيل الدخول",
+  "termsAndPrivacyLabel": "شروط الاستخدام  ·  سياسة الخصوصية",
+  "orContinueWith": "أو تابع باستخدام",
+  "google": "جوجل",
+  "apple": "أبل",
+  "onboardingTitle": "اختر هدفك",
+  "onboardingSubtitle": "خصص رحلتك لتناسب أداءك بدقة.",
+  "onboardingAvailabilityTitle": "التوفر الأسبوعي",
+  "onboardingContinue": "متابعة",
+  "onboardingChangeLater": "يمكنك تغيير هذا لاحقاً من الملف الشخصي",
+  "buildMuscleSubtitle": "ركز على التضخيم وبناء القوة.",
+  "getStrongSubtitle": "اجعل الأولوية للقوة والأوزان الثقيلة.",
+  "generalFitnessSubtitle": "توازن بين الصحة والحركة.",
+  "recommendedLabel": "موصى به",
+  "recommendationRecoveryCycle": "دورة تعافٍ مثالية",
+  "emailRequiredError": "البريد الإلكتروني مطلوب",
+  "emailInvalidError": "أدخل بريداً إلكترونياً صالحاً",
+  "passwordRequiredError": "كلمة المرور مطلوبة",
+  "passwordTooShortError": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+  "fullNameRequiredError": "الاسم الكامل مطلوب",
+  "fullNameTooShortError": "يجب أن يتكون الاسم من حرفين على الأقل",
+  "confirmPasswordRequiredError": "يرجى تأكيد كلمة المرور",
+  "passwordsDoNotMatchError": "كلمتا المرور غير متطابقتين",
+  "home": "الرئيسية",
+  "learn": "تعلّم",
+  "profile": "الملف",
+  "summary": "ملخص",
+  "activity": "النشاط",
+  "vitals": "القياسات",
+  "healthProfile": "الملف الصحي",
+  "preferencesAccount": "التفضيلات والحساب",
+  "proMemberSince": "عضو متميز منذ",
+  "activeGoal": "الهدف النشط",
+  "frequency": "التكرار",
+  "legalLabel": "قانوني",
+  "profileUnavailable": "الملف غير متوفر. الرجاء تسجيل الدخول مجدداً.",
+  "buildMuscle": "بناء العضلات",
+  "getStrong": "زيادة القوة",
+  "generalFitness": "اللياقة العامة",
+  "notSet": "غير محدد",
+  "language": "اللغة",
+  "resetWorkoutPlan": "إعادة ضبط خطة التمرين",
+  "logOut": "تسجيل الخروج",
+  "deleteAccount": "حذف الحساب",
+  "privacyPolicy": "سياسة الخصوصية",
+  "termsOfService": "شروط الخدمة",
+  "english": "الإنجليزية",
+  "arabic": "العربية",
+  "selectLanguage": "اختر اللغة",
+  "cancel": "إلغاء",
+  "confirm": "تأكيد",
+  "delete": "حذف",
+  "reset": "إعادة ضبط",
+  "tryAgain": "حاول مرة أخرى",
+  "logOutConfirmTitle": "تسجيل الخروج",
+  "logOutConfirmMessage": "هل تريد تسجيل الخروج؟",
+  "deleteAccountTitle": "حذف الحساب",
+  "deleteAccountMessage": "هذا الإجراء دائم ولا يمكن التراجع عنه. سيتم حذف جميع بياناتك.",
+  "resetPlanTitle": "إعادة ضبط الخطة",
+  "resetPlanMessage": "سيتم إعادة ضبط أهدافك وإعادة تشغيل الإعداد.",
+  "reauthTitle": "تأكيد هويتك",
+  "reauthMessage": "أدخل كلمة المرور لتأكيد حذف الحساب.",
+  "passwordLabel": "كلمة المرور",
+  "errorLabel": "خطأ",
+  "todayWorkout": "تمرين اليوم",
+  "restDay": "يوم راحة",
+  "weeklyBlueprint": "الخطة الأسبوعية",
+  "startWorkout": "ابدأ التمرين  ▶",
+  "exercises": "تمارين",
+  "sets": "مجموعات",
+  "reps": "تكرار",
+  "activePlan": "الخطة النشطة",
+  "todayExercises": "تمارين اليوم",
+  "minutes": "دقيقة",
+  "recovery": "التعافي",
+  "weeklyBurn": "الحرق الأسبوعي",
+  "kcal": "سعرة",
+  "letsGetToWork": "هيا نعمل!",
+  "letsRestToday": "استرح اليوم",
+  "weight": "الوزن",
+  "kg": "كغ",
+  "noWorkoutPlan": "لم يتم العثور على خطة تمرين.",
+  "goodMorning": "صباح الخير",
+  "goodAfternoon": "مساء الخير",
+  "goodEvening": "مساء النور",
+  "letsGetMoving": "هيا نتحرك!",
+  "restDayMessage": "خذ قسطاً من الراحة اليوم.",
+  "finishExercise": "إنهاء",
+  "addSet": "+ أضف مجموعة",
+  "formCues": "نصائح الأداء",
+  "elapsedTime": "الوقت المنقضي",
+  "setNumber": "مج",
+  "weightHeader": "الوزن",
+  "repsHeader": "تكرار",
+  "doneHeader": "تم",
+  "done": "تم",
+  "previous": "السابق",
+  "next": "التالي",
+  "workoutSession": "جلسة التمرين",
+  "startRestTimer": "ابدأ مؤقت الراحة",
+  "validationCompleteAllSets": "أكمل جميع المجموعات قبل المتابعة.",
+  "validationAddWeight": "كل مجموعة تحتاج وزناً لا يقل عن 1 كغ.",
+  "startingWeight": "أدخل وزن البداية",
+  "startingWeightSubtitle": "لا تقلق، يمكنك تحديثه لاحقاً في أي وقت.",
+  "saveAndStart": "حفظ والبدء",
+  "useDefault": "استخدم الافتراضي",
+  "saveWeight": "حفظ",
+  "skipWeight": "تخطى",
+  "daysPerWeek": "{n} أيام/أسبوع",
+  "@daysPerWeek": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "availabilityDaysOption": "{n, select, 5{5+ أيام} other{{n} أيام}}",
+  "@availabilityDaysOption": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "appVersion": "الإصدار {v}",
+  "@appVersion": {
+    "placeholders": {
+      "v": {
+        "type": "String"
+      }
+    }
+  },
+  "weekLabel": "الأسبوع {n}",
+  "@weekLabel": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "exerciseCount": "{n, plural, one{تمرين واحد} other{{n} تمرين}}",
+  "@exerciseCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "setCount": "{n, plural, one{مجموعة واحدة} other{{n} مجموعة}}",
+  "@setCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "memberSince": "عضو متميز منذ {monthYear}",
+  "@memberSince": {
+    "placeholders": {
+      "monthYear": {
+        "type": "String"
+      }
+    }
+  }
+}

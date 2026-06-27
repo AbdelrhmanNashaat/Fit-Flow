@@ -4,7 +4,13 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheHelper {
-  CacheHelper(this._preferences, this._secureStorage);
+  CacheHelper._(this._preferences, this._secureStorage);
+
+  static Future<CacheHelper> init() async {
+    final preferences = await SharedPreferences.getInstance();
+    const secureStorage = FlutterSecureStorage();
+    return CacheHelper._(preferences, secureStorage);
+  }
 
   static const _authUserKey = 'auth_user';
   static const _localeKey = 'app_locale';

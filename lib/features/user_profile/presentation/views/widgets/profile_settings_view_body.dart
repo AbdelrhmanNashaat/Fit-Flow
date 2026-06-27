@@ -38,9 +38,9 @@ class ProfileSettingsViewBody extends StatelessWidget {
               curr is AuthSessionFailure && curr.user != null,
           listener: (context, state) {
             if (state is AuthSessionFailure) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.message)),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.message)));
             }
           },
         ),
@@ -49,7 +49,12 @@ class ProfileSettingsViewBody extends StatelessWidget {
         builder: (context, state) => switch (state) {
           ProfileInitial() || ProfileLoading() => const ProfileShimmer(),
           ProfileError(:final message) => Center(
-            child: Text(message, style: AppTextStyles.regular14.copyWith(color: AppColors.textSecondary)),
+            child: Text(
+              message,
+              style: AppTextStyles.regular14.copyWith(
+                color: AppColors.textSecondary,
+              ),
+            ),
           ),
           ProfileLoaded() => _ProfileContent(state: state),
         },
@@ -163,16 +168,15 @@ class _ProfileContent extends StatelessWidget {
                       localImagePath: state.localImagePath,
                       isImageUploading: state.isImageUploading,
                       onEditTap: () {
-                        final authState =
-                            context.read<AuthSessionCubit>().state;
+                        final authState = context
+                            .read<AuthSessionCubit>()
+                            .state;
                         final uid = switch (authState) {
                           AuthSessionAuthenticated(:final user) => user.id,
                           _ => null,
                         };
                         if (uid != null) {
-                          context
-                              .read<ProfileCubit>()
-                              .pickAndSaveImage(uid);
+                          context.read<ProfileCubit>().pickAndSaveImage(uid);
                         }
                       },
                     ),
@@ -229,7 +233,7 @@ class _ProfileContent extends StatelessWidget {
     );
   }
 
-  void _confirmSignOut(BuildContext context, AppLocalizations l10n) {
+  void _confirmSignOut(BuildContext context, S l10n) {
     final authCubit = context.read<AuthSessionCubit>();
     AppConfirmDialog.show(
       context,
@@ -242,7 +246,7 @@ class _ProfileContent extends StatelessWidget {
     );
   }
 
-  void _confirmReset(BuildContext context, AppLocalizations l10n) {
+  void _confirmReset(BuildContext context, S l10n) {
     final authCubit = context.read<AuthSessionCubit>();
     AppConfirmDialog.show(
       context,
@@ -254,7 +258,7 @@ class _ProfileContent extends StatelessWidget {
     );
   }
 
-  void _confirmDeleteAccount(BuildContext context, AppLocalizations l10n) {
+  void _confirmDeleteAccount(BuildContext context, S l10n) {
     final authCubit = context.read<AuthSessionCubit>();
     AppConfirmDialog.show(
       context,

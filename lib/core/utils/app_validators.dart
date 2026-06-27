@@ -1,7 +1,7 @@
-import 'package:fit_flow/core/l10n/app_localizations.dart';
+import 'package:fit_flow/generated/l10n.dart';
 
 class AppValidators {
-  static String? validateEmail(String? value, AppLocalizations l10n) {
+  static String? validateEmail(String? value, S l10n) {
     if (value == null || value.trim().isEmpty) {
       return l10n.emailRequiredError;
     }
@@ -12,7 +12,7 @@ class AppValidators {
     return null;
   }
 
-  static String? validatePassword(String? value, AppLocalizations l10n) {
+  static String? validatePassword(String? value, S l10n) {
     if (value == null || value.isEmpty) {
       return l10n.passwordRequiredError;
     }
@@ -22,7 +22,7 @@ class AppValidators {
     return null;
   }
 
-  static String? validateName(String? value, AppLocalizations l10n) {
+  static String? validateName(String? value, S l10n) {
     if (value == null || value.trim().isEmpty) {
       return l10n.fullNameRequiredError;
     }
@@ -34,7 +34,7 @@ class AppValidators {
 
   static String? Function(String?) confirmPasswordValidator(
     String password,
-    AppLocalizations l10n,
+    S l10n,
   ) {
     return (String? value) {
       if (value == null || value.isEmpty) {

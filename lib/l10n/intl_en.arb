@@ -1,0 +1,186 @@
+{
+  "@@locale": "en",
+  "appName": "FitFlow",
+  "authBrandName": "FitFlow Pure",
+  "splashTagline": "Elevate Your Movement",
+  "signIn": "Sign In",
+  "createAccount": "Create Account",
+  "forgotPassword": "Forgot Password?",
+  "welcomeBackSubtitle": "Welcome back. Let's keep moving.",
+  "createAccountSubtitle": "Create your account to get started.",
+  "emailAddressLabel": "Email Address",
+  "fullNameLabel": "Full Name",
+  "confirmPasswordLabel": "Confirm Password",
+  "forgotPasswordDescription": "Enter the email linked to your account and we'll send you a reset link.",
+  "sendResetLink": "Send Reset Link",
+  "checkYourInbox": "Check Your Inbox",
+  "resetLinkSentBody": "If an account exists for this email, you'll receive a password reset link shortly.",
+  "backToSignIn": "Back to Sign In",
+  "newToFitFlow": "New to FitFlow?",
+  "createAccountNav": "Create an account",
+  "alreadyHaveAccount": "Already have an account?",
+  "signInNav": "Sign in",
+  "termsAndPrivacyLabel": "Terms of Use  ·  Privacy Policy",
+  "orContinueWith": "or continue with",
+  "google": "Google",
+  "apple": "Apple",
+  "onboardingTitle": "Select Your Goal",
+  "onboardingSubtitle": "Customize your journey for precision performance.",
+  "onboardingAvailabilityTitle": "Weekly Availability",
+  "onboardingContinue": "Continue",
+  "onboardingChangeLater": "YOU CAN CHANGE THIS LATER IN PROFILE",
+  "buildMuscleSubtitle": "Focus on hypertrophy and strength.",
+  "getStrongSubtitle": "Prioritize heavy lifting and power.",
+  "generalFitnessSubtitle": "Balanced health and mobility.",
+  "recommendedLabel": "RECOMMENDED",
+  "recommendationRecoveryCycle": "Optimal recovery cycle",
+  "emailRequiredError": "Email is required",
+  "emailInvalidError": "Enter a valid email address",
+  "passwordRequiredError": "Password is required",
+  "passwordTooShortError": "Password must be at least 8 characters",
+  "fullNameRequiredError": "Full name is required",
+  "fullNameTooShortError": "Name must be at least 2 characters",
+  "confirmPasswordRequiredError": "Please confirm your password",
+  "passwordsDoNotMatchError": "Passwords do not match",
+  "home": "Home",
+  "learn": "Learn",
+  "profile": "Profile",
+  "summary": "Summary",
+  "activity": "Activity",
+  "vitals": "Vitals",
+  "healthProfile": "Health Profile",
+  "preferencesAccount": "Preferences & Account",
+  "proMemberSince": "Pro Member Since",
+  "activeGoal": "ACTIVE GOAL",
+  "frequency": "FREQUENCY",
+  "legalLabel": "Legal",
+  "profileUnavailable": "Profile unavailable. Please sign in again.",
+  "buildMuscle": "Build Muscle",
+  "getStrong": "Get Strong",
+  "generalFitness": "General Fitness",
+  "notSet": "Not Set",
+  "language": "Language",
+  "resetWorkoutPlan": "Reset Workout Plan",
+  "logOut": "Log Out",
+  "deleteAccount": "Delete Account",
+  "privacyPolicy": "Privacy Policy",
+  "termsOfService": "Terms of Service",
+  "english": "English",
+  "arabic": "Arabic",
+  "selectLanguage": "Select Language",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "delete": "Delete",
+  "reset": "Reset",
+  "tryAgain": "Try Again",
+  "logOutConfirmTitle": "Log Out",
+  "logOutConfirmMessage": "Are you sure you want to log out?",
+  "deleteAccountTitle": "Delete Account",
+  "deleteAccountMessage": "This action is permanent and cannot be undone. All your data will be deleted.",
+  "resetPlanTitle": "Reset Workout Plan",
+  "resetPlanMessage": "This will reset your goals and restart the onboarding flow.",
+  "reauthTitle": "Confirm Your Identity",
+  "reauthMessage": "Please enter your password to confirm account deletion.",
+  "passwordLabel": "Password",
+  "errorLabel": "Error",
+  "todayWorkout": "Today's Workout",
+  "restDay": "Rest Day",
+  "weeklyBlueprint": "Weekly Blueprint",
+  "startWorkout": "Start Workout  ▶",
+  "exercises": "Exercises",
+  "sets": "Sets",
+  "reps": "Reps",
+  "activePlan": "ACTIVE PLAN",
+  "todayExercises": "Today's Exercises",
+  "minutes": "Minutes",
+  "recovery": "Recovery",
+  "weeklyBurn": "Weekly Burn",
+  "kcal": "kcal",
+  "letsGetToWork": "Let's get to work.",
+  "letsRestToday": "Rest & recover today.",
+  "weight": "Weight",
+  "kg": "kg",
+  "noWorkoutPlan": "No workout plan found.",
+  "goodMorning": "Good morning",
+  "goodAfternoon": "Good afternoon",
+  "goodEvening": "Good evening",
+  "letsGetMoving": "Let's get moving!",
+  "restDayMessage": "Take it easy today.",
+  "finishExercise": "Finish",
+  "addSet": "+ ADD SET",
+  "formCues": "FORM CUES",
+  "elapsedTime": "Elapsed",
+  "setNumber": "SET",
+  "weightHeader": "WEIGHT",
+  "repsHeader": "REPS",
+  "doneHeader": "DONE",
+  "done": "Done",
+  "previous": "Previous",
+  "next": "Next",
+  "workoutSession": "Workout Session",
+  "startRestTimer": "Start Rest Timer",
+  "validationCompleteAllSets": "Complete all sets before continuing.",
+  "validationAddWeight": "Each set needs at least 1 kg.",
+  "startingWeight": "Enter Starting Weight",
+  "startingWeightSubtitle": "Don't worry, you can update this later whenever you want.",
+  "saveAndStart": "Save & Start",
+  "useDefault": "Not sure? Use default",
+  "saveWeight": "Save",
+  "skipWeight": "Skip",
+  "daysPerWeek": "{n} Days/Week",
+  "@daysPerWeek": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "availabilityDaysOption": "{n, select, 5{5+ Days} other{{n} Days}}",
+  "@availabilityDaysOption": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "appVersion": "Version {v}",
+  "@appVersion": {
+    "placeholders": {
+      "v": {
+        "type": "String"
+      }
+    }
+  },
+  "weekLabel": "Week {n}",
+  "@weekLabel": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "exerciseCount": "{n, plural, one{1 exercise} other{{n} exercises}}",
+  "@exerciseCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "setCount": "{n, plural, one{1 set} other{{n} sets}}",
+  "@setCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "memberSince": "Pro Member Since {monthYear}",
+  "@memberSince": {
+    "placeholders": {
+      "monthYear": {
+        "type": "String"
+      }
+    }
+  }
+}

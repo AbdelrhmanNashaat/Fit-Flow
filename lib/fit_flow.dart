@@ -1,5 +1,4 @@
 import 'package:fit_flow/core/config/app_config.dart';
-import 'package:fit_flow/core/l10n/app_localizations.dart';
 import 'package:fit_flow/core/router/app_router.dart';
 import 'package:fit_flow/core/service/cache_helper.dart';
 import 'package:fit_flow/core/service/service_locator.dart';
@@ -9,6 +8,7 @@ import 'package:fit_flow/features/auth/domain/repo/auth_repo.dart';
 import 'package:fit_flow/features/auth/presentation/cubit/auth_session_cubit.dart';
 import 'package:fit_flow/features/locale/cubit/locale_cubit.dart';
 import 'package:fit_flow/features/user_profile/domain/repo/user_profile_repo.dart';
+import 'package:fit_flow/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -31,7 +31,6 @@ class _FitFlowState extends State<FitFlow> {
   void initState() {
     super.initState();
     _authSessionCubit = _createAuthSessionCubit();
-
     _router = createRouter(
       _authSessionCubit,
       getIt<CacheHelper>(),
@@ -63,16 +62,16 @@ class _FitFlowState extends State<FitFlow> {
         builder: (_, locale) {
           return MaterialApp.router(
             routerConfig: _router,
-            debugShowCheckedModeBanner: AppConfig.instance.showDebugBanner,
-            title: AppConfig.instance.appName,
+            debugShowCheckedModeBanner: AppConfig.showDebugBanner,
+            title: AppConfig.appName,
             locale: locale,
             localizationsDelegates: const [
-              AppLocalizations.delegate,
+              S.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            supportedLocales: AppLocalizations.supportedLocales,
+            supportedLocales: S.delegate.supportedLocales,
             theme: AppTheme.light(),
           );
         },

@@ -1,4 +1,3 @@
-import 'package:fit_flow/core/config/app_flavor.dart';
 import 'package:fit_flow/core/utils/app_bloc_observer.dart';
 import 'package:fit_flow/fit_flow.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,6 @@ Future<void> main() async {
   Bloc.observer = AppBlocObserver();
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await AppBootstrap.init(flavor: AppFlavor.production);
+  await AppBootstrap.init();
   runApp(const FitFlow());
 }

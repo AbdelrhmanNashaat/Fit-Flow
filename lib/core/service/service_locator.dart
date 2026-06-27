@@ -16,30 +16,12 @@ import 'package:fit_flow/features/user_profile/domain/repo/user_profile_repo.dar
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 final GetIt getIt = GetIt.instance;
 
-void setupServiceLocator({
-  required SharedPreferences sharedPreferences,
-  required FlutterSecureStorage secureStorage,
-}) {
-  if (!getIt.isRegistered<SharedPreferences>()) {
-    getIt.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
-  }
-
-  if (!getIt.isRegistered<FlutterSecureStorage>()) {
-    getIt.registerLazySingleton<FlutterSecureStorage>(() => secureStorage);
-  }
-
+void setupServiceLocator({required CacheHelper cacheHelper}) {
   if (!getIt.isRegistered<CacheHelper>()) {
-    getIt.registerLazySingleton<CacheHelper>(
-      () => CacheHelper(
-        getIt<SharedPreferences>(),
-        getIt<FlutterSecureStorage>(),
-      ),
-    );
+    getIt.registerLazySingleton<CacheHelper>(() => cacheHelper);
   }
 
   if (!getIt.isRegistered<FirebaseFirestore>()) {
@@ -50,10 +32,8 @@ void setupServiceLocator({
 
   if (!getIt.isRegistered<GoogleSignIn>()) {
     getIt.registerLazySingleton<GoogleSignIn>(
-      () => AppConfig.instance.hasGoogleServerClientId
-          ? GoogleSignIn(
-              serverClientId: AppConfig.instance.googleServerClientId,
-            )
+      () => AppConfig.hasGoogleServerClientId
+          ? GoogleSignIn(serverClientId: AppConfig.googleServerClientId)
           : GoogleSignIn(),
     );
   }

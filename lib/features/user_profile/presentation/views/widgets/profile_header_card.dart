@@ -6,6 +6,7 @@ import 'package:fit_flow/core/utils/app_text_styles.dart';
 import 'package:fit_flow/features/user_profile/data/model/user_profile.dart';
 import 'package:fit_flow/features/user_profile/presentation/views/widgets/profile_stat_item.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ProfileHeaderCard extends StatelessWidget {
   const ProfileHeaderCard({
@@ -37,12 +38,16 @@ class ProfileHeaderCard extends StatelessWidget {
         const SizedBox(height: 12),
         Text(
           userName,
-          style: AppTextStyles.extraBold26.copyWith(color: AppColors.blackColor),
+          style: AppTextStyles.extraBold26.copyWith(
+            color: AppColors.blackColor,
+          ),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
         Text(
-          l10n.memberSince(profile.createdAt),
+          l10n.memberSince(
+            DateFormat.yMMMM(Intl.getCurrentLocale()).format(profile.createdAt),
+          ),
           style: AppTextStyles.regular14.copyWith(color: AppColors.orTextColor),
         ),
         const SizedBox(height: 16),
@@ -67,7 +72,7 @@ class ProfileHeaderCard extends StatelessWidget {
     );
   }
 
-  String _formatGoal(AppLocalizations l10n, String? goal) => switch (goal) {
+  String _formatGoal(S l10n, String? goal) => switch (goal) {
     'buildMuscle' => l10n.buildMuscle,
     'getStrong' => l10n.getStrong,
     'generalFitness' => l10n.generalFitness,

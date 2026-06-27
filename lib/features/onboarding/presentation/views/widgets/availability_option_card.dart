@@ -40,7 +40,7 @@ class AvailabilityOptionCard extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              l10n.availabilityDaysOption(days),
+              l10n.availabilityDaysOption(days.toString()),
               style: AppTextStyles.semiBold12.copyWith(
                 color: isSelected
                     ? AppColors.whiteColor
