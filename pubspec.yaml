@@ -49,6 +49,7 @@ dependencies:
   google_sign_in: ^6.2.1
   image_picker: ^1.1.2
   intl: ^0.20.2
+  mocktail: ^1.0.5
   package_info_plus: ^8.3.0
   path_provider: ^2.1.5
   shared_preferences: ^2.5.3
@@ -61,7 +62,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   intl_utils: ^2.8.14
-  mocktail: ^1.0.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
