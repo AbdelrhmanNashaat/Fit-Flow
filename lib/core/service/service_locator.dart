@@ -43,6 +43,7 @@ void setupServiceLocator({required CacheHelper cacheHelper}) {
       () => FirebaseAuthService(
         auth: FirebaseAuth.instance,
         googleSignIn: getIt<GoogleSignIn>(),
+        cacheHelper: getIt<CacheHelper>(),
       ),
     );
   }
@@ -65,7 +66,7 @@ void setupServiceLocator({required CacheHelper cacheHelper}) {
 
   if (!getIt.isRegistered<AuthRepo>()) {
     getIt.registerLazySingleton<AuthRepo>(
-      () => AuthRepoImpl(getIt<AuthService>(), getIt<CacheHelper>()),
+      () => AuthRepoImpl(getIt<AuthService>()),
     );
   }
 

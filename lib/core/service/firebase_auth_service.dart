@@ -3,6 +3,7 @@ import 'package:fit_flow/core/errors/auth_exception.dart';
 import 'package:fit_flow/core/errors/failure.dart';
 import 'package:fit_flow/core/errors/firebase_errors.dart';
 import 'package:fit_flow/core/service/auth_service.dart';
+import 'package:fit_flow/core/service/cache_helper.dart';
 import 'package:fit_flow/features/auth/data/model/auth_user.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -11,11 +12,14 @@ class FirebaseAuthService implements AuthService {
   const FirebaseAuthService({
     required FirebaseAuth auth,
     required GoogleSignIn googleSignIn,
+    required CacheHelper cacheHelper,
   }) : _auth = auth,
-       _googleSignIn = googleSignIn;
+       _googleSignIn = googleSignIn,
+       _cacheHelper = cacheHelper;
 
   final FirebaseAuth _auth;
   final GoogleSignIn _googleSignIn;
+  final CacheHelper _cacheHelper;
 
   Future<void> _ensureLanguageCode() {
     return _auth.setLanguageCode(
@@ -33,10 +37,15 @@ class FirebaseAuthService implements AuthService {
     try {
       await _ensureLanguageCode();
       final currentUser = _auth.currentUser;
-      if (currentUser == null) return null;
+      if (currentUser == null) {
+        await _cacheHelper.clearAuthData();
+        return null;
+      }
 
       await currentUser.reload();
-      return _mapNullableUser(_auth.currentUser);
+      final user = _mapNullableUser(_auth.currentUser);
+      if (user != null) await _cacheHelper.cacheUserJson(user.toJson());
+      return user;
     } on FirebaseAuthException catch (e) {
       if (_isInvalidSessionCode(e.code)) {
         await signOut();
@@ -57,7 +66,9 @@ class FirebaseAuthService implements AuthService {
         email: email,
         password: password,
       );
-      return _mapUser(credential.user);
+      final user = _mapUser(credential.user);
+      await _cacheHelper.cacheUserJson(user.toJson());
+      return user;
     } on FirebaseAuthException catch (e) {
       throw AuthException(FirebaseErrors.fromCode(e.code));
     }
@@ -92,7 +103,9 @@ class FirebaseAuthService implements AuthService {
         await user.reload();
       }
 
-      return _mapUser(_auth.currentUser ?? user);
+      final authUser = _mapUser(_auth.currentUser ?? user);
+      await _cacheHelper.cacheUserJson(authUser.toJson());
+      return authUser;
     } on FirebaseAuthException catch (e) {
       throw AuthException(FirebaseErrors.fromCode(e.code));
     }
@@ -130,7 +143,9 @@ class FirebaseAuthService implements AuthService {
       );
 
       final userCredential = await _auth.signInWithCredential(credential);
-      return _mapUser(userCredential.user);
+      final user = _mapUser(userCredential.user);
+      await _cacheHelper.cacheUserJson(user.toJson());
+      return user;
     } on FirebaseAuthException catch (e) {
       throw AuthException(FirebaseErrors.fromCode(e.code));
     } catch (e) {
@@ -152,6 +167,7 @@ class FirebaseAuthService implements AuthService {
   Future<void> signOut() async {
     try {
       await _auth.signOut();
+      await _cacheHelper.clearAuthData();
     } on FirebaseAuthException catch (e) {
       throw AuthException(FirebaseErrors.fromCode(e.code));
     } finally {
@@ -183,6 +199,8 @@ class FirebaseAuthService implements AuthService {
         throw AuthException(FirebaseErrors.fromCode(e.code));
       }
     }
+
+    await _cacheHelper.clearAuthData();
 
     try {
       await _googleSignIn.signOut();
